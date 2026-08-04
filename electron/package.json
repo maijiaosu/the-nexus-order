@@ -1,0 +1,39 @@
+{
+  "name": "the-nexus-order",
+  "version": "0.2.0",
+  "private": true,
+  "description": "The Nexus Order · 世界沙盘 (Windows 桌面版)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis zip --x64 --arm64"
+  },
+  "build": {
+    "appId": "com.maijiaosu.thenexusorder",
+    "productName": "The Nexus Order",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "app/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "The Nexus Order",
+      "artifactName": "TheNexusOrder-Setup-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^43.2.0",
+    "electron-builder": "^26.15.3"
+  }
+}

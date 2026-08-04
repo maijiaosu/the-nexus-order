@@ -1,0 +1,103 @@
+name: build-release
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Prepare app content (web -> electron/app)
+        run: Copy-Item -Recurse web electron\app
+      - name: Install deps
+        working-directory: electron
+        run: npm install
+      - name: Build Windows (nsis + zip, x64 + arm64)
+        working-directory: electron
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: npx electron-builder --win nsis zip --x64 --arm64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: win
+          path: |
+            electron/release/*.exe
+            electron/release/*.zip
+
+  build-macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Prepare app content (web -> electron/app)
+        run: cp -R web electron/app
+      - name: Install deps
+        working-directory: electron
+        run: npm install
+      - name: Build macOS (dmg + zip, x64 + arm64)
+        working-directory: electron
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: npx electron-builder --mac dmg zip --x64 --arm64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mac
+          path: |
+            electron/release/*.dmg
+            electron/release/*.zip
+
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Prepare web assets (web -> android www)
+        run: cp -R web android/app/src/main/assets/www
+      - name: Decode signing keystore
+        env:
+          JKS: ${{ secrets.NEXUS_JKS_B64 }}
+        run: |
+          mkdir -p android/app/keystore
+          echo "$JKS" | base64 -d > android/app/keystore/nexus.jks
+      - name: Build APK (gradle wrapper)
+        working-directory: android
+        run: ./gradlew assembleRelease
+      - name: Rename APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk TheNexusOrder-0.2.0.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: TheNexusOrder-0.2.0.apk
+
+  publish:
+    needs: [build-windows, build-macos, build-android]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.2.0
+          name: "The Nexus Order v0.2.0"
+          body: |
+            网页公开版: https://maijiaosu.github.io/the-nexus-order/
+
+            Windows: TheNexusOrder-Setup-0.2.0.exe (x64/arm64 一键安装) + 便携 zip
+            macOS: The Nexus Order-0.2.0-arm64.dmg (Apple 芯片) / The Nexus Order-0.2.0.dmg (Intel) + 便携 zip
+            Android: TheNexusOrder-0.2.0.apk (Android 7+ 直装)
+          draft: false
+          prerelease: false
+          overwrite: true
+          files: artifacts/**/*

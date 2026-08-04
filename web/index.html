@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Nexus Order · 世界沙盘</title>
-<link rel="stylesheet" href="assets/fonts.css?v=1785841677">
+<link rel="stylesheet" href="assets/fonts.css">
 <style>
 :root{
   --bg:#090c10; --bg2:#0b0f14; --panel:#0d1218; --line:#1b2830; --line2:#33505e;
@@ -314,15 +314,15 @@ a{color:inherit}
   </div>
 </main>
 
-<script src="vendor/echarts.min.js?v=1785841677"></script>
-<script src="world.geo.js?v=1785841677"></script>
-<script src="data.js?v=1785841677"></script>
-<script src="econ.js?v=1785841677"></script>
-<script src="conflict.js?v=1785841677"></script>
-<script src="assets/water.geo.js?v=1785841677"></script>
-<script src="assets/admin1.geo.js?v=1785841677"></script>
+<script src="vendor/echarts.min.js"></script>
+<script src="world.geo.js"></script>
+<script src="data.js"></script>
+<script src="econ.js"></script>
+<script src="conflict.js"></script>
+<script src="assets/water.geo.js"></script>
+<script src="assets/admin1.geo.js"></script>
 <!-- 独立版: 数据快照 + DaimonWidget 兼容垫片 (Kimi 内运行时 DaimonWidget 存在, 垫片自动失效) -->
-<script src="live.js?v=1785841677"></script>
+<script src="live.js"></script>
 <script>
 /* 远程快照通道: 打开应用/点「检查更新」时拉 Gist 最新快照, 失败回退包内快照 */
 window.GEO_LIVE_URL = "https://gist.githubusercontent.com/maijiaosu/7a9f833528497a76af2adbefdadf4d72/raw/live.js";
@@ -378,10 +378,10 @@ window.GEO_LIVE_URL = "https://gist.githubusercontent.com/maijiaosu/7a9f83352849
   if (!/^https?:$/.test(location.protocol)) return;
   var BASE = "https://github.com/maijiaosu/the-nexus-order/releases/latest/download/";
   var ITEMS = [
-    {os:"Windows 安装包", name:"TheNexusOrder-Setup-0.1.0.exe", note:"一键安装 · x64/arm64 · 约 242MB"},
-    {os:"Windows 便携版", name:"The Nexus Order-0.1.0-win.zip", note:"免安装解压即用 · x64"},
-    {os:"macOS · Apple 芯片", name:"The Nexus Order-0.1.0-arm64.dmg", note:"安装镜像 · M1/M2/M3/M4"},
-    {os:"macOS · Intel", name:"The Nexus Order-0.1.0.dmg", note:"安装镜像 · Intel Mac"},
+    {os:"Windows 安装包", name:"TheNexusOrder-Setup-0.2.0.exe", note:"一键安装 · x64/arm64"},
+    {os:"Windows 便携版", name:"The Nexus Order-0.2.0-win.zip", note:"免安装解压即用 · x64"},
+    {os:"macOS · Apple 芯片", name:"The Nexus Order-0.2.0-arm64.dmg", note:"安装镜像 · M1/M2/M3/M4"},
+    {os:"macOS · Intel", name:"The Nexus Order-0.2.0.dmg", note:"安装镜像 · Intel Mac"},
     {os:"Android", name:"TheNexusOrder-0.2.0.apk", note:"APK 直装 · Android 7+"}
   ];
   function css(el, s){ for (var k in s) el.style[k] = s[k]; }
@@ -709,6 +709,29 @@ function newsMarkers(){
   });
   return pts;
 }
+/* 微型/难点选国家与南海诸岛: 加可点击标记点(三联世界各一份), 避免小岛点不中 */
+var MICRO_STATES = [
+  ["SGP", 103.85, 1.35], ["BHR", 50.55, 26.0], ["MLT", 14.38, 35.90],
+  ["ATG", -61.79, 17.12], ["BRB", -59.62, 13.10], ["DMA", -61.38, 15.31],
+  ["GRD", -61.75, 12.06], ["KNA", -62.72, 17.30], ["LCA", -60.99, 14.01],
+  ["VCT", -61.23, 13.16], ["CYN", 33.37, 35.19], ["PMR", 29.63, 46.84],
+  ["KUR", 41.22, 37.06], ["SOL", 44.07, 9.56], ["FLK", -57.85, -51.70],
+  ["SGS", -36.49, -54.28], ["SCS", 112.33, 16.83]
+];
+function microMarkers(){
+  var pts = [];
+  MICRO_STATES.forEach(function(m){
+    var scs = m[0]==="SCS", iso = scs ? "CHN" : m[0];
+    var nm = scs ? "南海诸岛" : cname(iso);
+    for(var k=-1;k<=1;k++){
+      pts.push({name:nm, value:[m[1]+k*360, m[2]], iso:iso,
+        itemStyle:{color: state.sel===iso ? "#e3c565" : "rgba(216,207,174,.92)",
+                   borderColor:"rgba(10,13,17,.9)", borderWidth:1},
+        symbolSize: scs ? 6 : 4.5});
+    }
+  });
+  return pts;
+}
 function marketMarkers(){
   if(state.mode!=="markets" || !DATA.markets || !DATA.markets.length) return [];
   var byCity = {};
@@ -733,7 +756,8 @@ function renderMap(){
   if(!chart) return;
   chart.setOption({
     geo:{ regions: buildRegions() },
-    series:[{id:"worldpaint", data:[[COMPOSITE_SEQ,0]]},{id:"markers", data: newsMarkers()},{id:"mkts", data: marketMarkers()},{id:"conflbl", data: conflictMarkers()}]
+    series:[{id:"worldpaint", data:[[COMPOSITE_SEQ,0]]},{id:"markers", data: newsMarkers()},{id:"mkts", data: marketMarkers()},{id:"conflbl", data: conflictMarkers()},
+      {id:"micro", type:"scatter", coordinateSystem:"geo", zlevel:2, z:3, symbol:"circle", data: microMarkers(), label:{show:false}}]
   });
   renderLegend();
 }
@@ -1073,6 +1097,16 @@ function buildSubPaths(){
 }
 /* ---------- 战争图层: 占区/活跃区(纹理填充) + 前线(虚线) ---------- */
 var CONF_ZONE = [], CONF_FRONT = [], PATC = {};
+/* 停战/控制线(区别于普通国界): 朝韩军事分界线 + 印巴克什米尔控制线(手绘示意) */
+var ARMI_LINES = [
+  {name:"朝韩军事分界线", pts:[[126.12,38.29],[126.45,38.24],[126.80,38.15],[127.15,38.27],[127.50,38.22],[127.85,38.30],[128.20,38.33],[128.55,38.25],[128.90,38.28],[129.30,38.26]]},
+  {name:"印巴克什米尔控制线", pts:[[74.35,35.12],[74.60,34.62],[74.88,34.22],[75.18,33.88],[75.55,33.58],[75.95,33.32],[76.35,33.02],[76.75,32.82],[77.15,32.62],[77.55,32.45],[77.95,32.35],[78.35,32.25],[78.75,32.22],[79.15,32.35],[79.55,32.55]]}
+];
+var ARMI_PATH = [];
+function buildArmiPaths(){
+  if(!HAS_2D) return;
+  ARMI_PATH = ARMI_LINES.map(function(l){ return linePath({type:"LineString", coordinates:l.pts}); });
+}
 function zoneColor(c, z){
   if(z.kind==="contested" || z.side==="contested") return "#a63d2e";
   return (c.colors && c.colors[z.side]) || "#8a2b2b";
@@ -1256,6 +1290,16 @@ function repaintWorld(){
   }
   /* 态势视图: 战争占区/活跃区纹理 + 前线虚线(数据 conflict.js) */
   if(state.mode==="default") drawConflictLayer();
+  /* 停战/控制线: 金色虚线(朝韩军事分界线/印巴控制线), 与普通国界区分 */
+  if(ARMI_PATH.length){
+    worldCx.save();
+    worldCx.setLineDash([6,4]);
+    worldCx.strokeStyle = "rgba(10,13,17,.72)"; worldCx.lineWidth = 2.6; worldCx.lineCap = "round";
+    for(var ai=0;ai<ARMI_PATH.length;ai++) worldCx.stroke(ARMI_PATH[ai]);
+    worldCx.strokeStyle = "rgba(226,209,138,.92)"; worldCx.lineWidth = 1.3;
+    for(var aj=0;aj<ARMI_PATH.length;aj++) worldCx.stroke(ARMI_PATH[aj]);
+    worldCx.restore();
+  }
   /* 人均GDP视图: 13 个大国细涂到省/州(数据 econ.js sub, 边界 admin1.geo.js) */
   if(state.mode==="gdppc"){
     for(var sIso in SUB_PATH){
@@ -1385,6 +1429,7 @@ function initMap(){
   buildFeaturePaths();
   buildSubPaths();
   buildConflictPaths();
+  buildArmiPaths();
   if(HAS_2D){
     worldCv = document.createElement("canvas");
     worldCv.width = W0; worldCv.height = H0;
@@ -1465,7 +1510,7 @@ function initMap(){
     if (p.componentType==="geo" && p.name){
       var iso = isoOfName(p.name);
       if(iso) selectCountry(iso);
-    } else if (p.seriesType==="effectScatter" && p.data && p.data.iso){
+    } else if ((p.seriesType==="effectScatter" || p.seriesType==="scatter") && p.data && p.data.iso){
       selectCountry(p.data.iso);
     }
   });
