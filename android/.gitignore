@@ -1,0 +1,8 @@
+.android-sdk/
+app/build/
+app/src/main/assets/www/
+app/keystore/
+.gradle/
+build/
+local.properties
+*.log
