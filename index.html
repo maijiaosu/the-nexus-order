@@ -496,9 +496,27 @@ function alpha(col, a){
    运行时从 geojson 计算一次: 全部外环点做 PCA 求主轴, 经度解绕防跨日界线;
    角度换算到屏幕方向(x 乘 echarts geo 默认 aspectScale 0.75) */
 var LBL_META = {};
+var LBL_CACHE_KEY = "geo_lblmeta_v2";
 function buildLabelMeta(){
   var gj = window.WORLD_GEOJSON;
   if(!gj || !gj.features) return;
+  /* 缓存: 标签元数据只依赖几何, 存 localStorage 省去每次启动的 PCA 计算(几何变则签名失效) */
+  var sig = 0;
+  gj.features.forEach(function(f){
+    var g = f && f.geometry; if(!g) return;
+    (function walk(cs){
+      if(!cs) return;
+      if(typeof cs[0] === "number"){ sig = (sig*31 + ((cs[0]*23 + cs[1]*17)|0)) >>> 0; return; }
+      for(var i=0;i<cs.length;i++) walk(cs[i]);
+    })(g.coordinates);
+  });
+  try{
+    var cached = window.localStorage ? JSON.parse(window.localStorage.getItem(LBL_CACHE_KEY) || "null") : null;
+    if(cached && cached.sig === String(sig) && cached.meta){
+      LBL_META = cached.meta;
+      return;
+    }
+  }catch(e){}
   var R = 0.75;
   gj.features.forEach(function(f){
     var nm = f.properties && f.properties.name;
@@ -539,6 +557,11 @@ function buildLabelMeta(){
     while(deg>90) deg-=180; while(deg<=-90) deg+=180;
     LBL_META[iso] = {area:area, deg:Math.round(deg)};
   });
+  try{
+    if(window.localStorage && Object.keys(LBL_META).length){
+      window.localStorage.setItem(LBL_CACHE_KEY, JSON.stringify({sig:String(sig), meta:LBL_META}));
+    }
+  }catch(e2){}
 }
 function lblSize(a){
   if(a>=600) return 15;
@@ -1405,8 +1428,10 @@ function initMap(){
       renderItem:function(params, api){
         if(!worldCv) return null;
         var els = [];
+        var vw = api.getWidth ? api.getWidth() : 1e9;
         for(var k=-1;k<=1;k++){
           var p0 = api.coord([-180+k*360,90]), p1 = api.coord([180+k*360,-90]);
+          if(p1[0] < 0 || p0[0] > vw) continue;  // 视口外副本不画: 每帧最多省 2/3 的画布开销
           els.push({type:"image", style:{image:worldCv, x:p0[0], y:p0[1], width:p1[0]-p0[0], height:p1[1]-p0[1]}});
         }
         return {type:"group", children:els};
