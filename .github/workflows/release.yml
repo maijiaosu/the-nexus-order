@@ -63,7 +63,9 @@ jobs:
           distribution: temurin
           java-version: 17
       - name: Prepare web assets (web -> android www)
-        run: cp -R web android/app/src/main/assets/www
+        run: |
+          mkdir -p android/app/src/main/assets
+          cp -R web android/app/src/main/assets/www
       - name: Decode signing keystore
         env:
           JKS: ${{ secrets.NEXUS_JKS_B64 }}
