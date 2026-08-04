@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Nexus Order · 世界沙盘</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+:root{
+  --bg:#090c10; --bg2:#0b0f14; --panel:#0d1218; --line:#1b2830; --line2:#33505e;
+  --steel:#5b8296; --steelhi:#8fb8cb;
+  --txt:#d8cfae; --dim:#8f8a74; --faint:#5d5947;
+  --gold:#c9a84c; --goldhi:#e3c565;
+  --paper:#ddd2b0; --paperln:#8f8464; --ink:#2b2620;
+  --r-ally:#4e708c; --r-good:#5d7f4e; --r-tense:#b08a2a; --r-war:#a63d2e;
+  --sans:"TNO Sans",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"TNO Serif","Songti SC","STSong","Noto Serif SC",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:var(--sans);font-size:13px;line-height:1.45;overflow:hidden}
+button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+#app{position:relative;width:100%;height:100%;display:flex;flex-direction:column;background:var(--bg)}
+
+/* ===== 顶栏 ===== */
+#topbar{position:relative;z-index:30;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:10px 14px;padding-inline-end:var(--daimon-widget-host-safe-inline-end,82px);
+  padding-block-start:calc(8px + var(--daimon-widget-host-safe-block-start,0px));
+  border-bottom:1px solid var(--line2);background:linear-gradient(180deg,rgba(13,18,24,.97),rgba(9,12,16,.94));}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--serif);font-size:14px;letter-spacing:3px;color:var(--txt)}
+.brand .dot{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);animation:pulse 3.2s infinite}
+.brand .ver{color:var(--dim);font-size:10px;letter-spacing:3px;font-family:var(--mono)}
+.modes{display:flex;gap:2px;border:1px solid var(--line2);padding:2px;background:rgba(13,18,24,.6)}
+.modes button{font-family:var(--mono);font-size:11px;letter-spacing:1px;padding:5px 10px;color:var(--dim);border:1px solid transparent}
+.modes button:hover{color:var(--txt)}
+.modes button.on{color:var(--steelhi);background:#16222b;border-color:var(--steel);text-shadow:none}
+.modes button:focus-visible{outline:1px solid var(--steel);outline-offset:1px}
+#meta{margin-left:auto;display:flex;gap:14px;font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.5px}
+#meta b{color:var(--dim);font-weight:400}
+#meta .live{color:var(--steelhi)}
+#meta .stale{color:var(--gold)}
+#modeind{color:var(--gold)}
+
+/* ===== 地图区 ===== */
+#mapwrap{position:relative;flex:1;min-height:0;background:var(--bg)}
+#map{position:absolute;inset:0;z-index:1}
+.vignette{position:absolute;inset:0;pointer-events:none;z-index:6;
+  background:radial-gradient(ellipse at 50% 45%,transparent 58%,rgba(0,0,0,.62) 100%);}
+
+/* ===== 图例 ===== */
+#legend{position:absolute;z-index:20;right:12px;bottom:44px;display:none;flex-direction:column;gap:3px;
+  background:rgba(10,14,19,.92);border:1px solid var(--line2);padding:8px 10px;max-width:190px}
+#legend.show{display:flex}
+#legend .lg-t{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:2px;margin-bottom:4px}
+#legend .lg-i{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--txt)}
+#legend .lg-i i{width:10px;height:10px;flex:none;border:1px solid rgba(255,255,255,.18)}
+#legend .lg-i.lnk{cursor:pointer;padding:2px 4px;margin:-2px -4px;border:1px solid transparent}
+#legend .lg-i.lnk:hover{background:rgba(232,224,200,.08)}
+#legend .lg-i.lnk.on{background:rgba(232,224,200,.13);border-color:var(--line2);color:var(--steelhi)}
+
+/* ===== 侧栏 ===== */
+#sidebar{position:absolute;z-index:40;top:0;left:0;bottom:0;width:348px;max-width:92vw;
+  background:linear-gradient(90deg,rgba(11,16,21,.98),rgba(11,16,21,.95));
+  border-right:1px solid var(--line2);transform:translateX(-105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  display:flex;flex-direction:column}
+#sidebar.open{transform:translateX(0)}
+#sb-head{display:flex;align-items:flex-start;gap:4px;padding:10px 12px;border-bottom:1px solid var(--line)}
+#sb-title{flex:1;min-width:0}
+#sb-title h2{font-size:17px;font-weight:600;letter-spacing:1px;font-family:var(--serif);color:var(--txt)}
+#sb-title .sub{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:1px;margin-top:2px}
+#sb-close{font-family:var(--mono);font-size:14px;color:var(--dim);padding:4px 8px;border:1px solid var(--line2)}
+#sb-close:hover{color:var(--gold);border-color:var(--gold)}
+#sb-close:focus-visible{outline:1px solid var(--gold)}
+#sb-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:12px;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+#sb-body::-webkit-scrollbar{width:6px}
+#sb-body::-webkit-scrollbar-thumb{background:var(--line2)}
+#sb-resizer{position:absolute;top:0;right:-5px;bottom:0;width:10px;cursor:col-resize;z-index:45;touch-action:none}
+#sb-resizer::after{content:"";position:absolute;top:0;bottom:0;right:4px;width:1px;background:var(--line2);transition:background .15s}
+#sb-resizer:hover::after,#sidebar.dragging #sb-resizer::after{width:3px;right:3px;background:var(--gold)}
+
+/* ===== 紧张度指示器(地图右上角) ===== */
+#defcon{position:absolute;z-index:22;top:10px;right:12px;display:flex;flex-direction:column;align-items:center;
+  padding:7px 12px 5px;background:rgba(8,12,17,.92);border:1px solid var(--line2);cursor:pointer;font-family:var(--mono)}
+#defcon:hover{border-color:var(--gold)}
+#defcon:focus-visible{outline:1px solid var(--gold)}
+#defcon .dc-num{font-size:22px;font-weight:700;line-height:1.1;color:#4fa875}
+#defcon .dc-cap{font-size:9px;letter-spacing:2px;color:var(--dim);margin-top:2px}
+#defcon.lv2 .dc-num{color:#8ac79f}
+#defcon.lv3 .dc-num{color:#b08a2a}
+#defcon.lv4 .dc-num{color:#c25a4a}
+#defcon.lv5{border-color:rgba(227,75,63,.7)}
+#defcon.lv5 .dc-num{color:#e34b3f;animation:dcpulse 1.1s ease-in-out infinite}
+@keyframes dcpulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ===== 战争清单(右侧栏) ===== */
+#warbar{position:absolute;z-index:40;top:0;right:0;bottom:0;width:348px;max-width:92vw;
+  background:linear-gradient(270deg,rgba(11,16,21,.98),rgba(11,16,21,.95));
+  border-left:1px solid var(--line2);transform:translateX(105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  display:flex;flex-direction:column}
+#warbar.open{transform:translateX(0)}
+#wb-head{display:flex;align-items:flex-start;gap:4px;padding:10px 12px;border-bottom:1px solid var(--line)}
+#wb-title{flex:1;min-width:0}
+#wb-title h2{font-size:17px;font-weight:600;letter-spacing:1px;font-family:var(--serif);color:var(--txt)}
+#wb-title .sub{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:1px;margin-top:2px}
+#wb-close{font-family:var(--mono);font-size:14px;color:var(--dim);padding:4px 8px;border:1px solid var(--line2)}
+#wb-close:hover{color:var(--gold);border-color:var(--gold)}
+#wb-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:12px;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+#wb-body::-webkit-scrollbar{width:6px}
+#wb-body::-webkit-scrollbar-thumb{background:var(--line2)}
+.wb-scale{display:flex;gap:3px;margin-bottom:12px}
+.wb-scale span{flex:1;text-align:center;font-family:var(--mono);font-size:9px;color:var(--faint);
+  border:1px solid var(--line);padding:4px 0;letter-spacing:0}
+.wb-scale span i{display:block;font-style:normal;font-size:13px;font-weight:700;margin-bottom:1px;color:var(--dim)}
+.wb-scale span.on{border-color:var(--gold);color:var(--txt)}
+.wb-scale span.on i{color:var(--gold)}
+.wcard{border:1px solid var(--line);background:rgba(14,20,26,.5);margin-bottom:10px;padding:9px 10px}
+.wc-t{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--txt);letter-spacing:.5px;
+  display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.wc-since{font-family:var(--mono);font-size:9px;color:var(--dim);font-weight:400;flex:none}
+.wc-vs{display:flex;align-items:stretch;gap:6px;margin-top:8px}
+.wf{flex:1;min-width:0}
+.wf-name{font-family:var(--mono);font-size:11px;color:var(--steelhi);cursor:pointer;padding:4px 6px;
+  border:1px solid var(--line);user-select:none;display:flex;align-items:center;justify-content:space-between;gap:4px}
+.wf-name:hover{border-color:var(--gold)}
+.wf.R .wf-name{flex-direction:row-reverse;text-align:right}
+.wf-name .n-caret{font-style:normal;font-size:9px;color:var(--dim);transition:transform .15s}
+.wf.open .wf-name .n-caret{transform:rotate(90deg);color:var(--gold)}
+.wf-flags{display:none;flex-wrap:wrap;gap:4px;padding:6px 2px 0}
+.wf.open .wf-flags{display:flex}
+.wf-m{display:inline-flex;align-items:center;gap:3px}
+.wf-m .wf-f{width:20px;height:14px;object-fit:cover;border:1px solid rgba(255,255,255,.15);display:block}
+.wf-m .wf-e{font-style:normal;font-size:15px;line-height:1}
+.wf-m em{font-style:normal;font-family:var(--mono);font-size:8px;color:var(--faint)}
+.wf-m.chip{font-family:var(--mono);font-size:10px;color:var(--txt);border:1px solid var(--line2);padding:2px 6px}
+.wc-x{flex:none;align-self:center;font-family:var(--mono);font-size:10px;color:#a63d2e;letter-spacing:1px}
+.wc-note{font-size:11px;color:var(--dim);line-height:1.7;margin-top:8px;border-top:1px dashed var(--line);padding-top:6px}
+.wc-src{font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:4px;line-height:1.6}
+
+.leader{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.leader .ph{width:74px;height:88px;flex:none;border:1px solid var(--line2);background:var(--panel) center/cover no-repeat;position:relative}
+.leader .ph.fallback{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:22px;color:var(--gold)}
+.leader .who{min-width:0}
+.leader .who .nm{font-size:15px;font-weight:600;font-family:var(--serif);letter-spacing:.5px}
+.leader .who .tt{font-size:11px;color:var(--gold);font-family:var(--mono);margin-top:2px}
+.leader .who .sn{font-size:10px;color:var(--dim);font-family:var(--mono);margin-top:3px}
+
+.sec{margin:12px 0 4px}
+.sec-t{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--dim);display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sec-t::after{content:"";flex:1;height:0;border-top:1px dashed #2b3a44}
+.kv{display:grid;grid-template-columns:64px 1fr;gap:4px 10px;font-size:12px}
+.kv dt{color:var(--faint);font-family:var(--mono);font-size:10px;letter-spacing:1px;padding-top:2px}
+.kv dd{color:var(--txt)}
+
+/* 体制悬停解说 */
+.tip{position:relative;border-bottom:1px dotted var(--dim);cursor:help}
+.tip .tip-q{font-style:normal;font-family:var(--mono);font-size:9px;color:var(--gold);
+  border:1px solid rgba(201,168,76,.5);padding:0 3px;margin-left:5px;vertical-align:1px}
+.tip::after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 7px);z-index:60;
+  width:min(300px,74vw);background:#10161d;border:1px solid var(--line2);border-left:2px solid var(--gold);
+  padding:8px 10px;font-size:11px;line-height:1.55;color:var(--txt);letter-spacing:0;
+  opacity:0;pointer-events:none;transition:opacity .15s;white-space:normal;font-family:var(--sans)}
+.tip:hover::after{opacity:1}
+
+.pie-row{display:flex;gap:12px;align-items:center}
+.pie-row svg{flex:none}
+.pie-lg{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.pie-lg .pi{display:flex;align-items:center;gap:6px;font-size:11px}
+.pie-lg .pi i{width:8px;height:8px;flex:none}
+.pie-lg .pi b{margin-left:auto;font-family:var(--mono);font-weight:400;color:var(--dim)}
+.trd{font-family:var(--mono);font-size:9px;letter-spacing:-1px}
+.trd.u{color:#c2593a}
+.trd.d{color:#6d9a55}
+.trd.f{color:#5d5947}
+.pie-note{font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:7px;letter-spacing:.5px;line-height:1.7}
+
+/* 政局 · 议会半圆图 */
+.parl-one,.parl-us{margin:2px 0 2px}
+.parl-us{display:flex;gap:10px}
+.parl-us .pu{flex:1;min-width:0}
+.pu-t{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:1px;margin-bottom:3px}
+.parl-svg{width:100%;height:auto;display:block}
+.parl-lg{display:flex;flex-wrap:wrap;gap:3px 10px;margin-top:6px}
+.parl-lg .pi{display:flex;align-items:center;gap:5px;font-size:11px}
+.parl-lg .pi i{width:8px;height:8px;flex:none}
+.parl-lg .pi b{font-family:var(--mono);font-weight:400;color:var(--dim)}
+.parl-note{font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:5px;letter-spacing:.5px}
+
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chips .chip{font-size:10px;font-family:var(--mono);padding:2px 7px;border:1px solid var(--line2);color:var(--dim)}
+.chips .chip.hot{color:var(--gold);border-color:rgba(201,168,76,.45)}
+
+.rel-sum{display:flex;gap:8px;flex-wrap:wrap}
+.rel-sum .rs{position:relative;font-family:var(--mono);font-size:10px;padding:3px 8px;border:1px solid var(--line2);color:var(--dim)}
+.rel-sum .rs b{font-weight:400;margin-left:4px}
+.rs.a{color:var(--r-ally)}.rs.g{color:var(--r-good)}.rs.t{color:var(--r-tense)}.rs.w{color:var(--r-war)}
+/* 悬停/点按: 关系成员国小旗弹层 */
+.rs-pop{display:none;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + 7px);z-index:60;
+  min-width:160px;max-width:240px;background:rgba(8,12,17,.97);border:1px solid var(--line2);padding:8px 9px;
+  flex-wrap:wrap;gap:5px 9px;box-shadow:0 8px 20px rgba(0,0,0,.55)}
+.rs-pop::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:var(--line2)}
+.rs:hover .rs-pop,.rs:focus-within .rs-pop,.rs.open .rs-pop{display:flex}
+.rs-c{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;color:var(--txt);white-space:nowrap}
+
+/* 新闻列表 · 可展开 */
+#news-list{list-style:none;display:flex;flex-direction:column}
+#news-list li{border-top:1px dashed #26323c;padding:8px 0}
+#news-list li.xp{cursor:pointer}
+#news-list .n-meta{display:flex;gap:6px;font-family:var(--mono);font-size:9px;color:var(--faint);letter-spacing:.5px;margin-bottom:3px}
+#news-list .n-src{color:var(--steelhi)}
+#news-list .n-head{display:flex;align-items:flex-start;gap:6px}
+#news-list .n-t{flex:1;font-family:var(--serif);font-size:13px;font-weight:600;line-height:1.5;color:var(--txt);text-decoration:none;display:block}
+#news-list li.xp:hover .n-t{color:var(--goldhi)}
+#news-list a.n-t:hover{color:var(--goldhi)}
+#news-list .n-caret{font-family:var(--mono);font-size:10px;color:var(--faint);flex:none;transition:transform .18s;padding-top:2px}
+#news-list li.open .n-caret{transform:rotate(90deg);color:var(--gold)}
+#news-list .n-detail{display:none;margin-top:8px;background:var(--paper);border:1px solid var(--paperln);border-top:3px double var(--paperln);padding:8px 10px 9px}
+#news-list li.open .n-detail{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+#news-list .n-detail::before{content:"··· 前线电讯 ···";flex:0 0 100%;font-family:var(--mono);font-size:8px;letter-spacing:3px;color:#7a7052;text-align:center;margin:-1px 0 2px}
+#news-list .n-body{flex:1;min-width:0}
+#news-list .n-sum{font-family:var(--serif);font-size:12px;line-height:1.65;color:var(--ink)}
+#news-list .n-orig{font-family:var(--mono);font-size:9px;color:#6d6750;margin-top:5px;line-height:1.5}
+#news-list .n-img{width:96px;max-height:96px;flex:none;border:1px solid var(--paperln);object-fit:cover;background:#c9bd9a;filter:grayscale(1) contrast(1.03)}
+#news-list .n-link{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:10px;color:#7a5a1a;text-decoration:none}
+#news-list .n-link:hover{color:#4a3310}
+.news-empty{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:1px;padding:10px 0}
+.twn-note{font-size:11px;color:var(--dim);border:1px dashed var(--line2);padding:8px;margin-bottom:10px}
+
+/* ===== 底部情报流 ===== */
+#ticker{position:relative;z-index:25;height:30px;border-top:1px solid var(--line2);background:rgba(9,12,16,.95);
+  display:flex;align-items:center;overflow:hidden}
+#ticker .tk-tag{flex:none;font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--gold);padding:0 12px;height:100%;display:flex;align-items:center;border-right:1px solid var(--line2)}
+#ticker .tk-view{flex:1;overflow:hidden;position:relative;height:100%}
+#ticker .tk-track{position:absolute;white-space:nowrap;display:flex;align-items:center;height:100%;animation:tick 60s linear infinite;font-family:var(--mono);font-size:11px;color:var(--dim)}
+#ticker .tk-track:hover{animation-play-state:paused}
+#ticker .tk-track .tk-i{margin:0 18px;cursor:pointer}
+#ticker .tk-track .tk-i:hover{color:var(--goldhi)}
+#ticker .tk-track .tk-src{color:var(--steel);font-size:9px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ===== 紧凑适配 ===== */
+@media (max-width:560px){
+  #meta{display:none}
+  .brand .ver{display:none}
+  #sidebar{width:100vw!important;max-width:100vw;border-right:none}
+  #warbar{width:100vw!important;max-width:100vw;border-left:none}
+  #sb-resizer{display:none}
+  #legend{bottom:40px;right:8px;max-width:150px}
+}
+@media (prefers-reduced-motion:reduce){
+  .brand .dot,#ticker .tk-track{animation:none}
+  #sidebar,#warbar,#defcon.lv5 .dc-num{transition:none;animation:none}
+}
+#geo-toast{position:fixed;left:50%;bottom:64px;transform:translateX(-50%) translateY(8px);z-index:999;
+  background:#1a2027;border:1px solid #3a4450;color:#d8c98a;font-size:12px;line-height:1.5;
+  padding:8px 14px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+  max-width:80%;text-align:center}
+#geo-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<main id="app" class="kimi-host-safe-context">
+  <header id="topbar" class="kimi-host-safe-header">
+    <div class="brand"><span class="dot"></span>The&nbsp;Nexus&nbsp;Order</div>
+    <nav class="modes" role="group" aria-label="地图视图模式">
+      <button data-mode="default" class="on" aria-pressed="true">态势</button>
+      <button data-mode="ideo" aria-pressed="false">意识形态</button>
+      <button data-mode="alliance" aria-pressed="false">联盟</button>
+      <button data-mode="temp" aria-pressed="false">气温</button>
+      <button data-mode="gdp" aria-pressed="false">GDP</button>
+      <button data-mode="gdppc" aria-pressed="false">人均</button>
+      <button data-mode="power" aria-pressed="false">电力</button>
+      <button data-mode="markets" aria-pressed="false">股票</button>
+    </nav>
+    <div id="meta">
+      <span id="modeind">视图·态势</span>
+      <span id="asof"></span>
+      <span id="newsstamp">嗅探器待机</span>
+    </div>
+  </header>
+
+  <div id="mapwrap">
+    <div id="map" role="application" aria-label="世界地图"></div>
+    <div class="vignette"></div>
+    <div id="legend" aria-hidden="true"></div>
+    <button id="defcon" class="lv3" aria-label="全球紧张度，点击查看战争清单" title="紧张度 3/5 · 点击查看战争清单">
+      <span class="dc-num" id="dc-num">3</span>
+      <span class="dc-cap">紧张度</span>
+    </button>
+  </div>
+
+  <aside id="sidebar" aria-label="国家情报栏">
+    <div id="sb-head">
+      <div id="sb-title"><h2 id="sb-name">—</h2><div class="sub" id="sb-sub"></div></div>
+      <button id="sb-close" aria-label="关闭情报栏">✕</button>
+    </div>
+    <div id="sb-body"></div>
+    <div id="sb-resizer" aria-hidden="true"></div>
+  </aside>
+
+  <aside id="warbar" aria-label="战争清单">
+    <div id="wb-head">
+      <div id="wb-title"><h2>战争与冲突</h2><div class="sub" id="wb-sub"></div></div>
+      <button id="wb-close" aria-label="关闭战争清单">✕</button>
+    </div>
+    <div id="wb-body"></div>
+  </aside>
+
+  <div id="ticker">
+    <span class="tk-tag">情报流</span>
+    <div class="tk-view"><div class="tk-track" id="tk-track"></div></div>
+  </div>
+</main>
+
+<script src="vendor/echarts.min.js"></script>
+<script src="world.geo.js"></script>
+<script src="data.js"></script>
+<script src="econ.js"></script>
+<script src="conflict.js"></script>
+<script src="assets/water.geo.js"></script>
+<script src="assets/admin1.geo.js"></script>
+<!-- 独立版: 数据快照 + DaimonWidget 兼容垫片 (Kimi 内运行时 DaimonWidget 存在, 垫片自动失效) -->
+<script src="live.js"></script>
+<script>
+/* 远程快照通道: 打开应用/点「检查更新」时拉 Gist 最新快照, 失败回退包内快照 */
+window.GEO_LIVE_URL = "https://gist.githubusercontent.com/maijiaosu/7a9f833528497a76af2adbefdadf4d72/raw/live.js";
+(function(){
+  var _cb = null;
+  function fire(d){ if(d && _cb) _cb({ main: d }); }
+  function fetchLive(done){
+    if (!window.GEO_LIVE_URL) { done(false); return; }
+    var x = new XMLHttpRequest();
+    var sep = window.GEO_LIVE_URL.indexOf("?") > -1 ? "&" : "?";
+    x.open("GET", window.GEO_LIVE_URL + sep + "_=" + Date.now(), true);
+    x.timeout = 10000;
+    x.onload = function(){
+      try{
+        var m = /GEO_LIVE\s*=\s*(\{[\s\S]*\})\s*;?\s*$/.exec(x.responseText || "");
+        if (m){ window.GEO_LIVE = JSON.parse(m[1]); done(true); return; }
+      }catch(e){}
+      done(false);
+    };
+    x.onerror = x.ontimeout = function(){ done(false); };
+    try{ x.send(); }catch(e){ done(false); }
+  }
+  if (!window.DaimonWidget) {
+    window.DaimonWidget = { onDataChange: function(cb){
+      _cb = cb;
+      fetchLive(function(){ fire(window.GEO_LIVE); });
+    }};
+  }
+  /* 「检查更新」按钮(仅独立/打包版; Kimi 版无此垫片, 数据由 Automation 直推) */
+  function addBtn(){
+    if (document.getElementById("geo-upd")) return;
+    var b = document.createElement("button");
+    b.id = "geo-upd"; b.textContent = "检查更新";
+    b.style.cssText = "margin-left:8px;background:none;border:1px solid #3a4450;color:#8fa3b8;font-size:10px;padding:1px 8px;border-radius:4px;cursor:pointer";
+    b.onclick = function(){
+      b.textContent = "检查中…"; b.disabled = true;
+      fetchLive(function(ok){
+        fire(window.GEO_LIVE);
+        b.textContent = ok ? "已更新" : "失败·用本地";
+        setTimeout(function(){ b.textContent = "检查更新"; b.disabled = false; }, 2500);
+      });
+    };
+    var st = document.getElementById("newsstamp");
+    if (st && st.parentNode) st.parentNode.appendChild(b);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", addBtn);
+  else addBtn();
+})();
+</script>
+<script>
+/* 网页公开端专属: 「下载桌面 App」栏 (仅 http/https 显示; Electron/Kimi/本地 file:// 自动隐藏) */
+(function(){
+  if (!/^https?:$/.test(location.protocol)) return;
+  var BASE = "https://github.com/maijiaosu/the-nexus-order/releases/latest/download/";
+  var ITEMS = [
+    {os:"Windows 安装包", name:"TheNexusOrder-Setup-0.1.0.exe", note:"一键安装 · x64/arm64 · 约 242MB"},
+    {os:"Windows 便携版", name:"The Nexus Order-0.1.0-win.zip", note:"免安装解压即用 · x64"},
+    {os:"macOS · Apple 芯片", name:"The Nexus Order-0.1.0-arm64.dmg", note:"安装镜像 · M1/M2/M3/M4"},
+    {os:"macOS · Intel", name:"The Nexus Order-0.1.0.dmg", note:"安装镜像 · Intel Mac"},
+    {os:"Android", name:"TheNexusOrder-0.2.0.apk", note:"APK 直装 · Android 7+"}
+  ];
+  function css(el, s){ for (var k in s) el.style[k] = s[k]; }
+  function build(){
+    var wrap = document.createElement("div");
+    wrap.id = "geo-dl";
+    css(wrap, {position:"fixed", top:"58px", right:"14px", zIndex:950, fontFamily:"var(--sans, sans-serif)"});
+    var btn = document.createElement("button");
+    btn.id = "geo-dl-btn";
+    btn.textContent = "⬇ 桌面 App";
+    css(btn, {background:"rgba(15,20,26,.92)", color:"#d8cfae", border:"1px solid #3a4450",
+      borderRadius:"6px", fontSize:"11px", padding:"5px 12px", cursor:"pointer", letterSpacing:"1px"});
+    var panel = document.createElement("div");
+    panel.id = "geo-dl-panel";
+    css(panel, {position:"absolute", top:"100%", right:"0", marginTop:"6px", minWidth:"250px",
+      background:"rgba(13,18,24,.97)", border:"1px solid #3a4450", borderRadius:"8px", padding:"6px",
+      display:"none", boxShadow:"0 8px 24px rgba(0,0,0,.5)"});
+    function show(on){ panel.style.display = on ? "block" : "none"; }
+    btn.onmouseenter = function(){ show(true); };
+    btn.onclick = function(){ show(panel.style.display !== "block"); };
+    ITEMS.forEach(function(it){
+      var a = document.createElement("a");
+      a.href = BASE + encodeURIComponent(it.name);
+      a.target = "_blank"; a.rel = "noopener";
+      css(a, {display:"block", padding:"7px 10px", textDecoration:"none", borderRadius:"6px"});
+      var os = document.createElement("div");
+      os.textContent = it.os;
+      css(os, {color:"#e8e0c8", fontSize:"12px", fontWeight:"bold"});
+      var note = document.createElement("div");
+      note.textContent = it.note;
+      css(note, {color:"#8fa3b8", fontSize:"10px", marginTop:"2px"});
+      a.appendChild(os); a.appendChild(note);
+      a.onmouseenter = function(){ css(this, {background:"rgba(63,78,94,.35)"}); };
+      a.onmouseleave = function(){ css(this, {background:"transparent"}); };
+      panel.appendChild(a);
+    });
+    document.addEventListener("click", function(e){
+      if (!wrap.contains(e.target)) show(false);
+    });
+    wrap.appendChild(btn); wrap.appendChild(panel);
+    document.body.appendChild(wrap);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
+  else build();
+})();
+</script>
+
+<script>
+(function(){
+"use strict";
+if (window.__GEO_APP) return; window.__GEO_APP = true;
+
+/* ---------- 常量 ---------- */
+var CLS_COLOR = {libdem:"#5a7a9e",consdem:"#6d7d95",hybrid:"#8a7a48",auth:"#8a5a38",comm:"#9e3d32",
+                 theo:"#6a5a7e",mon:"#8a7340",mil:"#5f6248",failed:"#3a3d42"};
+var CLS_NAME = {libdem:"自由民主",consdem:"保守民主",hybrid:"混合体制",auth:"威权体制",comm:"一党社会主义",
+                theo:"神权体制",mon:"君主制",mil:"军政府/过渡",failed:"战乱·失控"};
+var PIE_COLOR = {"民族主义":"#a86a42","保守主义":"#6d7d95","自由主义":"#5a7a9e","社会民主":"#5a8a72",
+  "社会主义":"#9e3d32","威权主义":"#5f5f66","神权政治":"#6a5a7e","军国主义":"#5f6248","民粹主义":"#8a6a42",
+  "威权社会主义-右派":"#767676","威权社会主义-左派":"#8a2b2b","威权社会主义-中间派":"#33496a",
+  "毛泽东思想-新左派":"#b53a3a","民主社会主义-泛左派":"#c98a96","自由主义-反对派":"#7ba3c9","极端民族主义":"#26262b",
+  "法西斯主义":"#51392a",
+  "威权社会主义":"#7a4a4a","民主社会主义":"#c98a96","毛泽东思想":"#b53a3a",
+  "君主制":"#8a7340","个人崇拜":"#7d5f42","教派分权":"#7d7055","军阀割据":"#454548","部族政治":"#8a6248","无政府":"#3a3d42"};
+var AL_PRIORITY = ["北约","欧盟","集安组织","金砖国家","上合组织","东盟","非盟","海合会","南共市","英联邦","突厥国家组织","欧佩克","五眼联盟","澳英美联盟","四方机制","G7","G20"];
+var AL_COLOR = {"北约":"#4e708c","欧盟":"#3a5f8a","集安组织":"#8a453c","金砖国家":"#a8873a","上合组织":"#9e5342",
+  "东盟":"#4e8a5f","非盟":"#7d6a42","海合会":"#4e8a80","南共市":"#4e7d55","英联邦":"#6d7280","突厥国家组织":"#5a8899",
+  "欧佩克":"#5f5480","五眼联盟":"#525f72","澳英美联盟":"#455066","四方机制":"#5f6d84","G7":"#7d7d85","G20":"#525258"};
+var REL_COLOR = {ally:"#4e708c",good:"#5d7f4e",tense:"#b08a2a",war:"#a63d2e"};
+var REL_NAME = {ally:"同盟",good:"友好",tense:"紧张",war:"交战"};
+var BASE_FILL = "#12171d", BASE_BORDER = "rgba(205,210,214,.38)", DIM_FILL = "#10151a", SEL_BORDER = "#e8e0c8";
+var ALL_GRAY = "#3d444e";
+/* TNO 政治地图: 每国一块低饱和暗色(按 ISO 稳定散列), 有情报的国家微微提亮 */
+var TNO_BASE = ["#3d4740","#414a53","#4a433c","#3c4848","#4c463e","#39434e",
+                "#454e42","#42464e","#4a4943","#3e4750","#4d3f42","#474e3d"];
+var TRD_MARK = {up2:'<span class="trd u">▲▲</span>',up:'<span class="trd u">▲</span>',
+                flat:'<span class="trd f">●</span>',down:'<span class="trd d">▼</span>',down2:'<span class="trd d">▼▼</span>'};
+var MODE_NAME = {"default":"态势",ideo:"意识形态",alliance:"联盟",temp:"气温",gdp:"GDP",gdppc:"人均GDP",power:"电力·夜视",markets:"股票·行情"};
+
+var DB = window.GEO_DB || {}, CN = window.GEO_CN || {}, N2I = window.GEO_NAME2ISO || {};
+var TIPS = window.GEO_TIPS || {};
+var DATA = {news:{}, global:[], focus:[], temps:{}, temps_sub:{}, generated_at:null, markets:[], fx:[]};
+var CONFLICT = window.GEO_CONFLICT || {defcon:null, defcon_scale:[], defcon_note:"", conflicts:[], iso2:{}, emoji:{}};
+var state = {mode:"default", sel:null, selAlliance:null};
+var chart = null;
+
+/* ---------- 工具 ---------- */
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function cname(iso){return CN[iso]||(window.GEO_ISO2NAME||{})[iso]||iso}
+function newsOf(iso){return (DATA.news && DATA.news[iso]) || []}
+function baseFill(iso){
+  var h = 0;
+  for (var i=0;i<iso.length;i++) h = (h*31 + iso.charCodeAt(i)) >>> 0;
+  return TNO_BASE[h % TNO_BASE.length];
+}
+function lift(hex, k){
+  var p = parseInt(hex.slice(1),16);
+  var r = p>>16, g = (p>>8)&255, b = p&255;
+  r += (216-r)*k; g += (207-g)*k; b += (174-b)*k;
+  return "rgb("+(r|0)+","+(g|0)+","+(b|0)+")";
+}
+/* 填色加透明度, 让地形底图隐约透出(hex 与 rgb() 都兼容) */
+function alpha(col, a){
+  if(!col) return col;
+  if(col.charAt(0)==="#"){
+    var p = parseInt(col.slice(1),16);
+    return "rgba("+(p>>16)+","+((p>>8)&255)+","+(p&255)+","+a+")";
+  }
+  return col.replace("rgb(","rgba(").replace(")",","+a+")");
+}
+/* ---------- 国名标注元数据: 国土主轴角(倾斜国名) + 面积(字号分档) ----------
+   运行时从 geojson 计算一次: 全部外环点做 PCA 求主轴, 经度解绕防跨日界线;
+   角度换算到屏幕方向(x 乘 echarts geo 默认 aspectScale 0.75) */
+var LBL_META = {};
+function buildLabelMeta(){
+  var gj = window.WORLD_GEOJSON;
+  if(!gj || !gj.features) return;
+  var R = 0.75;
+  gj.features.forEach(function(f){
+    var nm = f.properties && f.properties.name;
+    var iso = nm && N2I[nm];
+    if(!iso || !DB[iso]) return;
+    var geom = f.geometry; if(!geom) return;
+    var polys = geom.type==="Polygon" ? [geom.coordinates] : (geom.type==="MultiPolygon" ? geom.coordinates : []);
+    var rings = [], i, j;
+    for(i=0;i<polys.length;i++){
+      var ring = polys[i][0]; if(!ring || ring.length<3) continue;
+      var pts = [];
+      for(j=0;j<ring.length;j++){
+        var lon = ring[j][0], lat = ring[j][1];
+        if(j>0){ var prev = pts[j-1][0]; while(lon-prev>180) lon-=360; while(lon-prev<-180) lon+=360; }
+        pts.push([lon,lat]);
+      }
+      rings.push(pts);
+    }
+    if(!rings.length) return;
+    var mLat = 0, cnt = 0;
+    rings.forEach(function(pts){ pts.forEach(function(p){ mLat+=p[1]; cnt++; }); });
+    var cw = Math.cos((mLat/cnt)*Math.PI/180);
+    var area = 0;
+    rings.forEach(function(pts){
+      var a = 0;
+      for(var k=0;k<pts.length;k++){ var p=pts[k], q=pts[(k+1)%pts.length]; a += p[0]*q[1]-q[0]*p[1]; }
+      area += Math.abs(a/2);
+    });
+    area *= cw;
+    var mx=0, my=0, n=0;
+    rings.forEach(function(pts){ pts.forEach(function(p){ mx+=p[0]*R; my+=p[1]; n++; }); });
+    mx/=n; my/=n;
+    var sxx=0, sxy=0, syy=0;
+    rings.forEach(function(pts){ pts.forEach(function(p){
+      var dx=p[0]*R-mx, dy=p[1]-my; sxx+=dx*dx; sxy+=dx*dy; syy+=dy*dy;
+    });});
+    var deg = -0.5*Math.atan2(2*sxy, sxx-syy)*180/Math.PI;
+    while(deg>90) deg-=180; while(deg<=-90) deg+=180;
+    LBL_META[iso] = {area:area, deg:Math.round(deg)};
+  });
+}
+function lblSize(a){
+  if(a>=600) return 15;
+  if(a>=150) return 12;
+  if(a>=40)  return 10;
+  return 8.5;
+}
+function tempColor(t){
+  if (t==null) return BASE_FILL;
+  var stops=[[-15,"#2a4a6a"],[0,"#3a6a8a"],[10,"#4e8073"],[20,"#a8873a"],[30,"#9e5a38"],[40,"#9e3d32"]];
+  if(t<=stops[0][0])return stops[0][1]; if(t>=stops[stops.length-1][0])return stops[stops.length-1][1];
+  for(var i=0;i<stops.length-1;i++){var a=stops[i],b=stops[i+1];
+    if(t>=a[0]&&t<=b[0]){var k=(t-a[0])/(b[0]-a[0]);
+      var pa=parseInt(a[1].slice(1),16),pb=parseInt(b[1].slice(1),16);
+      var r=(pa>>16)+(((pb>>16)-(pa>>16))*k),g=((pa>>8)&255)+((((pb>>8)&255)-((pa>>8)&255))*k),bl=(pa&255)+(((pb&255)-(pa&255))*k);
+      return "rgb("+(r|0)+","+(g|0)+","+(bl|0)+")";}}
+  return BASE_FILL;
+}
+/* ---------- 经济数据(世界银行/OWID, econ.js) ---------- */
+var ECON = window.GEO_ECON || {gdp:{}, gdppc:{}, power:{}, sub:{}};
+function lerpStops(v, stops, fallback){  // 连续色阶插值, 与 tempColor 同手法
+  if (v==null || isNaN(v)) return fallback;
+  if(v<=stops[0][0])return stops[0][1]; if(v>=stops[stops.length-1][0])return stops[stops.length-1][1];
+  for(var i=0;i<stops.length-1;i++){var a=stops[i],b=stops[i+1];
+    if(v>=a[0]&&v<=b[0]){var k=(v-a[0])/(b[0]-a[0]);
+      var pa=parseInt(a[1].slice(1),16),pb=parseInt(b[1].slice(1),16);
+      var r=(pa>>16)+(((pb>>16)-(pa>>16))*k),g=((pa>>8)&255)+((((pb>>8)&255)-((pa>>8)&255))*k),bl=(pa&255)+(((pb&255)-(pa&255))*k);
+      return "rgb("+(r|0)+","+(g|0)+","+(bl|0)+")";}}
+  return fallback;
+}
+function log10v(v){ return v>0 ? Math.log(v)/Math.LN10 : 0; }
+function gdpColor(v){  // GDP 总量(美元), log10 色阶 10^10(~小经济体)→10^13.5(美国)
+  if (v==null || isNaN(v)) return "#12171d";
+  return lerpStops(log10v(v), [[10,"#262e36"],[11,"#33413a"],[11.7,"#4d5a3d"],[12.4,"#8a7a3a"],[13,"#b8933a"],[13.5,"#e3c565"]], "#12171d");
+}
+function gdppcColor(v){  // 人均 GDP(美元), log10 色阶 10^2.7(500)→10^4.9(8万)
+  if (v==null || isNaN(v)) return "#12171d";
+  return lerpStops(log10v(v), [[2.7,"#262e36"],[3.2,"#33413a"],[3.7,"#4d5a3d"],[4.1,"#8a7a3a"],[4.5,"#b8933a"],[4.9,"#e3c565"]], "#12171d");
+}
+function powerColor(v){  // 发电量(TWh), log10 亮度阶: 暗夜→暖光
+  if (v==null || isNaN(v)) return "#0a0f14";
+  return lerpStops(log10v(v), [[-0.5,"#101820"],[0.8,"#27313d"],[2,"#4d4a33"],[2.7,"#8a6f2e"],[3.3,"#c9992f"],[3.8,"#f0cf6a"],[4.05,"#fff3c0"]], "#0a0f14");
+}
+function fmtTime(iso){
+  if(!iso) return "";
+  try{var d=new Date(iso);if(isNaN(d))return "";
+    var p=function(n){return (n<10?"0":"")+n};
+    return (d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes());
+  }catch(e){return ""}
+}
+function relOfSelected(iso){
+  var c = DB[iso]; if(!c) return null;
+  var rel = c.rel || {ally:[],good:[],tense:[],war:[]};
+  var out = {ally:{},good:{},tense:{},war:{}};
+  ["ally","good","tense","war"].forEach(function(k){ (rel[k]||[]).forEach(function(x){out[k][x]=1}); });
+  var myAl = c.al || [];
+  Object.keys(DB).forEach(function(other){
+    if(other===iso) return;
+    var o = DB[other];
+    var has = out.war[other]||out.tense[other]||out.good[other]||out.ally[other];
+    if(!has){
+      // 镜像: 对方档案定义了对我方的关系, 我方未自定义时按对方定义染色(解决"伊朗看美国红, 美国看伊朗不红")
+      var orel = o.rel || {};
+      ["war","tense","good","ally"].forEach(function(k){
+        if(!out[k][other] && (orel[k]||[]).indexOf(iso)>=0) out[k][other]=1;
+      });
+      has = out.war[other]||out.tense[other]||out.good[other]||out.ally[other];
+    }
+    if(!has){
+      var shared = (o.al||[]).some(function(a){return myAl.indexOf(a)>=0});
+      if(shared) out.ally[other]=1;
+    }
+  });
+  return out;
+}
+
+/* ---------- 体制悬停解说匹配 ---------- */
+var TIP_ORDER = {
+  gov: [["半总统制",["半总统"]],["总统制",["总统制","总统共和"]],["议会制",["议会制","议会民主","议会共和"]],
+        ["君主立宪",["君主立宪"]],["绝对君主制",["绝对君主","专制君主"]],["君主制",["君主"]],
+        ["一党",["一党"]],["军政府",["军政府","军人政权","军方"]],["神权",["神权"]],["教派分权",["教派"]],
+        ["联邦",["联邦"]],["过渡",["过渡","看守","临时"]],["战乱",["内战","分裂","崩溃","流亡","无政府","战乱"]]],
+  econ: [["社会主义市场",["社会主义市场"]],["社会市场经济",["社会市场"]],["计划经济",["计划经济"]],
+         ["国家资本主义",["国家资本"]],["资源",["石油","油气","天然气","铀","矿","资源"]],
+         ["混合",["混合"]],["援助",["援助","侨汇"]],["战争经济",["战争经济","战时"]],
+         ["转型",["转型"]],["发达资本",["发达资本"]]]
+};
+function tipFor(kind, text){
+  var arr = TIP_ORDER[kind];
+  if(!text || !arr) return null;
+  for(var i=0;i<arr.length;i++){
+    var key=arr[i][0], als=arr[i][1];
+    if(!TIPS[key]) continue;
+    for(var j=0;j<als.length;j++){ if(text.indexOf(als[j])>=0) return TIPS[key]; }
+  }
+  return null;
+}
+function tipDD(label, kind, val){
+  var v = val || "—";
+  var tip = tipFor(kind, val);
+  return "<dt>"+label+"</dt><dd>"+
+    (tip ? '<span class="tip" data-tip="'+esc(tip)+'">'+esc(v)+'<i class="tip-q">?</i></span>' : esc(v))+
+    "</dd>";
+}
+
+/* ---------- 地图着色 ---------- */
+function buildRegions(){
+  var regions = [];
+  var geoNames = Object.keys(N2I);
+  geoNames.forEach(function(eng){
+    var iso = N2I[eng];
+    /* 填色已并入合成层(worldCv), 这里只保留矢量国界线(任意缩放都锋利)与国名标签;
+       每个国家输出三联(原名/#W/#E), 让左右两个环绕副本也有边框和国名 */
+    var border = BASE_BORDER, bw = 0.6;
+    if (iso==="ATA" || iso==="ATF") border = "rgba(198,205,210,.12)";
+    if (state.sel===iso){ border=SEL_BORDER; bw=1.8; }
+    var style = {areaColor:"rgba(0,0,0,0)", borderColor:border, borderWidth:bw};
+    var lbl = null;
+    if (state.mode==="default" && DB[iso]){
+      var tier = DB[iso].tier, lm = LBL_META[iso];
+      if (tier==="M" || (tier==="F" && lm && lm.area>=55)){
+        lbl = {show:true, rotate: lm?lm.deg:0, fontSize: lm?lblSize(lm.area):9};
+      }
+    }
+    function mk(nm){
+      var r = {name:nm, itemStyle:style};
+      if(lbl) r.label = lbl;
+      return r;
+    }
+    regions.push(mk(eng));
+    regions.push(mk(eng+"#W"));
+    regions.push(mk(eng+"#E"));
+  });
+  return regions;
+}
+function newsMarkers(){
+  var pts = [];
+  Object.keys(DB).forEach(function(iso){
+    var n = newsOf(iso).length; if(!n) return;
+    var cap = DB[iso].cap; if(!cap) return;
+    for(var k=-1;k<=1;k++){   // 三联世界, 每个副本各打一个点
+      pts.push({name:cname(iso), value:[cap.lon + k*360, cap.lat, n], iso:iso,
+        itemStyle:{color: state.sel===iso ? "#e3c565" : "#cfc6a2"}});
+    }
+  });
+  return pts;
+}
+function marketMarkers(){
+  if(state.mode!=="markets" || !DATA.markets || !DATA.markets.length) return [];
+  var byCity = {};
+  DATA.markets.forEach(function(m){ (byCity[m.city]=byCity[m.city]||[]).push(m); });
+  var out = [];
+  DATA.markets.forEach(function(m){
+    var grp = byCity[m.city];
+    var idx = grp.indexOf(m);
+    var off = (idx - (grp.length-1)/2) * 20;  // 同城多指数纵向错开(纽约三大指数)
+    var up = m.chg >= 0;
+    for(var k=-1;k<=1;k++){
+      out.push({name:m.name, value:[m.lon + k*360, m.lat], m:m,
+        label:{offset:[0, off - 12], color: up ? "#d98a7a" : "#8ac79f",
+               borderColor: up ? "rgba(194,90,74,.6)" : "rgba(79,168,117,.6)"},
+        itemStyle:{color: up ? "#c25a4a" : "#4fa875",
+                   shadowBlur:10, shadowColor: up ? "rgba(194,90,74,.6)" : "rgba(79,168,117,.6)"}});
+    }
+  });
+  return out;
+}
+function renderMap(){
+  if(!chart) return;
+  chart.setOption({
+    geo:{ regions: buildRegions() },
+    series:[{id:"worldpaint", data:[[COMPOSITE_SEQ,0]]},{id:"markers", data: newsMarkers()},{id:"mkts", data: marketMarkers()},{id:"conflbl", data: conflictMarkers()}]
+  });
+  renderLegend();
+}
+function renderLegend(){
+  var lg = document.getElementById("legend");
+  var html = "";
+  if (state.sel && DB[state.sel] && !DB[state.sel].news_only){
+    html = '<div class="lg-t">对 '+esc(cname(state.sel))+" 的关系</div>"+
+      ["ally","good","tense","war"].map(function(k){
+        return '<div class="lg-i"><i style="background:'+REL_COLOR[k]+'"></i>'+REL_NAME[k]+"</div>"}).join("");
+  } else if (state.mode==="ideo"){
+    html = '<div class="lg-t">意识形态</div>'+Object.keys(CLS_NAME).map(function(k){
+      return '<div class="lg-i"><i style="background:'+CLS_COLOR[k]+'"></i>'+CLS_NAME[k]+"</div>"}).join("");
+  } else if (state.mode==="alliance"){
+    html = '<div class="lg-t">联盟 · 点击筛选</div>'+AL_PRIORITY.map(function(a){
+      var on = state.selAlliance===a;
+      return '<div class="lg-i lnk'+(on?' on':'')+'" data-al="'+esc(a)+'"><i style="background:'+(AL_COLOR[a]||"#8a7340")+'"></i>'+esc(a)+"</div>"}).join("")+
+      '<div class="lg-i" style="color:var(--faint);font-size:10px;margin-top:3px">选中高亮成员国, 再点取消</div>';
+  } else if (state.mode==="temp"){
+    html = '<div class="lg-t">当前气温 ℃</div>'+
+      '<div class="lg-i"><i style="background:#3a6a8a"></i>&le;0</div>'+
+      '<div class="lg-i"><i style="background:#4e8073"></i>10</div>'+
+      '<div class="lg-i"><i style="background:#a8873a"></i>20</div>'+
+      '<div class="lg-i"><i style="background:#9e5a38"></i>30</div>'+
+      '<div class="lg-i"><i style="background:#9e3d32"></i>&ge;40</div>'+
+      '<div class="lg-i"><i style="background:#12171d"></i>无数据</div>'+
+      '<div class="lg-i" style="color:var(--faint);font-size:10px;margin-top:3px">中美印等13国细分到省/州(约值)</div>';
+  } else if (state.mode==="gdp" || state.mode==="gdppc" || state.mode==="power"){
+    var tiers = state.mode==="gdp" ?
+      [["&lt;500亿",3e10],["0.05–0.2万亿",1e11],["0.2–1万亿",4.5e11],["1–5万亿",2.2e12],["5–15万亿",8.5e12],["&ge;15万亿",2e13]] :
+      state.mode==="gdppc" ?
+      [["&lt;1千",600],["1–3千",2000],["3–8千",5500],["0.8–1.5万",11000],["1.5–4万",25000],["&ge;4万",55000]] :
+      [["&lt;1",0.5],["1–10",5],["10–100",50],["100–500",300],["500–2000",1000],["2000–6000",4000],["&ge;6000",9000]];
+    var cf = state.mode==="gdp" ? gdpColor : state.mode==="gdppc" ? gdppcColor : powerColor;
+    var ttl = state.mode==="gdp" ? "GDP 总量 · 美元(世行2024)" :
+              state.mode==="gdppc" ? "人均 GDP · 美元(世行2024)" : "年发电量 · TWh(模拟夜视)";
+    html = '<div class="lg-t">'+ttl+'</div>'+tiers.map(function(t){
+      return '<div class="lg-i"><i style="background:'+cf(t[1])+'"></i>'+t[0]+'</div>'}).join("")+
+      '<div class="lg-i"><i style="background:#12171d"></i>无数据</div>'+
+      (state.mode==="gdppc" ? '<div class="lg-i" style="color:var(--faint);font-size:10px;margin-top:3px">中美印等13国细分到省/州(约值)</div>' : "");
+  } else if (state.mode==="markets"){
+    html = '<div class="lg-t">汇率 · 主要货币</div>'+(DATA.fx||[]).map(function(f){
+      var up = f.chg >= 0;
+      return '<div class="lg-i">'+esc(f.pair)+
+        '<b style="margin-left:auto;font-family:var(--mono);font-weight:400;color:'+(up?"#d98a7a":"#8ac79f")+'">'+
+        f.rate+' '+(up?"▲":"▼")+Math.abs(f.chg).toFixed(2)+'%</b></div>';
+    }).join("")+
+    '<div class="lg-i" style="color:var(--faint);font-size:10px;margin-top:3px">日涨跌 · 红涨绿跌 · 每日随嗅探更新</div>';
+  }
+  lg.innerHTML = html;
+  lg.classList.toggle("show", !!html);
+}
+
+/* ---------- 侧栏 ---------- */
+/* 派系色: 精确命中用定色; "意识形态-派系" 自动取母色并按后缀做稳定明暗偏移, 同族各派可辨 */
+function pieColor(name){
+  if(PIE_COLOR[name]) return PIE_COLOR[name];
+  var base = String(name).split("-")[0];
+  var col = PIE_COLOR[base];
+  if(!col) return "#5f5f66";
+  var suf = String(name).slice(base.length), h = 0;
+  for(var i=0;i<suf.length;i++) h = (h*131 + suf.charCodeAt(i)) >>> 0;
+  var f = 0.72 + (h % 5) * 0.14;  /* 0.72~1.28 明暗梯度 */
+  return shadeHex(col, f);
+}
+function shadeHex(hex, f){
+  var r = Math.min(255, Math.round(parseInt(hex.slice(1,3),16)*f));
+  var g = Math.min(255, Math.round(parseInt(hex.slice(3,5),16)*f));
+  var b = Math.min(255, Math.round(parseInt(hex.slice(5,7),16)*f));
+  return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+}
+/* ISO3 → emoji 国旗(GEO_ISO2 全表, data.js 生成) */
+function flagEmoji(iso){
+  var c = (window.GEO_ISO2||{})[iso];
+  if(!c || c.length!==2) return "🏳";
+  return String.fromCodePoint(127462 + c.charCodeAt(0) - 97, 127462 + c.charCodeAt(1) - 97);
+}
+function pieSVG(pie){
+  var total = pie.reduce(function(s,p){return s+p[1]},0) || 1;
+  var cx=40, cy=40, r=34, ir=20, a0=-Math.PI/2, paths="";
+  pie.forEach(function(p){
+    var frac = p[1]/total, a1 = a0 + frac*Math.PI*2;
+    var large = frac>0.5?1:0;
+    var x0=cx+r*Math.cos(a0), y0=cy+r*Math.sin(a0), x1=cx+r*Math.cos(a1), y1=cy+r*Math.sin(a1);
+    var xi1=cx+ir*Math.cos(a1), yi1=cy+ir*Math.sin(a1), xi0=cx+ir*Math.cos(a0), yi0=cy+ir*Math.sin(a0);
+    var col = pieColor(p[0]);
+    paths += '<path d="M'+x0.toFixed(1)+" "+y0.toFixed(1)+" A"+r+" "+r+" 0 "+large+" 1 "+x1.toFixed(1)+" "+y1.toFixed(1)+
+      " L"+xi1.toFixed(1)+" "+yi1.toFixed(1)+" A"+ir+" "+ir+" 0 "+large+" 0 "+xi0.toFixed(1)+" "+yi0.toFixed(1)+
+      ' Z" fill="'+col+'" stroke="#0b0f14" stroke-width="1"/>';
+    a0 = a1;
+  });
+  return '<svg width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">'+paths+"</svg>";
+}
+
+/* 政局 · 议会半圆扇形图 */
+function hemiSVG(groups, total){
+  var W=240, H=132, cx=W/2, cy=H-8;
+  var rows = total<=110?4 : total<=260?5 : total<=600?7 : 10;
+  var R=Math.min(cx-8, cy-4), rIn=R*0.40;
+  var radii=[], lens=[], sum=0, i, j;
+  for(i=0;i<rows;i++){var r=rows===1?R:rIn+i*(R-rIn)/(rows-1);radii.push(r);var L=Math.PI*r;lens.push(L);sum+=L;}
+  var raw=lens.map(function(L){return L/sum*total});
+  var counts=raw.map(function(v){return Math.floor(v)});
+  var rem=total-counts.reduce(function(a,b){return a+b},0);
+  var frac=raw.map(function(v,ix){return [v-Math.floor(v),ix]}).sort(function(a,b){return b[0]-a[0]});
+  for(i=0;i<rem;i++) counts[frac[i][1]]++;
+  var dots="", gi=0, used=0;
+  for(i=0;i<rows;i++){
+    var n=counts[i]; if(!n) continue;
+    var rr=radii[i];
+    var dr=Math.max(0.8, Math.min(Math.PI*rr/n*0.34, (rows>1?(R-rIn)/(rows-1):R)*0.38, 3.4));
+    for(j=0;j<n;j++){
+      var a=Math.PI+(j+0.5)*(Math.PI/n);
+      var x=cx+rr*Math.cos(a), y=cy+rr*Math.sin(a);
+      while(gi<groups.length-1 && used>=groups[gi][1]){gi++;used=0;}
+      var col=groups[gi]?groups[gi][2]:"#3a3d42";
+      used++;
+      dots+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+dr.toFixed(1)+'" fill="'+col+'"/>';
+    }
+  }
+  return '<svg class="parl-svg" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">'+dots+'</svg>';
+}
+function parlHTML(p){
+  if(!p) return "";
+  function tot(g){return g.reduce(function(s,x){return s+x[1]},0)}
+  function lg(g){return '<div class="parl-lg">'+g.map(function(x){
+    return '<div class="pi"><i style="background:'+x[2]+'"></i>'+esc(x[0])+'<b>'+x[1]+'</b></div>'}).join("")+'</div>'}
+  var h='<section class="sec" data-kimi-priority="p1"><div class="sec-t">政局 · 权力格局</div>';
+  if(p.type==="us"){
+    var mg={}, order=[];
+    p.senate.groups.concat(p.house.groups).forEach(function(x){
+      if(!mg[x[0]]){mg[x[0]]=[x[0],0,x[2]];order.push(x[0]);}
+      mg[x[0]][1]+=x[1];
+    });
+    var merged=order.map(function(k){return mg[k]});
+    h+='<div class="parl-us"><div class="pu"><div class="pu-t">'+esc(p.senate.name)+'</div>'+hemiSVG(p.senate.groups,tot(p.senate.groups))+'</div>'+
+       '<div class="pu"><div class="pu-t">'+esc(p.house.name)+'</div>'+hemiSVG(p.house.groups,tot(p.house.groups))+'</div></div>'+
+       lg(merged)+'<div class="parl-note">席位为参众两院合计 · '+esc(p.year||"")+'</div>';
+  } else {
+    h+='<div class="parl-one"><div class="pu-t">'+esc(p.name||"议会")+' · '+(p.total||tot(p.groups))+' 席'+(p.year?' · '+esc(p.year):'')+'</div>'+
+       hemiSVG(p.groups,p.total||tot(p.groups))+'</div>'+lg(p.groups);
+  }
+  if(p.note) h+='<div class="parl-note">'+esc(p.note)+'</div>';
+  return h+'</section>';
+}
+
+/* 新闻 · 可展开列表 */
+function newsHTML(iso, always){
+  var items = newsOf(iso);
+  if(!items.length && !always) return "";
+  var h = '<section class="sec" data-kimi-priority="p1"><div class="sec-t">今日情报 · INTEL</div>';
+  if(!items.length){ h += '<div class="news-empty">// 今日暂无重大新闻</div>'; }
+  else {
+    h += '<ul id="news-list">'+items.map(function(it,ix){
+      var t = it.t || it.title || "";
+      var sum = it.s || "";
+      var src = it.src || it.source || "WIRE";
+      var pub = it.pub || it.published || "";
+      var canX = !!(sum || it.img);
+      return '<li data-ix="'+ix+'"'+(canX?' class="xp"':'')+'>'+
+        '<div class="n-meta"><span class="n-src">'+esc(src)+'</span><span>'+esc(fmtTime(pub))+'</span></div>'+
+        '<div class="n-head">'+
+          ((!canX && it.url)
+            ? '<a class="n-t" href="'+esc(it.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t)+'</a>'
+            : '<span class="n-t">'+esc(t)+'</span>')+
+          (canX?'<span class="n-caret">▸</span>':'')+
+        '</div>'+
+        (canX ? '<div class="n-detail"><div class="n-body">'+
+          (sum?'<div class="n-sum">'+esc(sum)+'</div>':'')+
+          (it.t0 && it.t0!==t ? '<div class="n-orig">'+esc(it.t0)+'</div>':'')+
+          (it.url?'<a class="n-link" href="'+esc(it.url)+'" target="_blank" rel="noopener noreferrer">阅读原文 →</a>':'')+
+          '</div>'+(it.img?'<img class="n-img" src="'+esc(it.img)+'" loading="lazy" alt="">':'')+'</div>' : '')+
+        "</li>";
+    }).join("")+"</ul>";
+  }
+  return h+"</section>";
+}
+function openSidebar(iso){
+  var c = DB[iso];
+  var name = cname(iso);
+  document.getElementById("sb-name").textContent = name;
+  document.getElementById("sb-sub").textContent = iso + " // " + ((window.GEO_ISO2NAME||{})[iso]||"");
+  var body = document.getElementById("sb-body"), h = "";
+  if (c && c.news_only){
+    h += '<div class="twn-note">本区域仅提供新闻情报，不展示政治档案。</div>';
+    h += newsHTML(iso, true);
+  } else if (!c){
+    h += '<div class="twn-note">该国档案暂未收录，月度核对任务将逐步补全。</div>';
+    h += newsHTML(iso, newsOf(iso).length>0);
+  } else {
+    var L = c.leader||{};
+    h += '<div class="leader" data-kimi-priority="p0">'+
+      (L.photo ? '<div class="ph" style="background-image:url(\''+esc(L.photo)+'\')" role="img" aria-label="'+esc(L.n)+' 头像"></div>'
+               : '<div class="ph fallback">◆</div>')+
+      '<div class="who"><div class="nm">'+esc(L.n||"—")+'</div>'+
+      '<div class="tt">'+esc(L.t||"")+(c.party?' · '+esc(c.party):"")+'</div>'+
+      '<div class="sn">在位自 '+(L.since||"—")+"</div></div></div>";
+    if (c.pie && c.pie.length){
+      h += '<section class="sec" data-kimi-priority="p1"><div class="sec-t">意识形态构成</div><div class="pie-row">'+pieSVG(c.pie)+
+        '<div class="pie-lg">'+c.pie.map(function(p){
+          return '<div class="pi"><i style="background:'+pieColor(p[0])+'"></i>'+esc(p[0])+(TRD_MARK[p[2]]||"")+"<b>"+p[1]+"%</b></div>"}).join("")+
+        '</div></div><div class="pie-note">趋势: <span class="trd u">▲▲</span>大幅上升 <span class="trd u">▲</span>小幅上升 <span class="trd f">●</span>持平 <span class="trd d">▼</span>下降 <span class="trd d">▼▼</span>大幅下降<br>※ 基于执政党意识形态与政治结构的定性评估，非民调数据</div></section>';
+    }
+    if (c.parl){
+      h += parlHTML(c.parl);
+    }
+    h += '<section class="sec" data-kimi-priority="p1"><div class="sec-t">体制档案</div><dl class="kv">'+
+      tipDD("政治体制","gov",c.gov)+
+      tipDD("经济制度","econ",c.econ)+
+      "<dt>选举周期</dt><dd>"+esc(c.elec||"—")+"</dd></dl></section>";
+    if (c.al && c.al.length){
+      h += '<section class="sec" data-kimi-priority="p2"><div class="sec-t">参与联盟</div><div class="chips">'+
+        c.al.map(function(a){return '<span class="chip hot">'+esc(a)+"</span>"}).join("")+"</div></section>";
+    }
+    var relOut = relOfSelected(iso) || {ally:{},good:{},tense:{},war:{}};
+    var relCounts = [["ally","同盟"],["good","友好"],["tense","紧张"],["war","交战"]].map(function(k){
+      var isos = Object.keys(relOut[k[0]]);
+      if(!isos.length) return "";
+      var pop = isos.map(function(b){
+        return '<span class="rs-c">'+flagEmoji(b)+esc(cname(b))+"</span>";
+      }).join("");
+      return '<span class="rs '+k[0][0]+'" tabindex="0">'+k[1]+"<b>"+isos.length+"</b>"+
+        '<span class="rs-pop">'+pop+"</span></span>";
+    }).join("");
+    if (relCounts) h += '<section class="sec" data-kimi-priority="p2"><div class="sec-t">对外关系</div><div class="rel-sum">'+relCounts+"</div></section>";
+    h += newsHTML(iso, c.tier==="M");
+  }
+  body.innerHTML = h;
+  body.scrollTop = 0;
+  document.getElementById("sidebar").classList.add("open");
+}
+function closeSidebar(){
+  document.getElementById("sidebar").classList.remove("open");
+  state.sel = null; repaintWorld(); renderMap();
+}
+function selectCountry(iso){
+  state.sel = iso;
+  repaintWorld();
+  renderMap();
+  openSidebar(iso);
+}
+
+/* ---------- 情报流 ---------- */
+function renderTicker(){
+  var tr = document.getElementById("tk-track");
+  var items = DATA.global || [];
+  if(!items.length){
+    tr.innerHTML = '<span class="tk-i">// 情报嗅探器待启动 —— 首次运行后此处滚动全球头条</span>';
+    tr.style.animation = "none"; return;
+  }
+  var one = items.map(function(it){
+    return '<span class="tk-i" data-u="'+esc(it.url||"")+'"><span class="tk-src">['+esc(it.src||it.source||"WIRE")+']</span> '+esc(it.t||it.title||"")+"</span>";
+  }).join('<span class="tk-i" style="color:#7d6a35">◆</span>');
+  tr.innerHTML = one + '<span class="tk-i" style="color:#7d6a35">◆</span>' + one + '<span class="tk-i" style="color:#7d6a35">◆</span>';
+  tr.style.animation = "";
+}
+/* ---------- 外链打开: 宿主沙盒拦截时兜底复制并提示 ---------- */
+var _toastT = null;
+function toast(msg){
+  var t = document.getElementById("geo-toast");
+  if(!t){ t = document.createElement("div"); t.id = "geo-toast"; document.body.appendChild(t); }
+  t.textContent = msg; t.classList.add("on");
+  if(_toastT) clearTimeout(_toastT);
+  _toastT = setTimeout(function(){ t.classList.remove("on"); }, 3600);
+}
+function openExt(u){
+  if(!u) return;
+  try{ var w = window.open(u, "_blank", "noopener"); if(w) return; }catch(e){}
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(u);
+      toast("宿主环境拦截了外跳 · 链接已复制, 粘贴到浏览器打开");
+      return;
+    }
+  }catch(e){}
+  toast("宿主环境拦截了外跳 · 请手动复制: " + u);
+}
+document.getElementById("tk-track").addEventListener("click", function(e){
+  var el = e.target.closest(".tk-i");
+  if(el && el.dataset.u) openExt(el.dataset.u);
+});
+
+/* ---------- 数据 ---------- */
+function applyData(d){
+  var m = (d && d.main) || {};
+  DATA.news = m.news || {}; DATA.global = m.global || [];
+  DATA.markets = m.markets || []; DATA.fx = m.fx || [];
+  DATA.focus = m.focus || []; DATA.temps = m.temps || {}; DATA.temps_sub = m.temps_sub || {};
+  DATA.generated_at = m.generated_at || null;
+  var st = document.getElementById("newsstamp");
+  if (DATA.generated_at){
+    st.innerHTML = '嗅探 <b class="live">LIVE</b> · ' + esc(fmtTime(DATA.generated_at));
+  } else {
+    st.innerHTML = '嗅探器 <b class="stale">待机</b>';
+  }
+  renderTicker(); repaintWorld(); renderMap();
+  var sel = state.sel; if (sel) openSidebar(sel);
+}
+
+/* ---------- 单图层合成引擎: 地形 + 政治色 + 水体镂空 → worldCv ----------
+   地形山脉/河流/海洋与政治色块在同一张离屏画布上合成, 由 custom 系列
+   按经纬度坐标画进 ECharts 同一坐标系 —— 结构上与矢量图不可分离 */
+var W0 = 4096, H0 = 2048;
+var HAS_2D = (typeof Path2D !== "undefined") && !!(document.createElement);
+var worldCv = null, worldCx = null, terrainImg = null, terrainOK = false;
+var FEAT_PATH = {}, WATER_PATH = {lakes:[], rivers:[]}, COMPOSITE_SEQ = 0;
+var SUB_PATH = {};  // {ISO3: {地区名: Path2D}} 省级边界(人均GDP视图用)
+var GEO_CX = 0, GEO_CY = -3, GEO_SX = 270, GEO_SY = 174;  // geojson 包围盒(视图单位), buildFeaturePaths 实测覆盖
+function wxy(lon, lat){ return [(lon+180)/360*W0, (90-lat)/180*H0]; }
+/* geojson 多边形 → Path2D(合成像素坐标, 静态缓存; 跨日界线段抬笔防拉穿) */
+function polyPath(geom){
+  var p = new Path2D();
+  var polys = geom.type==="Polygon" ? [geom.coordinates] : (geom.type==="MultiPolygon" ? geom.coordinates : []);
+  for(var i=0;i<polys.length;i++){
+    for(var j=0;j<polys[i].length;j++){
+      var ring = polys[i][j], prev = null;
+      for(var k=0;k<ring.length;k++){
+        var pt = wxy(ring[k][0], ring[k][1]);
+        if(prev && Math.abs(ring[k][0]-prev)>180) p.moveTo(pt[0], pt[1]);
+        else if(k===0) p.moveTo(pt[0], pt[1]);
+        else p.lineTo(pt[0], pt[1]);
+        prev = ring[k][0];
+      }
+      p.closePath();
+    }
+  }
+  return p;
+}
+function buildSubPaths(){
+  if(!HAS_2D || !window.SUB_GEOJSON) return;
+  (window.SUB_GEOJSON.features||[]).forEach(function(f){
+    var p = f.properties || {}, nm = p.name, iso = p.p;
+    if(nm && iso && f.geometry){
+      (SUB_PATH[iso] = SUB_PATH[iso] || {})[nm] = polyPath(f.geometry);
+    }
+  });
+}
+/* ---------- 战争图层: 占区/活跃区(纹理填充) + 前线(虚线) ---------- */
+var CONF_ZONE = [], CONF_FRONT = [], PATC = {};
+function zoneColor(c, z){
+  if(z.kind==="contested" || z.side==="contested") return "#a63d2e";
+  return (c.colors && c.colors[z.side]) || "#8a2b2b";
+}
+function buildConflictPaths(){
+  CONF_ZONE = []; CONF_FRONT = [];
+  if(!HAS_2D) return;
+  (CONFLICT.conflicts||[]).forEach(function(c){
+    (c.zones||[]).forEach(function(z){
+      if(z.geom) CONF_ZONE.push({path: polyPath(z.geom), color: zoneColor(c,z), kind: z.kind||"occ"});
+    });
+    (c.front||[]).forEach(function(f){ CONF_FRONT.push(linePath(f)); });
+  });
+}
+/* 斜纹(占领)/点纹(活跃)/交叉纹(争夺): 与国家平色区分开, 一眼读出"武装控制" */
+function zonePattern(col, kind){
+  var key = col+"|"+kind;
+  if(PATC[key]) return PATC[key];
+  var cv = document.createElement("canvas"); cv.width = cv.height = 8;
+  var g = cv.getContext("2d");
+  if(kind==="active"){
+    g.fillStyle = col; g.globalAlpha = 0.85;
+    g.fillRect(1,1,2.2,2.2); g.fillRect(5,5,2.2,2.2);
+  } else {
+    g.strokeStyle = col; g.globalAlpha = 0.85; g.lineWidth = 1.5;
+    g.beginPath(); g.moveTo(-2,10); g.lineTo(10,-2); g.moveTo(-2,2); g.lineTo(2,-2); g.moveTo(6,10); g.lineTo(10,6); g.stroke();
+    if(kind==="contested"){
+      g.beginPath(); g.moveTo(-2,-2); g.lineTo(10,10); g.moveTo(6,-2); g.lineTo(10,2); g.moveTo(-2,6); g.lineTo(2,10); g.stroke();
+    }
+  }
+  var p = worldCx ? worldCx.createPattern(cv, "repeat") : null;
+  PATC[key] = p;
+  return p;
+}
+function drawConflictLayer(){
+  if(!CONF_ZONE.length && !CONF_FRONT.length) return;
+  for(var i=0;i<CONF_ZONE.length;i++){
+    var z = CONF_ZONE[i];
+    worldCx.fillStyle = alpha(z.color, z.kind==="active"?0.16:0.26);
+    worldCx.fill(z.path, "evenodd");
+    var pat = zonePattern(z.color, z.kind);
+    if(pat){ worldCx.fillStyle = pat; worldCx.fill(z.path, "evenodd"); }
+    worldCx.strokeStyle = alpha(z.color, 0.85);
+    worldCx.lineWidth = 1.1;
+    worldCx.stroke(z.path);
+  }
+  if(CONF_FRONT.length){
+    worldCx.save();
+    worldCx.setLineDash([7,5]);
+    worldCx.strokeStyle = "rgba(10,12,15,.8)"; worldCx.lineWidth = 3.4; worldCx.lineCap = "round";
+    for(var j=0;j<CONF_FRONT.length;j++) worldCx.stroke(CONF_FRONT[j]);
+    worldCx.strokeStyle = "rgba(232,224,200,.92)"; worldCx.lineWidth = 1.6;
+    for(var k=0;k<CONF_FRONT.length;k++) worldCx.stroke(CONF_FRONT[k]);
+    worldCx.restore();
+  }
+}
+/* 占区标签(俄占区/RSF控制区/前线活跃区…): 屏幕定级小字, 三联世界各一份 */
+function conflictMarkers(){
+  if(state.mode!=="default") return [];
+  var out = [];
+  (CONFLICT.conflicts||[]).forEach(function(c){
+    (c.zones||[]).forEach(function(z){
+      if(!z.label || !z.at) return;
+      var col = zoneColor(c, z);
+      for(var k=-1;k<=1;k++){
+        out.push({name:z.label, value:[z.at[0]+k*360, z.at[1]],
+          label:{borderColor:alpha(col,.75)},
+          itemStyle:{color:col, shadowBlur:6, shadowColor:alpha(col,.6)}});
+      }
+    });
+  });
+  return out;
+}
+function linePath(geom){
+  var p = new Path2D();
+  var lines = geom.type==="LineString" ? [geom.coordinates] : (geom.type==="MultiLineString" ? geom.coordinates : []);
+  for(var i=0;i<lines.length;i++){
+    var prev = null;
+    for(var k=0;k<lines[i].length;k++){
+      var pt = wxy(lines[i][k][0], lines[i][k][1]);
+      if(k===0 || (prev!=null && Math.abs(lines[i][k][0]-prev)>180)) p.moveTo(pt[0], pt[1]);
+      else p.lineTo(pt[0], pt[1]);
+      prev = lines[i][k][0];
+    }
+  }
+  return p;
+}
+function buildFeaturePaths(){
+  if(!HAS_2D || !window.WORLD_GEOJSON) return;
+  var x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+  (window.WORLD_GEOJSON.features||[]).forEach(function(f){
+    var nm = f.properties && f.properties.name;
+    if(nm && f.geometry) FEAT_PATH[nm] = polyPath(f.geometry);
+    // 顺便算 geojson 经纬度包围盒(视图单位常量, 供平移钳制)
+    var polys = f.geometry.type==="Polygon" ? [f.geometry.coordinates] : (f.geometry.type==="MultiPolygon" ? f.geometry.coordinates : []);
+    for(var i=0;i<polys.length;i++) for(var j=0;j<polys[i].length;j++) for(var k=0;k<polys[i][j].length;k++){
+      var c = polys[i][j][k];
+      if(c[0]<x0)x0=c[0]; if(c[0]>x1)x1=c[0];
+      if(c[1]<y0)y0=c[1]; if(c[1]>y1)y1=c[1];
+    }
+  });
+  if(x1>x0){ GEO_CX=(x0+x1)/2*0.75; GEO_CY=(y0+y1)/2; GEO_SX=(x1-x0)*0.75; GEO_SY=(y1-y0); }
+  var W = window.WORLD_WATER || {};
+  (W.lakes||[]).forEach(function(f){ if(f.geometry) WATER_PATH.lakes.push(polyPath(f.geometry)); });
+  (W.rivers||[]).forEach(function(f){ if(f.geometry) WATER_PATH.rivers.push(linePath(f.geometry)); });
+}
+/* 当前状态(模式/选中/数据)下某国的政治色 —— 纯逻辑, 供合成与测试共用 */
+function fillColorOf(iso){
+  var rel = state.sel && DB[state.sel] ? relOfSelected(state.sel) : null;
+  if (state.mode==="ideo"){
+    var c = DB[iso]; return c && c.cls ? (CLS_COLOR[c.cls]||BASE_FILL) : BASE_FILL;
+  }
+  if (state.mode==="alliance"){
+    if(!state.selAlliance) return ALL_GRAY;
+    var c2 = DB[iso];
+    return (c2 && (c2.al||[]).indexOf(state.selAlliance)>=0) ? (AL_COLOR[state.selAlliance]||"#8a7340") : ALL_GRAY;
+  }
+  if (state.mode==="temp") return tempColor(DATA.temps ? DATA.temps[iso] : null);
+  if (state.mode==="gdp") return gdpColor(ECON.gdp ? ECON.gdp[iso] : null);
+  if (state.mode==="gdppc") return gdppcColor(ECON.gdppc ? ECON.gdppc[iso] : null);
+  if (state.mode==="power") return powerColor(ECON.power ? ECON.power[iso] : null);
+  if (iso==="ATA" || iso==="ATF") return "#0c1015";
+  if (rel){
+    if(rel.war[iso]) return REL_COLOR.war;
+    if(rel.tense[iso]) return REL_COLOR.tense;
+    if(rel.good[iso]) return REL_COLOR.good;
+    if(rel.ally[iso]) return REL_COLOR.ally;
+    if(state.sel!==iso) return DIM_FILL;
+  }
+  var f = baseFill(iso);
+  if (newsOf(iso).length) f = lift(f, 0.16);
+  return f;
+}
+function tintAlpha(iso, col){
+  if(col===ALL_GRAY) return 0.82;
+  if(col===DIM_FILL || col===BASE_FILL) return 0.82;  // 压暗/无数据: 盖实一点
+  if(iso==="ATA"||iso==="ATF") return 0.85;
+  var R = REL_COLOR;
+  if(col===R.war||col===R.tense||col===R.good||col===R.ally) return 0.72;  // 关系色要醒目
+  return 0.62;  // 常态: 政治色为主, 地形褶皱透在色块里
+}
+function repaintWorld(){
+  if(!worldCx) return;
+  worldCx.clearRect(0,0,W0,H0);
+  if(state.mode==="power"){  /* 电力·夜视: 黑海无地形, 国家亮度+首都光晕 */
+    worldCx.fillStyle = "#04060a"; worldCx.fillRect(0,0,W0,H0);
+    var gN = Object.keys(N2I);
+    for(var pi=0;pi<gN.length;pi++){
+      var pp = FEAT_PATH[gN[pi]]; if(!pp) continue;
+      var pc = powerColor(ECON.power ? ECON.power[N2I[gN[pi]]] : null);
+      worldCx.fillStyle = alpha(pc, 0.95);
+      worldCx.fill(pp, "evenodd");
+    }
+    if(HAS_2D) for(var iso in DB){
+      var cap = DB[iso] && DB[iso].cap, v = ECON.power ? ECON.power[iso] : null;
+      if(!cap || !v) continue;
+      var xy = wxy(cap.lon, cap.lat);
+      var r = 7 + 30*Math.sqrt(Math.min(v,11000)/11000);
+      var g = worldCx.createRadialGradient(xy[0],xy[1],0, xy[0],xy[1],r);
+      var glow = Math.min(0.85, 0.25 + 0.6*Math.sqrt(Math.min(v,11000)/11000));
+      g.addColorStop(0, "rgba(255,214,120,"+glow.toFixed(3)+")");
+      g.addColorStop(0.55, "rgba(255,190,80,"+(glow*0.35).toFixed(3)+")");
+      g.addColorStop(1, "rgba(255,180,60,0)");
+      worldCx.fillStyle = g;
+      worldCx.beginPath(); worldCx.arc(xy[0],xy[1],r,0,6.2832); worldCx.fill();
+    }
+    COMPOSITE_SEQ++;
+    if(chart) chart.setOption({series:[{id:"worldpaint", data:[[COMPOSITE_SEQ,0]]}]});
+    return;
+  }
+  if(terrainOK) worldCx.drawImage(terrainImg, 0, 0, W0, H0);
+  else { worldCx.fillStyle = "#0a0d11"; worldCx.fillRect(0,0,W0,H0); }
+  var geoNames = Object.keys(N2I);
+  for(var i=0;i<geoNames.length;i++){
+    var path = FEAT_PATH[geoNames[i]];
+    if(!path) continue;
+    var iso = N2I[geoNames[i]];
+    var col = fillColorOf(iso);
+    worldCx.fillStyle = alpha(col, tintAlpha(iso, col));
+    worldCx.fill(path, "evenodd");
+  }
+  /* 态势视图: 战争占区/活跃区纹理 + 前线虚线(数据 conflict.js) */
+  if(state.mode==="default") drawConflictLayer();
+  /* 人均GDP视图: 13 个大国细涂到省/州(数据 econ.js sub, 边界 admin1.geo.js) */
+  if(state.mode==="gdppc"){
+    for(var sIso in SUB_PATH){
+      var regs = SUB_PATH[sIso], sData = ECON.sub ? ECON.sub[sIso] : null;
+      for(var sName in regs){
+        var sv = sData ? sData[sName] : null;
+        var scol = gdppcColor(sv!=null ? sv : (ECON.gdppc ? ECON.gdppc[sIso] : null));
+        worldCx.fillStyle = alpha(scol, 0.72);
+        worldCx.fill(regs[sName], "evenodd");
+        worldCx.strokeStyle = "rgba(205,210,214,.22)";
+        worldCx.lineWidth = 0.7;
+        worldCx.stroke(regs[sName]);
+      }
+    }
+  }
+  /* 气温视图: 同 13 国细涂到省/州(数据 live.js temps_sub, 缺失回退国家级气温) */
+  if(state.mode==="temp"){
+    for(var tIso in SUB_PATH){
+      var tregs = SUB_PATH[tIso], tSub = DATA.temps_sub ? DATA.temps_sub[tIso] : null;
+      var tBase = DATA.temps ? DATA.temps[tIso] : null;
+      for(var tName in tregs){
+        var tv = (tSub && tSub[tName]!=null) ? tSub[tName] : tBase;
+        var tcol = tempColor(tv);
+        worldCx.fillStyle = alpha(tcol, 0.72);
+        worldCx.fill(tregs[tName], "evenodd");
+        worldCx.strokeStyle = "rgba(205,210,214,.22)";
+        worldCx.lineWidth = 0.7;
+        worldCx.stroke(tregs[tName]);
+      }
+    }
+  }
+  /* 水体镂空: 用同源地形图案回填湖泊、描边河流 → 山河穿色块而过 */
+  if(terrainOK){
+    var pat = worldCx.createPattern(terrainImg, "no-repeat");
+    worldCx.fillStyle = pat;
+    for(var j=0;j<WATER_PATH.lakes.length;j++) worldCx.fill(WATER_PATH.lakes[j], "evenodd");
+    worldCx.strokeStyle = pat;
+    worldCx.lineWidth = 1.6; worldCx.lineCap = "round"; worldCx.lineJoin = "round";
+    for(var k=0;k<WATER_PATH.rivers.length;k++) worldCx.stroke(WATER_PATH.rivers[k]);
+  }
+  COMPOSITE_SEQ++;
+  if(chart) chart.setOption({series:[{id:"worldpaint", data:[[COMPOSITE_SEQ,0]]}]});
+}
+/* ---------- 漫游边界: 垂直瞬时钳制; 水平无限环绕(地球是圆的) ----------
+   地图数据为三联世界(-360°/0°/+360°), 视图中心越过 ±180° 时瞬间平移一个世界,
+   三份完全相同 → 跳变不可见; 缩放永远不低于铺满视口的尺度 */
+function worldRectPx(){
+  var p0 = chart.convertToPixel({geoIndex:0}, [-180, 90]);
+  var p1 = chart.convertToPixel({geoIndex:0}, [180, -90]);
+  return {x0:p0[0], y0:p0[1], x1:p1[0], y1:p1[1]};
+}
+/* 反解当前视图中心(视图单位): px = (GEO_C - c)*ppu + L */
+function viewCenterVU(){
+  var el = document.getElementById("map");
+  var W = el.clientWidth, H = el.clientHeight;
+  var r = worldRectPx();
+  var ppuX = (r.x1-r.x0)/GEO_SX, ppuY = (r.y1-r.y0)/GEO_SY;
+  var wcx = (r.x0+r.x1)/2, wcy = (r.y0+r.y1)/2;
+  return { x: GEO_CX - (wcx - W/2)/ppuX,
+           y: GEO_CY + (wcy - H*0.51)/ppuY,
+           ppuX: ppuX, ppuY: ppuY, r: r, W: W, H: H };
+}
+function clampRoam(){
+  if(!chart || !chart.getOption || !chart.convertToPixel) return;
+  var el = document.getElementById("map"); if(!el) return;
+  var W = el.clientWidth, H = el.clientHeight; if(!W || !H) return;
+  /* 1) 缩放下限 = 一个世界刚好铺满视口(动态算) */
+  var opt = chart.getOption();
+  var g0 = (opt.geo && opt.geo[0]) || {};
+  var z = g0.zoom || 1;
+  var r0 = worldRectPx();
+  var wPerZ = (r0.x1-r0.x0)/z, hPerZ = (r0.y1-r0.y0)/z;
+  if(!(wPerZ>0 && hPerZ>0)) return;
+  var need = Math.max(2.0, W/wPerZ, H/hPerZ);
+  var lim = g0.scaleLimit || {};
+  var upd = {};
+  if(Math.abs((lim.min||0)-need) > 0.02) upd.scaleLimit = {min:need, max:need*6.4};
+  if(z < need*0.99) upd.zoom = need;
+  if(upd.zoom || upd.scaleLimit) chart.setOption({geo:upd});
+  /* 2) 水平回绕: 中心经度越出 ±180°, 平移一个世界(270 视图单位) */
+  var v = viewCenterVU();
+  var centerLon = -180 + (v.W/2 - v.r.x0)/((v.r.x1-v.r.x0)/360);
+  if(centerLon > 180 || centerLon < -180){
+    chart.setOption({geo:{center:[v.x + (centerLon>180 ? -270 : 270), v.y]}});
+    v = viewCenterVU();
+  }
+  /* 3) 垂直钳制(瞬时): 世界南北边不许进入视口内侧 */
+  var h = v.r.y1 - v.r.y0, dy = 0;
+  if(h <= v.H){ dy = (v.H-h)/2 - v.r.y0; }
+  else if(v.r.y0 > 0){ dy = -v.r.y0; }
+  else if(v.r.y1 < v.H){ dy = v.H - v.r.y1; }
+  if(dy) chart.setOption({geo:{center:[v.x, v.y + dy/v.ppuY]}});
+}
+/* ---------- 三联世界: 复制三份 geojson(-360°/0°/+360°), 供水平环绕 ---------- */
+function shiftCoords(c, dx){
+  if(typeof c[0]==="number") return [c[0]+dx, c[1]];
+  var out = [];
+  for(var i=0;i<c.length;i++) out.push(shiftCoords(c[i], dx));
+  return out;
+}
+function world3x(){
+  var feats = (window.WORLD_GEOJSON||{}).features || [];
+  var out = {type:"FeatureCollection", features:[]};
+  for(var k=-1;k<=1;k++){
+    feats.forEach(function(f){
+      /* 副本必须改名(name 是 echarts 的主键, 重名会被去重导致包围盒算错);
+         中间副本保留原名, 左 #W 右 #E, 查资料库时按 # 截断还原 */
+      var props = {};
+      if(f.properties) for(var key in f.properties) props[key] = f.properties[key];
+      if(k!==0 && props.name) props.name = props.name + (k<0 ? "#W" : "#E");
+      out.features.push({type:"Feature", properties:props,
+        geometry: f.geometry ? {type:f.geometry.type, coordinates:shiftCoords(f.geometry.coordinates, k*360)} : null});
+    });
+  }
+  return out;
+}
+/* geojson 要素名(可能带 #W/#E 副本后缀) → ISO3 */
+function isoOfName(nm){
+  if(!nm) return null;
+  var h = nm.indexOf("#");
+  return N2I[h>=0 ? nm.slice(0,h) : nm] || null;
+}
+/* ---------- 初始化地图 ---------- */
+function initMap(){
+  if (chart || !window.echarts || !window.WORLD_GEOJSON) return;
+  echarts.registerMap("world", world3x());
+  buildFeaturePaths();
+  buildSubPaths();
+  buildConflictPaths();
+  if(HAS_2D){
+    worldCv = document.createElement("canvas");
+    worldCv.width = W0; worldCv.height = H0;
+    worldCx = worldCv.getContext("2d");
+  }
+  chart = echarts.init(document.getElementById("map"), null, {renderer:"canvas"});
+  buildLabelMeta();
+  chart.setOption({
+    backgroundColor:"transparent",
+    /* update 过渡归零: 漫游/钳制/换模式全部瞬时跳变, 杜绝元素滑行造成的重影分层 */
+    animationDurationUpdate: 0,
+    tooltip:{ trigger:"item", backgroundColor:"#0d1218", borderColor:"#33505e", borderWidth:1,
+      textStyle:{color:"#d8cfae", fontSize:11, fontFamily:"ui-monospace,Menlo,monospace"},
+      formatter:function(p){
+        var iso = isoOfName(p.name); if(!iso) return esc(p.name);
+        var c = DB[iso];
+        var h = "<b>"+esc(cname(iso))+"</b>";
+        if(c && !c.news_only && c.leader) h += "<br>"+esc(c.leader.t||"")+" "+esc(c.leader.n||"");
+        if(c && c.news_only) h += "<br><span style='color:#8f8a74'>仅新闻情报</span>";
+        var n = newsOf(iso).length;
+        if(n) h += '<br><span style="color:#8fb8cb">今日情报 ×'+n+"</span>";
+        if(state.mode==="temp" && DATA.temps && DATA.temps[iso]!=null)
+          h += '<br><span style="color:#c9a84c">'+Math.round(DATA.temps[iso]*10)/10+" ℃</span>";
+        return h;
+      }},
+    geo:{
+      map:"world", roam:true, scaleLimit:{min:2.0, max:24}, zoom:3.75, top:"6%", bottom:"4%", zlevel:1,
+      itemStyle:{areaColor:"rgba(0,0,0,0)", borderColor:BASE_BORDER, borderWidth:0.6},
+      label:{show:false, color:"rgba(226,219,192,.88)", fontSize:9, fontWeight:"bold",
+        textBorderColor:"rgba(5,8,11,.72)", textBorderWidth:2,
+        fontFamily:'"Songti SC","STSong","Noto Serif SC",serif',
+        formatter:function(p){var iso=isoOfName(p.name);return iso?(CN[iso]||""):""}},
+      labelLayout:{hideOverlap:true},
+      emphasis:{ itemStyle:{areaColor:"rgba(226,219,192,.14)", borderColor:"#e8e0c8", borderWidth:1},
+                 label:{show:false} },
+      select:{disabled:true},
+      regions: buildRegions()
+    },
+    series:[{
+      id:"worldpaint", type:"custom", coordinateSystem:"geo", zlevel:0, z:1, silent:true,
+      renderItem:function(params, api){
+        if(!worldCv) return null;
+        var els = [];
+        for(var k=-1;k<=1;k++){
+          var p0 = api.coord([-180+k*360,90]), p1 = api.coord([180+k*360,-90]);
+          els.push({type:"image", style:{image:worldCv, x:p0[0], y:p0[1], width:p1[0]-p0[0], height:p1[1]-p0[1]}});
+        }
+        return {type:"group", children:els};
+      },
+      data:[[0,0]]
+    },{
+      id:"markers", type:"effectScatter", coordinateSystem:"geo", zlevel:2,
+      symbolSize:function(v){return Math.min(4 + v[2]*1.6, 12)},
+      rippleEffect:{brushType:"stroke", scale:2.4},
+      itemStyle:{color:"#cfc6a2", shadowBlur:5, shadowColor:"rgba(216,207,174,.4)"},
+      label:{show:false}, data: newsMarkers()
+    },{
+      id:"conflbl", type:"scatter", coordinateSystem:"geo", zlevel:2, silent:true,
+      symbolSize:2.5,
+      label:{show:true, position:"top", distance:5,
+        formatter:function(p){return p.name}, fontSize:10, padding:[2,6], color:"#e8dfc0",
+        backgroundColor:"rgba(8,12,17,.85)", borderColor:"rgba(216,207,174,.5)", borderWidth:1,
+        fontFamily:'"PingFang SC","Microsoft YaHei",sans-serif'},
+      data: conflictMarkers()
+    },{
+      id:"mkts", type:"scatter", coordinateSystem:"geo", zlevel:3, silent:true,
+      symbolSize:3.5,
+      label:{show:true, position:"top", distance:5,
+        formatter:function(p){ var m=p.data.m; return m.name+" "+(m.chg>=0?"+":"")+m.chg.toFixed(2)+"%"; },
+        fontSize:10, padding:[3,6], color:"#e8dfc0",
+        backgroundColor:"rgba(8,12,17,.92)", borderColor:"rgba(216,207,174,.45)", borderWidth:1},
+      data: marketMarkers()
+    }]
+  });
+  chart.on("click", function(p){
+    if (p.componentType==="geo" && p.name){
+      var iso = isoOfName(p.name);
+      if(iso) selectCountry(iso);
+    } else if (p.seriesType==="effectScatter" && p.data && p.data.iso){
+      selectCountry(p.data.iso);
+    }
+  });
+  chart.getZr().on("click", function(e){ if(!e.target) closeSidebar(); });
+  var roaming = false;
+  chart.on("georoam", function(){
+    if(roaming) return;
+    roaming = true;
+    try{ clampRoam(); } finally { roaming = false; }
+  });
+  window.addEventListener("resize", function(){ if(chart){ chart.resize(); clampRoam(); } });
+  /* 首次钳制推迟到首帧渲染完成: 初始化瞬间 geo 变换可能未就绪, 量错会把 zoom 抬爆 */
+  var firstDone = false;
+  chart.on("finished", function(){ if(!firstDone){ firstDone = true; clampRoam(); } });
+  repaintWorld();
+  /* 地形异步到达后重合成(先出图, 地形随后浮现) */
+  if(typeof Image !== "undefined"){
+    terrainImg = new Image();
+    terrainImg.onload = function(){ terrainOK = true; repaintWorld(); };
+    terrainImg.src = "assets/terrain.jpg";
+  }
+}
+
+/* ---------- 控件 ---------- */
+function setMode(b){
+  if(!b || !b.dataset || !b.dataset.mode) return;
+  document.querySelectorAll(".modes button").forEach(function(x){
+    var on = (x===b);
+    x.classList.toggle("on", on);
+    x.setAttribute("aria-pressed", on?"true":"false");
+  });
+  state.mode = b.dataset.mode;
+  state.sel = null;
+  state.selAlliance = null;
+  document.getElementById("sidebar").classList.remove("open");
+  var mi = document.getElementById("modeind");
+  if(mi) mi.textContent = "视图·" + (MODE_NAME[state.mode]||state.mode);
+  repaintWorld();
+  renderMap();
+}
+document.querySelectorAll(".modes button").forEach(function(b){
+  b.addEventListener("click", function(){ setMode(b); });
+});
+/* 兜底: 捕获阶段 pointerdown 委托, 防止宿主层吞掉 click */
+document.addEventListener("pointerdown", function(e){
+  var t = e.target;
+  var b = (t && t.closest) ? t.closest(".modes button") : null;
+  if(b) setMode(b);
+}, true);
+/* 联盟视图: 图例可点击, 点击联盟高亮成员国, 再点取消 */
+document.getElementById("legend").addEventListener("click", function(e){
+  var t = e.target && e.target.closest ? e.target.closest(".lg-i.lnk") : null;
+  if(!t || !t.getAttribute("data-al")) return;
+  var a = t.getAttribute("data-al");
+  state.selAlliance = (state.selAlliance===a) ? null : a;
+  repaintWorld(); renderLegend();
+});
+/* 新闻展开/收起(事件委托) + 关系徽章点按展开(触屏) */
+document.getElementById("sb-body").addEventListener("click", function(e){
+  var a = e.target.closest && e.target.closest("a.n-link, a.n-t");
+  if(a){ e.preventDefault(); openExt(a.getAttribute("href")); return; }
+  if(e.target.closest("a")) return;
+  var rs = e.target.closest && e.target.closest(".rs");
+  if(rs){ rs.classList.toggle("open"); return; }
+  var li = e.target.closest("#news-list li.xp");
+  if(li) li.classList.toggle("open");
+});
+document.getElementById("sb-close").addEventListener("click", closeSidebar);
+/* ---------- 紧张度 + 战争清单(右侧栏) ---------- */
+function warMemberHTML(m){
+  if(m.label) return '<span class="wf-m chip">'+esc(m.label)+(m.tag?'<em>'+esc(m.tag)+'</em>':"")+'</span>';
+  var i2 = ((CONFLICT.iso2||{})[m.iso]||"").toLowerCase();
+  var emo = (CONFLICT.emoji||{})[m.iso]||"🏳";
+  return '<span class="wf-m" title="'+esc(m.iso)+'">'+
+    (i2 ? '<img class="wf-f" src="https://flagcdn.com/w40/'+i2+'.png" alt="'+esc(m.iso)+'" loading="lazy" onerror="this.style.display=\'none\';var n=this.nextElementSibling;if(n)n.style.display=\'inline-block\'">' : '')+
+    '<i class="wf-e"'+(i2?' style="display:none"':"")+'>'+emo+'</i>'+
+    (m.tag?'<em>'+esc(m.tag)+'</em>':"")+'</span>';
+}
+function factionHTML(f, side, ci){
+  if(!f) return '<div class="wf"></div>';
+  return '<div class="wf '+side+'">'+
+    '<div class="wf-name">'+esc(f.name)+'<i class="n-caret">▸</i></div>'+
+    '<div class="wf-flags">'+(f.members||[]).map(warMemberHTML).join("")+'</div></div>';
+}
+function renderWarbar(){
+  var lv = CONFLICT.defcon, scale = CONFLICT.defcon_scale||[];
+  document.getElementById("wb-sub").textContent =
+    lv ? ("紧张度 "+lv+"/5 · "+(CONFLICT.defcon_note||"")) : "冲突数据库未加载";
+  var h = "";
+  if(lv){
+    h += '<div class="wb-scale">'+scale.map(function(s,i){
+      return '<span class="'+((i+1)===lv?"on":"")+'"><i>'+(i+1)+'</i>'+esc(s)+'</span>';
+    }).join("")+"</div>";
+  }
+  (CONFLICT.conflicts||[]).forEach(function(c, i){
+    h += '<section class="wcard"><div class="wc-t">'+esc(c.name)+'<span class="wc-since">'+esc(c.since||"")+'</span></div>'+
+      '<div class="wc-vs">'+factionHTML(c.left,"L",i)+'<div class="wc-x">VS</div>'+factionHTML(c.right,"R",i)+'</div>'+
+      (c.note?'<div class="wc-note">'+esc(c.note)+'</div>':"")+'</section>';
+  });
+  h += '<div class="wc-src">占区为风格化示意(非实时战况)；阵营构成为编辑整理('+(CONFLICT.updated||"—")+')，改 build_conflict.py 后重生成</div>';
+  document.getElementById("wb-body").innerHTML = h;
+}
+function toggleWarbar(force){
+  var wb = document.getElementById("warbar");
+  var open = (force!==undefined) ? force : !wb.classList.contains("open");
+  if(open) renderWarbar();
+  wb.classList.toggle("open", open);
+}
+(function(){
+  var dc = document.getElementById("defcon"), num = document.getElementById("dc-num");
+  var lv = CONFLICT.defcon;
+  if(lv){
+    num.textContent = String(lv);
+    dc.className = "lv"+lv;
+    dc.title = "紧张度 "+lv+"/5 · "+((CONFLICT.defcon_scale||[])[lv-1]||"")+" · 点击查看战争清单";
+  } else {
+    num.textContent = "—";
+  }
+  dc.addEventListener("click", function(){ toggleWarbar(); });
+  document.getElementById("wb-close").addEventListener("click", function(){ toggleWarbar(false); });
+  document.getElementById("wb-body").addEventListener("click", function(e){
+    var t = e.target && e.target.closest ? e.target.closest(".wf-name") : null;
+    if(t && t.parentNode) t.parentNode.classList.toggle("open");
+  });
+})();
+/* 侧栏宽度拖拽: 按住侧栏右边线左右拉伸, 宽度记住到 localStorage */
+(function(){
+  var sb = document.getElementById("sidebar"), rz = document.getElementById("sb-resizer");
+  if(!sb || !rz) return;
+  function clampW(w){ return Math.max(280, Math.min(w, 620, (window.innerWidth||1200)*0.92)); }
+  try{
+    var saved = window.localStorage.getItem("geo_sb_w");
+    if(saved) sb.style.width = clampW(parseInt(saved,10)||0) + "px";
+  }catch(e){}
+  rz.addEventListener("pointerdown", function(e){
+    e.preventDefault();
+    sb.classList.add("dragging");
+    var startX = e.clientX, startW = sb.getBoundingClientRect().width;
+    function mv(ev){ sb.style.width = clampW(startW + ev.clientX - startX) + "px"; }
+    function up(){
+      sb.classList.remove("dragging");
+      document.removeEventListener("pointermove", mv);
+      document.removeEventListener("pointerup", up);
+      try{ window.localStorage.setItem("geo_sb_w", String(Math.round(sb.getBoundingClientRect().width))); }catch(e2){}
+    }
+    document.addEventListener("pointermove", mv);
+    document.addEventListener("pointerup", up);
+  });
+})();
+document.addEventListener("keydown", function(e){ if(e.key==="Escape"){ closeSidebar(); toggleWarbar(false); } });
+
+/* ---------- 启动 ---------- */
+document.getElementById("asof").textContent = "资料库截至 " + (window.GEO_ASOF || "—");
+initMap();
+if (window.DaimonWidget && window.DaimonWidget.onDataChange){
+  window.DaimonWidget.onDataChange(function(d){ applyData(d); });
+} else {
+  applyData(null);
+}
+renderMap();
+})();
+</script>
+</body>
+</html>
