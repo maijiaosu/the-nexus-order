@@ -1,0 +1,24 @@
+/* Production window framing; approved chamber artwork stays in its own bundle. */
+html,body{background:transparent!important;min-height:100%;height:100%;overflow:hidden}
+/* Match the parent canvas scheme so the embedded document stays transparent. */
+:root{color-scheme:normal}
+body:after{display:none}
+.desktop{position:fixed;left:9vw;top:12dvh;width:82vw;height:76dvh;max-width:none;margin:0;padding:0;display:flex;flex-direction:column;min-width:0}
+.country-switch,.navigation,#countries{display:none!important}
+.desktop>.window{height:100%!important;min-height:0!important;max-height:100%;width:100%;overflow:auto;overscroll-behavior:contain;scrollbar-color:#6f8c95 #101e25;scrollbar-width:thin;flex:1}
+.window>.mast{position:sticky;top:0;z-index:5;background:#081218;box-shadow:0 -20px 0 #081218;padding-right:44px;cursor:grab;touch-action:none;user-select:none}
+.window>.mast.dragging{cursor:grabbing}
+.window #composition{flex:none;min-height:0}
+.window #composition>.us-congress,.window #composition>.fr-parliament,.window #composition>.de-bundestag,.window #composition>.jp-diet{height:max(430px,calc(76dvh - 138px))}
+.window .room-close{position:absolute;right:3px;top:3px;width:28px;height:28px;padding:0;border:1px solid #af7379;background:#0b161d;color:#e29698;font:25px/24px Aldrich,sans-serif;cursor:pointer;z-index:6}
+.window .room-close:hover{background:#38242e;color:#ffd4d2}
+.window .room-close:focus-visible{outline:2px solid #e9d879;outline-offset:2px}
+.window::-webkit-scrollbar{width:7px;height:7px}.window::-webkit-scrollbar-track{background:#101e25}.window::-webkit-scrollbar-thumb{background:#556f79;border:1px solid #90a6a9}
+@media(max-width:760px){
+ .desktop{left:8px;top:12px;width:calc(100vw - 16px);height:calc(100dvh - 24px)}
+ .window>.mast{padding-right:35px}
+ .window #composition>.us-congress,.window #composition>.fr-parliament,.window #composition>.de-bundestag,.window #composition>.jp-diet{height:auto}
+ .window .room-close{right:0;top:1px;width:25px;height:25px;font-size:23px}
+}
+@media(min-width:560px) and (max-width:760px){.window #composition>.us-congress{min-height:450px}}
+@media(max-width:390px){.window>.mast{gap:6px}.window .mast #header-flag{width:26px;height:18px}.window .mast h1{font-size:21px}.window .mast #header-crest{width:33px;height:38px}}

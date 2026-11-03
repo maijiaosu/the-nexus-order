@@ -1,0 +1,18 @@
+@import url('../assets/chinese-complete.css?v=1');
+@font-face{font-family:TNO;src:url('../assets/chinese.woff')}
+#text-palette{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:11px 14px;background:#f5f6f7;border:1px solid #b9c2c9;box-shadow:0 2px 5px #0001}
+#text-palette[hidden]{display:none}
+#text-palette>span{margin-right:5px}
+#text-palette .color-swatch{width:29px;height:29px;padding:0;border:3px solid #26383d;background:var(--swatch);border-radius:50%}
+#text-palette button[aria-pressed=true]{outline:2px solid #1a5785;outline-offset:3px}
+.text-field{margin:10px 0;min-width:0}.text-field>label{margin:0 0 5px}
+.color-text{box-sizing:border-box;width:100%;min-height:40px;padding:9px 11px;background:#07151b;color:#cbd5cd;border:1px solid #577b80;font:18px/1.65 TNO,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;cursor:text}
+.color-text.multiline{min-height:105px;max-height:350px;overflow-y:auto;scrollbar-width:thin}
+.color-text:focus{outline:2px solid #387e91;outline-offset:1px}
+.color-text::selection,.color-text *::selection{background:#7c90985c}
+
+#text-palette .custom-color{display:flex;align-items:center;gap:7px;margin:0;padding:2px 5px;border:1px solid transparent}
+#text-palette .custom-color.is-active{border-color:#1a5785}
+#text-palette .custom-color input[type=color]{width:30px;height:30px;padding:0;border:0;background:none;cursor:pointer}
+#text-palette .custom-color input[type=text]{width:91px;padding:5px 6px;font:14px monospace}
+#text-palette .custom-color input[aria-invalid=true]{outline:1px solid #ad3546}

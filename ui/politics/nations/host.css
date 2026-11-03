@@ -1,0 +1,3 @@
+/* Existing outer window owns the close control. Keep a clear header corner. */
+.in-country-window .mast{padding-right:38px}
+.in-country-window{overscroll-behavior:contain;scrollbar-color:#507873 #061217}

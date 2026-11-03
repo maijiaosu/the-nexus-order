@@ -1,0 +1,75 @@
+@font-face{font-family:"Hall Ceremony";src:url("../china-tno-study/assets/hall-ceremony-heavy.woff") format("woff");font-style:normal;font-weight:900;font-display:block}
+/* Only politics has architectural overflow. Other pages retain their original UI. */
+body[data-page=politics]{overflow:auto;min-height:calc(100dvh + 30.5333vw + 2px);background:#080b0d}
+body[data-page=politics]:before{background:none}
+body[data-page=politics] #main-window.frame{position:absolute;left:4.2vw;top:calc(30.5333vw + 32px);width:91.6vw;height:calc(100dvh - 94px);max-width:1800px;--gate-wall-height:min(11.04vw,216.95px);background:#080b0d;border:0;box-shadow:none;isolation:isolate;overflow:visible}
+body[data-page=politics] #main-window.frame:after{display:none}
+.nation-shell{display:none}
+body[data-page=politics] .nation-shell{display:block;position:absolute;left:0;top:0;bottom:auto;transform:translateY(-61.7142857%);width:100%;aspect-ratio:3;height:auto;z-index:-1;pointer-events:none}
+.nation-shell svg{width:100%;height:100%;display:block;overflow:visible}
+body[data-page=politics] #main-window .edge-tabs{left:-34px;top:0;bottom:0;height:auto;width:34px}
+body[data-page=politics] .mast{display:none}
+body[data-page=politics] #stage{top:var(--gate-wall-height);height:calc(100% - var(--gate-wall-height));overflow:hidden}
+.politics-native{height:100%;width:100%;position:relative;overflow:hidden}
+.politics-native{background:#171916}
+.hall-viewport{position:absolute;inset:0;overflow:hidden;scrollbar-color:#686153 #171916}
+.hall-viewport>svg{display:block;width:100%;height:100%;font-family:TNO,'PingFang SC',sans-serif}
+.ceiling-generated{filter:brightness(1.15) saturate(1.05) contrast(1.06)}
+.seat-graphic{cursor:pointer;transition:opacity .16s}
+.hall-structure{pointer-events:none}
+.seat-tooltip{position:fixed;z-index:100;display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;width:min(650px,calc(100vw - 20px));box-sizing:border-box;padding:14px;border:1px solid #62abb0;background:#061015;color:#e4e8df;box-shadow:3px 3px 0 #000b,inset 0 0 0 2px #12252a;font-family:TNO,'PingFang SC',sans-serif;font-size:17px;line-height:1.55;pointer-events:none}
+.party-identity{margin:0;width:180px;align-self:start}.party-art{position:relative;border:1px solid #8faaa8;background:#111817;overflow:hidden;width:180px;height:136px;box-sizing:border-box}
+.party-art img,.party-art svg{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.7) contrast(1.07) brightness(.94)}
+.party-art.archival img{object-fit:contain;filter:grayscale(1) contrast(1.08)}.party-art.archival svg{filter:grayscale(1) contrast(1.03)}
+.party-art:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,#0002 0 1px,#d6eeee06 1px 2px,transparent 2px 3px);pointer-events:none}
+.party-identity figcaption{text-align:left;color:#d8dbd3;font-size:14px;line-height:1.4;margin-top:7px}.party-identity figcaption span{display:block;color:#8da5a3;font-size:12px;margin-top:2px}
+.seat-tooltip-copy{min-width:0}.seat-tooltip strong{display:block;font-size:23px;line-height:1.2;color:#eee47c;letter-spacing:.02em;font-weight:normal}
+.party-role{font-size:16px;color:#67bdc0;margin:5px 0}
+.seat-stat{margin:6px 0 8px;font-size:16px;color:#d9dfd7}.seat-stat b{color:#e0d778;font-weight:normal}.seat-stat span{float:right;color:#a5b5b2;font-size:13px;padding-top:3px}
+.seat-tooltip p{margin:0;color:#e4e8df}.seat-tooltip small{display:block;margin-top:9px;color:#aab9b6;font-size:12px;line-height:1.5}
+.seat-graphic:focus-visible{outline:none;filter:drop-shadow(0 0 2px #f4dc9c)}
+@media(max-width:680px){.seat-tooltip{grid-template-columns:118px minmax(0,1fr);gap:11px;padding:11px;font-size:15px}.party-identity,.party-art{width:118px}.party-art{height:89px}.seat-tooltip strong{font-size:20px}.party-role{font-size:14px}.seat-stat{font-size:14px}.seat-stat span{float:none;display:block;font-size:12px}.party-identity figcaption{font-size:12px}}
+.seat-tooltip[hidden]{display:none}
+
+html,body,#main-window,#stage{overflow-anchor:none}
+
+/* The rectangular gate wall and room share continuous sides, with no crossbar. */
+body[data-page=politics] #main-window.frame:before{content:"";position:absolute;inset:0 -2px -2px;pointer-events:none;border:2px solid #596362;border-top:0;background:none;box-shadow:none;z-index:4}
+
+
+
+.proscenium-generated{filter:brightness(.83) saturate(.82) contrast(1.08);pointer-events:none}
+
+.party-key-political{color:#eadf69;font-style:normal}.party-key-field{color:#6ccacd;font-style:normal}
+
+/* User's 448:590 vertical dossier, with the 191:234 portrait at upper left. */
+.leader-chair{cursor:pointer;stroke:transparent;stroke-width:1.1;outline:none}
+.leader-chair:focus-visible{stroke:#d7c093;fill:#d9bc7a0b}
+.leader-tooltip{position:fixed;z-index:110;width:min(360px,calc((100dvh - 24px)*448/590),calc(100vw - 20px));aspect-ratio:448/590;box-sizing:border-box;background:#061015;border:1px solid #62abb0;box-shadow:3px 3px 0 #000b,inset 0 0 0 2px #12252a;color:#e6e8dc;pointer-events:none;container-type:inline-size;font-family:TNO,'PingFang SC',sans-serif}
+.leader-tooltip[hidden]{display:none}
+.leader-profile{padding:5.4cqw;height:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:4.2cqw}
+.leader-heading{display:grid;grid-template-columns:48.4% minmax(0,1fr);gap:4cqw;align-items:start}
+.leader-portrait{position:relative;margin:0;aspect-ratio:191/234;overflow:hidden;background:#1a2220;border:1px solid #8b9e96}
+.leader-portrait img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.63) contrast(1.06) brightness(.94)}
+.leader-portrait:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,#0002 0 1px,transparent 1px 3px);pointer-events:none}
+.leader-identity strong{font-size:7.3cqw;font-weight:normal;color:#eee47c;letter-spacing:.08em;line-height:1.25;display:block;margin:2cqw 0 3cqw}
+.leader-office{font-size:4.1cqw;line-height:1.7;margin:0;color:#77c1c0}
+.leader-born{font-size:3.5cqw;line-height:1.65;color:#b1b8ae;margin:3.5cqw 0 0}
+.leader-biography{font-size:4.15cqw;line-height:1.7;margin:0;text-align:justify;color:#e6e8df}
+.leader-source{font-size:3.05cqw;color:#93a49f;margin-top:auto;border-top:1px solid #3d5758;padding-top:2.3cqw}
+
+/* A narrow preview scales the established desktop composition as a whole.
+   Extending the world floor to a portrait panel would fabricate an empty hall. */
+@media(max-width:900px){
+  #main-window.frame{width:1172px!important;height:706px!important;left:38px!important;transform:scale(calc((100vw - 50px)/1172px));transform-origin:0 0;--gate-wall-height:141px!important}
+}
+
+/* Pointer identity is resolved from the same depth-tested scene as the image. */
+.seat-graphic,.leader-chair{pointer-events:none}
+.hall-depth-canvas{pointer-events:auto}
+.ceiling-generated{pointer-events:none}
+
+.hall-depth-canvas:focus{outline:none}
+
+/* Warm illumination in the ceiling artwork; geometry receives actual area light. */
+.ceiling-generated{filter:brightness(1.27) sepia(.17) saturate(1.2)}

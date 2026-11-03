@@ -1,2 +1,4 @@
-@font-face{font-family:'TNO Serif';font-style:normal;font-weight:100 900;font-display:swap;src:url('assets/fonts/NotoSerifSC-VF.ttf') format('truetype-variations');}
-@font-face{font-family:'TNO Sans';font-style:normal;font-weight:100 900;font-display:swap;src:url('assets/fonts/NotoSansSC-VF.ttf') format('truetype-variations');}
+@font-face{font-family:'TNO Serif';font-style:normal;font-weight:100 900;font-display:swap;src:url('fonts/NotoSerifSC-VF.ttf') format('truetype-variations');}
+@font-face{font-family:'TNO Sans';font-style:normal;font-weight:100 900;font-display:swap;src:url('fonts/NotoSansSC-VF.ttf') format('truetype-variations');}
+@font-face{font-family:'MastCalli';font-style:normal;font-weight:400 900;font-display:swap;src:url('fonts/MastCalli.woff2') format('woff2');}
+@font-face{font-family:'MastGothic';font-style:normal;font-weight:400 900;font-display:swap;src:url('fonts/MastGothic.woff2') format('woff2');}

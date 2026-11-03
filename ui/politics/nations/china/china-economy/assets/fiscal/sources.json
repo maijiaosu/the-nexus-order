@@ -1,0 +1,166 @@
+[
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_realGrowth_active.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_realGrowth_active.png",
+    "sha256": "10c44bd1b294b38c6ca6f1ff1c190954e901b6b4201d00bc6b37b1692f0370ec"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_realGrowth_inactive.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_realGrowth_inactive.png",
+    "sha256": "90fa8cd8d30c94cdaf096a0b1c1124943c32e2c1aec76c1de71c7a02392d3591"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_debt_active.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_debt_active.png",
+    "sha256": "903b2d2c5af807318fcab52f60554b9d05faf2577ddd21298ca3b71d5df1689e"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_debt_inactive.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_debt_inactive.png",
+    "sha256": "7d378442e2186317bff281dfee7a6dbf0ab1c59893e83506f14ecafa3932bf92"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_deficit_active.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_deficit_active.png",
+    "sha256": "74116cc685acf7a5e47a7bac2ae0e0d29e82733aaa6410f560db260d17d5e3ce"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_deficit_inactive.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_deficit_inactive.png",
+    "sha256": "f53293edba428d5c86e13c5e248f48ca9f0ba4cd547ee79722920180a2b9fc99"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_reserves_active.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_reserves_active.png",
+    "sha256": "2ed42e084fed49081aed5ae019cbb63ab6f97ea06a1f9bee2f52da6bddf43025"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_reserves_inactive.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_reserves_inactive.png",
+    "sha256": "ee1be937af0e2fa0be647e05e00233109e7a18d3c8ddb27921118c523ac5c884"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_inflation_active.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_inflation_active.png",
+    "sha256": "398423fcf9753b4c61389a358865aaa456102d5eb94afdca7c3a82bfe1e1c19f"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_inflation_inactive.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_inflation_inactive.png",
+    "sha256": "c99fdda6c2e86e65147201aedc9a85e02f7ac497d5556233da1aa584f299da61"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_crisis_active.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_crisis_active.png",
+    "sha256": "a017afa95b1dbbb654cff24c12c964be8e5bb1502110bd120688f29b620babba"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts/alert_crisis_inactive.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_crisis_inactive.png",
+    "sha256": "0e46baf12db063d187e79dad2fe7b3548e3accdc29b481efa85b64596e2b40af"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/pie_overlay.dds",
+    "sha256": "e1eba6fa737db72d4509e40303e80a2b3c1f37a36e6538011efc1909cf2657ca"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/empty_pie.dds",
+    "sha256": "5a39f82ffcbb0d0b4f6595a39886719c109ddb9456bb96b5fc726adb5a53e3ff"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/pie_num_toggle.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/pie_num_toggle.png",
+    "sha256": "dee74cb3aa4a644fed676bb0539ab97e1dcb9c94db980c6c4d70b027fbbf2be8",
+    "pngSha256": "f4f9584c5e3689289749b16c43747d8f72d1bfbf8dd750fd23f05f5125d70f30"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/other_revenue.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/other_revenue.png",
+    "sha256": "23bc1f056d60fb1751270fd49b73c9d6582580788e625122e07fc936b13fc864",
+    "pngSha256": "02d533c9472000c1492df6edd0814955c084492290cac906b1b1f1444801fede"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/excise_revenue.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/excise_revenue.png",
+    "sha256": "53c179e0d749cd990cf89eb75639f4a8bdf916bc8668fcff2233573cc21940eb",
+    "pngSha256": "1857fbf52df6e0c8476dcc2e7520418caf282b8380df600e1bd0dce07a33b840"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/debt_expenditures.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/debt_expenditures.png",
+    "sha256": "4117c69ddbecc0952fddab7acf9638709c738571927e1b1182430f8246655668",
+    "pngSha256": "6d034fa49ed2ffae4f2ce314d3e6909388e95e0f4301663b7ba61074df4b015d"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/pie_overlay.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/pie_overlay.png",
+    "sha256": "e1eba6fa737db72d4509e40303e80a2b3c1f37a36e6538011efc1909cf2657ca",
+    "pngSha256": "5e93b4ba715a25de875b33ae2bac082bcd96652620c9ca04a69c790325ff65bb"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/tiles/tiled_window_plain_grey.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/tiled_window_plain_grey.png",
+    "sha256": "4a10b5154b1135d5a19d0f279d2e110a159622249cee9f77041aa41fc707a2b0",
+    "pngSha256": "dca15c848ae42298d92f0376f1d1796bdf874b3ed5388dfd0519bef8f6dc4471"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/military_expenditures.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/military_expenditures.png",
+    "sha256": "49b3ff9e58c473194de1b26db7012e9e68b48b185a8fd638d406b5ed017f72a7",
+    "pngSha256": "16a84ca78d3385c789d85df57a5899d789c0450b3ebd51081dc1f9ff0284cc57"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/civilian_expenditures.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/civilian_expenditures.png",
+    "sha256": "e6e65c33151eba9fe502e4e5689efa1dce4e3c7857bbf507aacd527877c4e396",
+    "pngSha256": "e2612bef69727ad506b018fd15eed0c8485073d0edb65019261b247b18f745af"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/income_revenue.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/income_revenue.png",
+    "sha256": "18ba084608509e3c6bdbe9972f7d304b60eeb849991630504161a1c85c25290d",
+    "pngSha256": "b22073482c38df53ce2fc6de3807c16355de3d904742f1b2ec2fdb41d0fc1c76"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/construction_expenditures.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/construction_expenditures.png",
+    "sha256": "dcd31115e85aea5300c587c1e177a78c59af104764498fa2998385cd913d04bd",
+    "pngSha256": "8c5776a06896726c4f7cbcbbf17cfdc8bafbc607b2ef8ef2cc287d68679d4c4e"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/empty_pie.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/empty_pie.png",
+    "sha256": "5a39f82ffcbb0d0b4f6595a39886719c109ddb9456bb96b5fc726adb5a53e3ff",
+    "pngSha256": "01e1f26b4179feb62b5ace002e86da69289a2d040dbb2966f12311ccd8a9ca2b"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/tiles/metal_internalcrt_tile.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/metal_internalcrt_tile.png",
+    "sha256": "4f427654abbce1902b0d6f0fc52c92fc2e6419f03839f88737cb383d102a5128",
+    "pngSha256": "b41584c1b07835a3c29819d1fbd6f74fcc512b6e19476ade34a18eb490c8799d"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/business_revenue.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/business_revenue.png",
+    "sha256": "7fd4866d6bdd70ada3451e905736e345b7c2068807b84b55c29088f526f7bc03",
+    "pngSha256": "7b295a20feff34c669bc71224263d336b3b5d9c4eba9246d0c283e0b62c53139"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alerts_bg.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alerts_bg.png",
+    "sha256": "77331f4c2f0485ff8b99b176681bf99d2e65fc9c4d7d0d72d6f36137635592bf",
+    "pngSha256": "716a71c3c9c67527695793a2979a7a44b8ee54696faa06f7a2319c3ac9fcf29d"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/pie_chart/misc_expenditures.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/misc_expenditures.png",
+    "sha256": "758ba4c1a793aeb9aa18924e42d8c93452e64ea3a01cf421a64ef291b7ebfe41",
+    "pngSha256": "5cfe58586fc6763ccec7423e93d2df6a93a24f4d5cddef7269722bdac8d38bdb"
+  },
+  {
+    "source": "references/tno-original/gfx/interface/economy_gui/econ_panel/alert_bg.dds",
+    "file": "the nexus order/design-studies/nation-desktops-20260926/china-economy/assets/fiscal/alert_bg.png",
+    "sha256": "991e00be2b90eb7d888ab9e8a8bf6b52bccf1e33c5a4d4c54225f7da66f14993",
+    "pngSha256": "8f267483fc28e0197618a0d9290ee8d5697899ca3d4adaa63addab3946c3e752"
+  }
+]

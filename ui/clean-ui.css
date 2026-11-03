@@ -1,0 +1,30 @@
+/* Shared chrome and concise copy; country artwork and actor colors stay independent. */
+:root{--gold:#eee45f;--paper:#e4eeee;--white:#e4eeee;--cyan:#59c7c8;--muted:#abc1c6;--dim:#8aafb8;--line:#3e8b95}
+#topbar{display:flex;flex-wrap:nowrap;align-items:center;min-height:0;height:auto;padding:2px 7px;gap:14px}
+#topbar .brand{flex:none}#topbar .modes{flex:0 1 auto;min-width:0}#meta{display:flex!important;margin-left:auto;min-height:0;padding:0;flex:none;grid-column:auto;line-height:1}
+#geo-upd{height:32px;min-height:32px!important;font-size:10px!important}
+#pipeline-toggle{bottom:12px!important;right:12px}
+#legend{bottom:58px}
+#country-extension,body:not([data-country=CHN]) #country-extension{position:fixed;inset:0!important;margin:auto!important;width:82vw!important;height:76dvh!important;max-width:none;max-height:none;padding:0;overflow:hidden;background:#061217;box-sizing:border-box;z-index:100}
+#country-extension::backdrop{background:transparent}
+#country-extension:not([open]){display:none}
+#country-extension #close-extension{position:absolute;right:10px;top:10px;z-index:10;width:28px;height:28px}
+#politics-frame{display:block;width:100%;height:100%;background:#061217}
+.pie-tooltip:empty,.parl-note:empty,.actor-brief:empty{display:none}
+.parl-heritage,.parl-kicker,.parl-status>span,.country-focus-note,.twn-note,.wc-src,.dossier-heading,.dossier-footnote,.map-record,.chart-caption,.folio-number,.ideology-note,.archive-note,.detail-note,.relation-note,.snapshot,.review,.status,#seat-explainer,.stage-label small,.section-title small,.window-title small,.field-notes small,.theatre-coordinate>span,.faction-stat+small{display:none!important}
+.chamber-baseline{justify-content:flex-end}
+.political-identity,.political-head,.frame,.console,.institution,.country,.chamber-stage,.chamber-baseline{background-color:#061217}
+.window-title>span,.section-title,.national-caption,.archive-open,body:not([data-country=CHN]) .archive-open{color:#64d4d5}
+.political-head .leader .nm,.ruling-title,.policy-cell dd,.records dd,.power-grid b,.country-heading h1,#sb-title h2,#wb-title h2,.wc-t{color:#e4eeee}
+.wf-name{background:#0a2634;color:#75cddd;border-color:#4595a5}.wf.R .wf-name{background:#2a1325;color:#ec879d;border-color:#a65474}
+.tension-controls .wb-scale span.on{background:#123344;border-color:#5ad7d0;color:#e5f8f7}
+#faction-card{color:#e4eeee;background:#061217}
+.institution-footer:has(.connection:empty){display:none}
+@media(max-width:1120px){#topbar{gap:8px}#topbar .brand{font-size:12px}#topbar .modes button{min-width:42px;padding-inline:7px}}
+@media(max-width:760px){#topbar{flex-wrap:wrap;gap:4px 8px}#topbar .brand{order:0}#meta{order:1}#topbar .modes{order:2;flex:1 0 100%;display:flex;justify-content:space-between}#topbar .modes button{flex:1;min-width:0;padding-inline:3px}#country-extension,body:not([data-country=CHN]) #country-extension{width:calc(100vw - 16px)!important;height:calc(100dvh - 24px)!important}#country-extension #close-extension{right:6px;top:6px}}
+#sb-sub,.parl-kicker,.stage-label,.project-register>header>span,.country-heading>div{display:none!important}
+/* Suppressed legacy annotation slots must not keep empty panel spacing. */
+.pie-tooltip{min-height:0}.pie-tooltip:empty{padding:0;margin:0}.dossier-heading+*{margin-top:12px}
+body[data-has-seats=false] .chamber-stage,body[data-has-seats=false] .chamber-tabs,body[data-has-seats=false] .party-counts,body[data-has-seats=false] .party-detail{display:none}
+
+#country-extension.national-desktop,body:not([data-country=CHN]) #country-extension.national-desktop{width:100vw!important;height:100dvh!important;border:0!important;background:transparent!important;box-shadow:none!important;overflow:hidden}#country-extension.national-desktop #politics-frame{background:transparent}#country-extension.national-desktop>#close-extension{display:none}

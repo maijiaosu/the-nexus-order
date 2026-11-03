@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+<style>.face{fill:#102e35}.lit{fill:#00cac3;stroke:#65d9d0;stroke-width:1.35}.light{stroke:#b6e8d6;stroke-width:1.6}.rose{stroke:#d7787b;stroke-width:1.6}.strong{stroke-width:2.2}.detail{stroke-width:1.35}.shade{fill:#0a5b64;stroke:none}.lit-fill{fill:#00cac3;stroke:none}.rose-fill{fill:#d7787b;stroke:none}</style>
+<defs>
+<filter id="ink-edge" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+<feMorphology in="SourceAlpha" operator="dilate" radius="0.65" result="spread"/>
+<feGaussianBlur in="spread" stdDeviation="0.35" result="soft-edge"/>
+<feFlood flood-color="#0a414a" flood-opacity="0.85"/>
+<feComposite in2="soft-edge" operator="in"/>
+<feMerge>
+<feMergeNode/>
+<feMergeNode in="SourceGraphic"/>
+</feMerge>
+</filter>
+</defs>
+<g fill="none" stroke="#00cac3" stroke-width="2.2" filter="url(#ink-edge)" stroke-linejoin="round" stroke-linecap="round">
+<path d="M8 55V32l15-10v10l14-10v33Zm29 0V13h9v42M7 55h50M13 40h6v7h-6m12-7h6v7h-6M41 13V7h5" class="face"/>
+<path d="M47 29h12m-6-6v12M49 45h10m-10 5h10" class="light"/>
+</g>
+</svg>

@@ -1,0 +1,104 @@
+/* TNO experiment. The approved hall is preserved in china-v3 and approved/. */
+body[data-page=politics]{background:#050d12}
+body[data-page=politics] #main-window.frame:before{
+  inset:-7px -8px -8px;border:10px solid transparent;
+  border-image:url('assets/tno/window.png') 10 fill / 10px / 0 stretch;
+  background:none;box-shadow:0 0 0 1px #020608,0 0 0 2px #45646a;
+  z-index:-2;
+}
+body[data-page=politics] #main-window.frame:after{
+  display:block;content:'';position:absolute;inset:0 -1px -1px;
+  border:1px solid #65aaa8;border-top:0;background:none;
+  box-shadow:inset 0 -3px #08181e,inset 3px 0 #08181e,inset -3px 0 #08181e;
+  pointer-events:none;z-index:18;
+}
+body[data-page=politics] .nation-shell{
+  filter:contrast(1.13) saturate(.76) drop-shadow(0 2px 0 #050d12);
+}
+/* Surface treatment belongs to the architectural image, never to UI text. */
+body[data-page=politics] .nation-shell:after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 2px,#02191c0a 2px 3px);
+  mask-image:linear-gradient(transparent 15%,#000 62%);
+}
+.politics-native:before{
+  content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
+  box-shadow:inset 0 0 0 2px #061318,inset 0 0 0 3px #73b4b06b,
+    inset 0 0 28px 8px #04131c38;
+  background:linear-gradient(90deg,#03161e1c,transparent 18%,transparent 82%,#03161e22);
+}
+.politics-native:after{
+  content:'';position:absolute;inset:0;z-index:6;pointer-events:none;
+  background:repeating-linear-gradient(0deg,#06141b09 0 1px,transparent 1px 3px);
+}
+body[data-page=politics] #main-window .edge-tabs{left:-42px;width:34px;gap:3px}
+.edge-tabs button .edge-label{color:#bdcfcd;text-shadow:1px 1px #000;font-weight:400}
+.edge-tabs button[aria-selected=true] .edge-label{color:#82e3dc;text-shadow:0 0 5px #46bfc552,1px 1px #000}
+.edge-tabs button[aria-selected=true]:after{
+  content:'';position:absolute;right:0;top:9px;bottom:9px;width:2px;
+  background:#62c8c1;box-shadow:0 0 5px #62c8c15a;pointer-events:none;
+}
+.edge-tabs .edge-icon{filter:saturate(.78) contrast(1.12)}
+.seat-tooltip,.leader-tooltip{
+  border:7px solid transparent;
+  border-image:url('assets/tno/window-thin.png') 8 fill / 8px / 0 stretch;
+  background:#061218;box-shadow:0 0 0 1px #071012,0 0 0 2px #4b888b,5px 5px 0 #020608a8;
+}
+.seat-tooltip{padding:13px;gap:17px;width:min(650px,calc(100vw - 20px))}
+.seat-tooltip:before,.leader-tooltip:before{
+  content:'';position:absolute;inset:3px;pointer-events:none;
+  border:1px solid #548e8c8c;
+}
+.seat-tooltip strong{
+  color:var(--seat-color,#eee47c);font-size:24px;line-height:1.4;
+  padding:0 0 5px;border-bottom:1px solid var(--seat-color,#62b6b4);
+  text-shadow:1px 1px #000;
+}
+.party-role{color:#81d2cb;font-size:16px}
+.seat-stat{padding:6px 0;border-bottom:1px solid #35545b;font-size:17px}
+.seat-stat b{font-family:Digits,TNO;color:#e4e88b;font-size:21px}
+.party-art{border:1px solid #7db2ab;box-shadow:0 0 0 2px #040c11}
+.party-art img,.party-art svg{filter:saturate(.5) contrast(1.15) brightness(1.04)}
+.party-art:after{background:repeating-linear-gradient(0deg,#0003 0 1px,#5bbdbe0d 1px 2px,transparent 2px 3px)}
+.party-identity figcaption{color:#d9e0d2}
+.leader-profile{padding:4cqw;gap:3.5cqw}
+.leader-portrait{border:6px solid transparent;border-image:url('assets/tno/leader-frame.png') 8 8 38 8 / 6px 6px 18px 6px stretch;aspect-ratio:191/246;background:#071016}
+.leader-portrait img{filter:saturate(.58) contrast(1.13) brightness(1.04)}
+.leader-identity strong{color:#e9e894;text-shadow:1px 1px #000}
+.leader-office{color:#7ed5cb}
+.leader-biography{border-top:1px solid #416d71;padding-top:3cqw}
+.leader-source{color:#a7bab5}
+body[data-page=politics] #stage{height:calc(100% - var(--gate-wall-height) - 51px)}
+.hall-party-strip{display:none}
+body[data-page=politics] .hall-party-strip{
+  position:absolute;left:4px;right:4px;bottom:4px;height:43px;display:grid;
+  grid-template-columns:1.23fr repeat(6,1fr);gap:6px;padding:0;
+  background:#061218;
+}
+.hall-party-strip button{
+  position:relative;min-width:0;display:flex;align-items:center;gap:9px;
+  padding:4px 10px;border:1px solid var(--party-ink);color:var(--party-ink);
+  background:#061218;box-shadow:inset 0 0 0 2px #071016;
+  font-size:18px;line-height:1;white-space:nowrap;
+}
+.hall-party-strip button:before{content:'';position:absolute;inset:3px;border-top:1px solid #cbd9d512;pointer-events:none}
+.party-signal{width:8px;height:23px;flex:none;border:1px solid currentColor;background:repeating-linear-gradient(0deg,currentColor 0 2px,transparent 2px 3px);opacity:.8}
+.party-count{margin-left:auto;font-family:Digits,TNO;font-size:21px;color:#edf0dc}
+.party-count small{font:12px TNO;margin-left:5px;color:#8da9a7}
+.hall-party-strip button:hover{background:#14282e;color:var(--party-ink);box-shadow:inset 0 0 0 1px var(--party-ink)}
+.hall-party-strip button[aria-pressed=true]{background:var(--party-ink);color:#071217;box-shadow:inset 0 0 0 2px #091a20}
+.hall-party-strip button[aria-pressed=true] .party-count,.hall-party-strip button[aria-pressed=true] small{color:#061218}
+@media(max-width:1300px){.hall-party-strip button{gap:6px;font-size:16px;padding:4px 7px}.party-count{font-size:19px}}
+@media(max-width:680px){.seat-tooltip{padding:9px;gap:10px}.seat-tooltip strong{font-size:20px}.seat-stat b{font-size:18px}}
+
+/* Scene art, not an interface overlay. */
+body[data-page=politics] .nation-shell{filter:none}
+.ceiling-generated{filter:url(#ceiling-tno-ink)}
+.politics-native:after{background:repeating-linear-gradient(0deg,#06141b06 0 1px,transparent 1px 3px)}
+
+/* Reference correction: no filled engraving, glow or screenprint overlays. */
+.ceiling-generated{display:none}
+.politics-native:before,.politics-native:after,.nation-shell:after{display:none!important}
+
+/* Unfilled authored vectors need a clean dark ground, not the frame bitmap. */
+body[data-page=politics] .nation-shell{background:#060e12;filter:none}

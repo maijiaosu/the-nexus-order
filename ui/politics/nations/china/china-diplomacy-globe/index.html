@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230c233c' stroke='%237ed1e6'/%3E%3Cpath d='M3 18q10-12 25-6' fill='none' stroke='%23f392a7'/%3E%3C/svg%3E"><title>环球同此凉热 · 中国外交</title><link rel="stylesheet" href="studio.css">
+<script defer src="art.js"></script><script defer src="insignia.js"></script><script defer src="regional-geography.js"></script><script defer src="commodity-art.js"></script><script defer src="hardware.js"></script><script defer src="finance-art.js"></script><script defer src="clearing-die.js"></script><script defer src="globe-assets/atlas.js"></script><script defer src="globe.js?v=spin20261103-1"></script><script defer src="data/embedded.js"></script><script defer src="app.js"></script><script defer src="embedded.js"></script></head>
+<body><main id="scene" aria-label="中国外交地球仪">
+<svg class="chassis" viewBox="0 0 1600 920" preserveAspectRatio="none" aria-hidden="true"></svg>
+<header class="masthead"><div class="national-mark"><svg viewBox="0 0 84 29" aria-hidden="true"><path d="M3 15h9m7-9v17m4-14v11m4-13v15m4-10v7M38 15h39" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>中国外交</span></div><h1>环球<span>同此凉热</span></h1></header>
+<div id="region-geography" aria-hidden="true"></div>
+<div class="chart-field"></div>
+<header class="region-imprint"><div id="region-ground" aria-hidden="true"></div><h2 id="region-title"></h2></header>
+<div class="planet-bed"><canvas id="globe" tabindex="0" aria-label="旋转地球，点选外交区域"></canvas></div>
+<div class="verse"><img src="assets/kunlun.svg" alt="安得倚天抽宝剑，把汝裁为三截？一截遗欧，一截赠美，一截还东国。太平世界，环球同此凉热。"></div>
+<section class="trade-circuit" aria-label="区域贸易">
+<svg class="cargo-courses" aria-hidden="true" viewBox="0 0 560 340" preserveAspectRatio="none">
+  <g fill="none" stroke-linecap="round">
+    <path class="in-course" d="M224 306C43 318 8 111 171 65"/>
+    <path class="out-course" d="M336 65C528 44 563 251 391 303"/>
+    <path class="in-hair" d="M140 298C77 274 38 220 46 169M112 95Q139 72 175 64"/>
+    <path class="out-hair" d="M429 74Q511 109 515 177M470 264Q442 290 388 306"/>
+  </g>
+  <path class="in-tip" d="m171 65-13 1 5 3-3 5Z"/><path class="out-tip" d="m391 303 10-9 1 6 6 1Z"/>
+</svg>
+<div id="trade-docks"></div><div id="trade-balance"></div>
+</section>
+<section class="finance" aria-labelledby="finance-heading">
+<svg id="register-support" aria-hidden="true"></svg>
+<header><span class="heading-mark" aria-hidden="true">◇</span><h2 id="finance-heading">国际金融</h2></header>
+<button type="button" id="case-engraving" data-archive="case" aria-haspopup="dialog"></button>
+<div id="grades">
+  <div id="clearing-die" aria-hidden="true"></div>
+  <div class="rating" data-side="usd"><b>美元体系</b><output></output></div>
+  <div class="rating" data-side="brics"><b>金砖体系</b><output></output></div>
+</div></section>
+<section class="politics" aria-label="地区政治"><header><span class="heading-mark" aria-hidden="true">◆</span><h2>政治思潮</h2></header><div class="stances"><p><b>政府</b><span id="government"></span></p><p><b>社会</b><span id="society"></span></p></div><div id="currents"></div></section>
+<section class="orbit-controls" aria-label="地球图层"><button data-layer="surface" aria-pressed="true"><i></i>一带一路</button><button data-layer="brics" aria-pressed="true"><i></i>金砖成员</button><button data-layer="arc" aria-pressed="true"><i></i>人民币联系</button><button data-layer="orbit" aria-pressed="true"><i></i>北斗轨道</button></section>
+
+<div id="boot-status" role="status"></div>
+</main>
+<dialog id="archive" aria-labelledby="file-title"><header><h2 id="file-title">外交档案</h2><form method="dialog"><button aria-label="关闭档案">×</button></form></header><nav id="archive-tabs" aria-label="档案类别"></nav><div class="file-body"><div id="file-index"></div><article id="file-detail"></article></div></dialog>
+<script src="../../../../content-sync.js" defer></script></body></html>

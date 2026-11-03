@@ -1,0 +1,195 @@
+@font-face{font-family:Archive;src:url(assets/tno.woff)}@font-face{font-family:Dial;src:url(assets/digits.woff)}
+:root{color-scheme:dark;--ink:#071419;--base:#0a1c22;--dim:#769492;--pale:#d6d9c5;--cyan:#75c0bd;--rose:#cd8a8e;--gold:#d4ba8d;--region:#cf9b79}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#040d12;color:var(--pale);font-family:Archive,'Songti SC',serif}body{height:100dvh;display:grid;place-items:center;overflow:hidden}button{font:inherit;color:inherit;background:transparent;cursor:pointer}button:focus-visible,canvas:focus-visible{outline:2px solid #eee7a9;outline-offset:-2px}h1,h2,h3,p,figure{margin:0}
+#scene{position:relative;width:1600px;height:920px;flex:none;isolation:isolate;overflow:hidden;transform-origin:center;--region:#be9f80;background:radial-gradient(ellipse at 48% 45%,#122e37 0%,#0b2128 32%,#08191e 67%,#071217 100%)}
+#scene::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:12;opacity:.15;background-image:url(assets/grain.png),repeating-linear-gradient(0deg,#05141880 0 1px,transparent 1px 3px);mix-blend-mode:soft-light}
+.chassis{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.chart-field{position:absolute;inset:86px 23px 130px;background-image:linear-gradient(#80b5b50a 1px,transparent 1px),linear-gradient(90deg,#80b5b50a 1px,transparent 1px);background-size:53px 53px;mask-image:linear-gradient(90deg,transparent,#000 25%,#000 75%,transparent)}
+.masthead{position:absolute;inset:0 0 auto;height:95px;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:0 52px 15px}
+.masthead h1{position:absolute;left:50%;transform:translateX(-50%);font-size:47px;letter-spacing:8px;color:#93c8c4;line-height:1;white-space:nowrap;text-shadow:2px 3px #102027}
+.masthead h1 span{color:#e3d8b5}.national-mark{display:flex;align-items:center;gap:12px;letter-spacing:5px;color:#b6c6bc;font-size:20px}.national-mark svg{width:66px;color:#b87d7b}button:hover{color:#f1ddaa}
+.planet-bed{position:absolute;left:22.3%;top:8.2%;width:54.4%;height:72.5%;z-index:1}.planet-bed canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.verse{position:absolute;left:26.5%;top:22%;width:3%;height:41%;z-index:3;pointer-events:none;opacity:.85}.verse img{width:100%;height:100%;object-fit:contain}.good-cut{width:84px;height:61px;display:block}
+.finance,.politics{position:absolute;z-index:4;left:74%;width:23.6%;background:linear-gradient(90deg,#081b20f7 3%,#0a1b20ed 85%,#0b1d23d9);border-top:3px double #627e7c;box-shadow:-7px 9px 0 -5px #23393b}
+.finance{top:13%;padding:11px 15px 9px 17px;border-right:1px solid #57706e}.politics{top:49.3%;padding:11px 15px 12px 17px;border-right:1px solid #3c6063}
+.finance header,.politics header{display:flex;align-items:center;gap:7px}.finance h2,.politics h2{font-size:23px;letter-spacing:3px;color:#bbcac0}.heading-mark{color:#80aaa2;font-size:15px}
+#case-engraving{height:105px;margin:0 3px}#case-engraving svg{width:100%;height:100%;display:block}
+.stances{margin-top:8px}.stances p{display:flex;gap:9px;padding:6px 0;border-top:1px solid #456064;line-height:1.42;color:#c5cbb8;font-size:17px}
+.stances b{flex:none;align-self:flex-start;font-size:15px;color:#7fc1be;writing-mode:vertical-rl;border-left:2px solid #598e92;padding-left:4px;letter-spacing:3px}.stances p:last-child b{color:#d39a98;border-color:#995e68}
+#currents{display:flex;flex-wrap:wrap;gap:4px 10px;padding-top:5px}#currents button{font-size:15px;border:0;border-bottom:1px solid #586e69;color:#a6b6ab;padding:1px 0}
+.orbit-controls{position:absolute;left:29%;right:27.1%;top:78.5%;z-index:4;display:flex;align-items:center;justify-content:space-evenly;gap:4px;padding:9px 5px;border-bottom:1px solid #486466}.orbit-controls button{display:flex;align-items:center;gap:6px;font-size:17px;border:0;color:#b9c6b8;padding:4px 1px;white-space:nowrap}.orbit-controls button[aria-pressed=false]{opacity:.42}.orbit-controls i{width:22px;height:6px;display:inline-block}.orbit-controls [data-layer=surface] i{border-top:3px double #d6b284}.orbit-controls [data-layer=brics] i{background:repeating-linear-gradient(110deg,transparent 0 2px,#95b99f 2px 4px)}.orbit-controls [data-layer=arc] i{border-top:2px dashed #ca8b86;border-radius:50%}.orbit-controls [data-layer=orbit] i{border:1px solid #b4a5d1;border-radius:50%;transform:rotate(-18deg)}
+#boot-status{position:absolute;z-index:20;left:35%;top:50%;background:#09212a}
+dialog{width:min(780px,90vw);max-height:87dvh;background:#0b2027;color:var(--pale);border:1px solid #a5b2a0;padding:0;box-shadow:0 0 0 4px #08161a,0 0 0 5px #455e5a}dialog::backdrop{background:#020c12b8}dialog header{display:flex;align-items:center;padding:12px 18px;border-bottom:3px double #668782;background:#102a30}dialog h2{font-size:25px;color:#dad4b7;letter-spacing:4px}dialog form{margin-left:auto}dialog header button{width:31px;height:31px;font:25px/1 sans-serif;border:1px solid var(--rose);color:var(--rose)}
+#archive-tabs{display:flex;gap:6px;padding:8px 14px;border-bottom:1px solid #38565c}#archive-tabs button,#file-index button{border:1px solid #38565c;padding:6px 8px;font-size:16px}#archive-tabs button[aria-pressed=true],#file-index button[aria-pressed=true]{color:#e6d4ad;border-color:#c1a67c;background:#273033}
+.file-body{display:grid;grid-template-columns:145px 1fr;min-height:225px;padding:13px;gap:15px}#file-index{display:flex;flex-direction:column;gap:3px;max-height:49vh;overflow:auto}#file-index button{text-align:left}#file-index:empty{display:none}.file-body:has(#file-index:empty){grid-template-columns:1fr}
+#file-detail{font-size:18px;line-height:1.65;padding:0 5px 10px;overflow:auto;max-height:59vh}#file-detail h3{font-size:27px;color:#d9c69d;letter-spacing:2px;margin-bottom:4px}#file-detail h4{margin:14px 0 3px;color:#8cc4bf}#file-detail p{margin-bottom:10px}#file-detail img.photo{float:left;margin:4px 17px 9px 0;width:94px;max-height:130px;object-fit:cover;filter:grayscale(.45) saturate(.7)}#file-detail img.location{width:45%;max-height:175px}#file-detail img.flag{height:23px;vertical-align:middle;margin-right:10px}.file-reading{display:flex;gap:16px;color:#d8c6a3;margin:12px 0}
+@media(max-width:700px) and (orientation:portrait){
+ body{display:block;height:auto;overflow:auto}#scene{width:100%;height:auto;min-height:100dvh;display:flex;flex-direction:column;gap:15px;padding:0 13px 14px;transform:none!important;overflow:hidden;border:1px solid #496063}.chassis{display:none}.masthead{height:66px;inset:auto;position:relative;padding:5px 0;flex-shrink:0;border-bottom:3px double #577473}.masthead h1{font-size:24px;letter-spacing:2px}.national-mark{font-size:12px;letter-spacing:1px}.national-mark svg{display:none}.chart-field{inset:75px 0 0}.planet-bed{position:relative;left:auto;top:auto;width:100%;height:87vw;max-height:480px;order:1}.verse{left:auto;right:3.3%;top:107px;width:16px;height:185px}
+ .orbit-controls{position:relative;inset:auto;order:2;margin:-8px 0 0;padding:0 0 9px}.orbit-controls button{font-size:13px}.orbit-controls i{width:15px}.finance,.politics{position:relative;left:auto;top:auto;width:100%;height:auto;margin:0}.finance{order:5;padding:12px 14px}.politics{order:6;padding:12px 14px}.file-body{grid-template-columns:80px 1fr;gap:7px;padding:8px}#file-detail{font-size:15px}#file-detail h3{font-size:20px}#archive-tabs{gap:2px;padding:6px}#archive-tabs button,#file-index button{font-size:13px;padding:5px}#file-detail img.photo{width:65px;margin-right:8px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important}}.good-cut{width:81px;height:60px}
+.verse{left:27.5%;top:25%;width:2.8%;height:40%;opacity:.83}
+.finance,.politics{left:74.5%;width:22.1%;padding:0;background:none;border:0;box-shadow:none}
+.finance{top:14.2%}.politics{top:44.7%;padding:7px 3px 2px 12px}
+.finance header,.politics header{border:0}.finance h2,.politics h2{color:#bbc9bc;font-size:22px}#case-engraving{height:118px;margin:0 -4px}.stances{margin-top:6px}.stances p{font-size:16px;line-height:1.39;padding:6px 0}.stances b{font-size:14px}
+#currents{display:flex;flex-direction:column;gap:0;padding-top:4px}
+#currents button{display:flex;align-items:baseline;justify-content:space-between;gap:5px;border-bottom:1px solid #355256;padding:3px 0;color:#d0c7ad;text-align:left;font-size:16px}
+#currents small{color:#9eb3ab;font-size:13px;text-align:right}
+.orbit-controls{top:79%;background:linear-gradient(90deg,transparent,#0e2024 25%,#0e2024 75%,transparent)}
+.case-detail-art svg{width:82%;height:105px;display:block;margin:0 auto 8px}
+@media(max-width:700px) and (orientation:portrait){
+ .finance,.politics{width:100%;left:auto;top:auto;padding:14px 8px 11px;border-top:3px double #5c7978;border-bottom:1px solid #344f51;background:#102429}.finance{border-left:6px solid #2f4c4d}
+ .verse{left:auto;right:1%;top:98px;width:25px;height:205px}.good-cut{width:67px;height:49px}.orbit-controls{top:auto}
+ #case-engraving{height:108px}.politics{padding-left:12px}.stances p{font-size:15px}
+}
+@media(min-width:701px),(orientation:landscape){
+.verse{left:1.25%;top:23%;width:2%;height:43%;z-index:5}
+.finance header{position:relative;z-index:1;pointer-events:none}
+}
+:root{--ink:#081115;--base:#101c1e;--dim:#8297b6;--pale:#d6dfeb;--cyan:#6ed8e8;--rose:#f18d9e;--gold:#dbd9e5}
+html,body{background:#050b0d}#scene{color:#d6dfeb;background:#081115}.masthead h1{color:#5094fa;text-shadow:2px 3px #061022}.masthead h1 span{color:#f2919e}
+.national-mark{color:#b3c7db}.national-mark svg{color:#ef8da0}.chart-field{background-image:linear-gradient(#77918c08 1px,transparent 1px),linear-gradient(90deg,#77918c08 1px,transparent 1px)}.finance h2,.politics h2{color:#ced8ec}.heading-mark{color:#6eacd5}.stances p{color:#c8d3e1;border-color:#3e504e}.stances b{color:#77dbe6;border-color:#397e99}.stances p:last-child b{color:#f29aaf;border-color:#a4617d}
+#currents button{color:#d6c7dd;border-color:#2d403f}#currents small{color:#a7b7cb}
+.orbit-controls{inset:auto 2.15% 1.7% auto;width:auto;display:flex;gap:13px;background:#091316;border:0;border-top:1px solid #334743;padding:4px 7px}.orbit-controls button{font-size:13px;letter-spacing:0;gap:4px;padding:3px 0;color:#afc6d8}.orbit-controls i{width:15px;height:5px}.orbit-controls [data-layer=surface] i{border-color:#68e4ee}.orbit-controls [data-layer=brics] i{background:repeating-linear-gradient(110deg,transparent 0 2px,#b198dd 2px 4px)}.orbit-controls [data-layer=arc] i{border-color:#ef93a7}.orbit-controls [data-layer=orbit] i{border-color:#bac7f0}
+@media(min-width:701px),(orientation:landscape){
+.planet-bed{left:20.3%;top:7.5%;width:59%;height:85.5%}.finance{top:17.6%}.politics{top:52%;padding-top:3px}
+#case-engraving{height:136px}.stances p{font-size:17px;line-height:1.4}
+}
+@media(max-width:700px) and (orientation:portrait){
+.orbit-controls{position:relative;inset:auto;max-width:100%;align-self:flex-end;gap:10px;margin-top:-12px;padding:4px 1px}.orbit-controls button{font-size:11px}
+.finance,.politics{background:#11213a;border-color:#46617e}
+}
+
+@media(min-width:701px),(orientation:landscape){
+ .good-cut{height:64px;width:83px}
+ .verse{left:1.5%;top:18%;width:2.5%;height:45%;z-index:3}
+ .finance{left:73%;top:14%;width:23.7%}#case-engraving{width:126%;height:178px;margin:0 0 0 -23%}
+ .politics{left:76.3%;width:20.7%;top:52.6%;padding:0 2px}
+ .politics header{padding-bottom:4px}.politics h2{font-size:20px}.stances p{font-size:16.5px;line-height:1.47;padding:7px 0}
+ #currents{padding-top:6px}#currents button{padding:4px 0;font-size:15px}#currents small{font-size:12px}
+ .planet-bed{left:20.6%;top:6%;width:58.8%;height:86.8%}
+}
+@media(max-width:700px) and (orientation:portrait){.good-cut{width:100%;height:44px}
+ .finance,.politics{padding:12px 8px 10px;border:0;box-shadow:none;background:transparent}.finance{margin-top:-8px;border-top:1px solid #364c4a}.finance #case-engraving{height:122px;width:100%;margin:0}
+ .politics{margin:-7px 0 0 6%;width:94%;padding:9px 12px 12px 15px;border-left:3px double #597472;background:linear-gradient(100deg,#121e20,#0b171a 95%);box-shadow:-5px 5px 0 #1a2627}
+}
+@media(min-width:701px),(orientation:landscape){
+ #scene[data-region=we] #case-engraving{width:137%;margin-left:-28%}
+ #scene[data-region=sa] #case-engraving,#scene[data-region=me] #case-engraving{transform:rotate(-3deg)}
+ #scene[data-region=saf] #case-engraving{width:137%;margin-left:-29%}
+}
+/* One pair of dies prints the regional balance. The captions sit below their respective heads. */
+.finance{isolation:isolate}
+#register-support{position:absolute;inset:0;z-index:-1;width:100%;height:100%;overflow:visible;pointer-events:none}
+#case-engraving{display:block;position:relative;padding:0;border:0;background:transparent;appearance:none}
+#case-engraving:hover svg{filter:brightness(1.07)}
+#case-engraving:focus-visible{outline:1px dashed #91c8db;outline-offset:0}
+#grades{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;
+ column-gap:12px;margin:1px 0 0}
+#clearing-die{grid-column:1/-1;line-height:0}
+#clearing-die svg{display:block;width:100%;height:auto}
+.rating{display:flex;align-items:baseline;gap:7px;padding-top:4px;line-height:1.2;white-space:nowrap}
+.rating b{font-size:20px;font-weight:normal;letter-spacing:.025em}
+.rating output{font-size:18px;color:#dee4e9}
+.rating[data-side=usd]{justify-self:start;color:#7cd7e4}
+.rating[data-side=brics]{justify-self:end;color:#f297a7}
+@media(min-width:701px),(orientation:landscape){
+ .finance #case-engraving{margin-top:5px}
+}
+@media(max-width:700px) and (orientation:portrait){
+ #grades{margin:2px auto 0;max-width:440px}
+ .rating{gap:6px;padding-top:3px}.rating b{font-size:16px}.rating output{font-size:15px}
+}
+/* Dossier interiors carry the same cold ink and material colors as the chart. */
+dialog{background:#0c171a;color:#d1dfec;border-color:#839e99;box-shadow:0 0 0 4px #081115,0 0 0 5px #4b615e}
+dialog::backdrop{background:#03090bbd}dialog header{background:#142224;border-color:#536d68}dialog h2,#file-detail h3{color:#c1d5ef}
+#archive-tabs{border-color:#3b514e}#archive-tabs button,#file-index button{border-color:#384d4a}#archive-tabs button[aria-pressed=true],#file-index button[aria-pressed=true]{color:#e4c5d1;border-color:#a77b94;background:#262a2b}
+#file-detail h4{color:#81d2e3}.file-reading{color:#c7d8ec}#file-detail>button{border:1px solid #507995;padding:4px 11px;color:#86d3e5}
+@media(max-width:350px) and (orientation:portrait){
+ .masthead h1{font-size:22px;letter-spacing:1px}
+}
+@media(max-width:700px) and (orientation:portrait){
+ .orbit-controls button{position:relative}
+ .orbit-controls button::after{content:"";position:absolute;inset:-14px -2px}
+}
+
+/* The full district is the lowest underprint; the engraved symbol holds its name above it. */
+.region-imprint{position:absolute;left:2%;top:13.5%;width:32%;height:40%;display:grid;place-items:center;isolation:isolate;pointer-events:none;z-index:0;color:var(--region)}
+#region-ground{position:absolute;inset:-5% -5%;opacity:.80}
+#region-ground svg{display:block;width:100%;height:100%;overflow:visible}
+#region-title{margin:0;position:relative;writing-mode:vertical-rl;text-orientation:upright;text-align:center;
+ font-family:Archive,'Songti SC',serif;font-size:clamp(42px,calc(172px / var(--letters)),74px);letter-spacing:.07em;
+ line-height:1.08;font-weight:normal;color:#e9e6dd;text-shadow:1px 2px #071427,-1px -1px #102137,0 2px 8px #071321;z-index:1}
+/* Goods sit on opposing inward and outward paths. The empty center is the net balance. */
+.trade-circuit{position:absolute;left:2.9%;bottom:3.5%;width:33.8%;height:39%;z-index:3;pointer-events:none}
+.cargo-courses{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.in-course,.out-course{stroke-width:1.8;opacity:.62}.in-course,.in-hair{stroke:#67cbe0}.out-course,.out-hair{stroke:#e78fa6}
+.in-hair,.out-hair{stroke-width:.8;opacity:.48}.in-tip{fill:#91e1e9}.out-tip{fill:#eaa3ad}
+#trade-docks,.flow{position:absolute;inset:0}
+.flow header{position:absolute;top:0;display:flex;align-items:baseline;gap:10px;line-height:1.15;white-space:nowrap}
+.flow.in header{left:5%;color:var(--cyan)}.flow.out header{right:9%;color:var(--rose)}
+.flow header strong{font-size:25px;font-weight:normal;letter-spacing:.13em}
+.flow header span{font:19px Dial,Archive,monospace;color:#e2e8ef}.flow header small{font:13px Archive,serif;color:#a0b7c8}
+.cargo{position:absolute;transform:translate(-50%,-50%);width:24%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+ z-index:1;pointer-events:auto;border:0;line-height:1.13;background:transparent;padding:0;color:#e0e6e6}
+.cargo .good-cut{display:block;width:88px;height:57px;filter:drop-shadow(0 2px 1px #071325)}
+.cargo span{font:16px/1.16 Archive,'Songti SC',serif;text-wrap:balance;text-shadow:0 1px 3px #020b18,1px -1px #0b1725;max-width:100%}
+.cargo:hover .good-cut,.cargo:focus-visible .good-cut{filter:brightness(1.17) drop-shadow(0 1px 2px #081421)}
+.cargo:focus-visible{outline:1px dashed currentColor;outline-offset:1px}
+.flow.in .cargo:nth-of-type(1){left:25%;top:25%}.flow.in .cargo:nth-of-type(2){left:10%;top:53%}.flow.in .cargo:nth-of-type(3){left:25%;top:84%}
+.flow.out .cargo:nth-of-type(1){left:74.5%;top:25%}.flow.out .cargo:nth-of-type(2){left:89.5%;top:53%}.flow.out .cargo:nth-of-type(3){left:74.5%;top:84%}
+#trade-balance{position:absolute;left:50%;top:55%;width:48%;transform:translate(-50%,-50%);text-align:center;color:#d4dbeb}
+.balance-head{font-size:19px;letter-spacing:.12em}.balance-head b{font-weight:normal}.balance-number{font:37px/1.22 Dial,Archive,monospace;color:#f1dce5;white-space:nowrap}
+.balance-number small{display:block;font:15px Archive,serif;color:#aebdd1}#trade-balance time{display:block;margin-top:6px;font:15px Dial,monospace;color:#8ba3bd}
+@media(min-width:701px),(orientation:landscape){
+ .planet-bed{left:19.8%;top:5.2%;width:60.5%;height:91%}
+ .verse{left:1.2%;top:17%;height:36%;width:2.2%}
+}
+@media(max-width:700px) and (orientation:portrait){
+ .planet-bed{align-self:flex-end;width:95%;height:min(87vw,480px)}
+ .region-imprint{position:relative;order:2;align-self:flex-start;left:-1.5%;top:auto;width:61%;height:clamp(144px,43vw,212px);margin-top:calc(-1 * min(12vw,64px));z-index:0}
+ #region-ground{inset:1% -4%;opacity:.86}
+ #region-title{font-size:clamp(24px,calc(min(38vw,155px) / var(--letters)),48px);line-height:1.04}
+ .orbit-controls{position:absolute;top:calc(96px + min(87vw,480px));right:3%;left:auto;bottom:auto;margin:0;display:grid;grid-template-columns:auto auto;column-gap:8px;row-gap:0;padding:0 2px;background:transparent}
+ .orbit-controls button{min-height:38px}.orbit-controls button::after{inset:-2px -2px}
+ .trade-circuit{order:4;position:relative;left:auto;bottom:auto;width:100%;height:auto;aspect-ratio:1.48;margin:10px 0 0}
+ .flow header{gap:4px}.flow header strong{font-size:clamp(16px,4vw,23px)}.flow header span{font-size:clamp(12px,3vw,17px)}.flow header small{font-size:clamp(10px,2.3vw,13px)}
+ .flow.in header{left:0}.flow.out header{right:0}
+ .cargo .good-cut{width:clamp(54px,16vw,81px);height:clamp(37px,10vw,54px)}.cargo span{font-size:clamp(12px,3.1vw,16px)}
+ .balance-head{font-size:clamp(14px,3.4vw,19px)}.balance-number{font-size:clamp(20px,5.5vw,34px)}.balance-number small{font-size:12px}#trade-balance time{font-size:12px;margin-top:4px}
+}
+
+@media(max-width:420px) and (orientation:portrait){
+ .orbit-controls{top:calc(97px + 75vw);right:3%;grid-template-columns:auto}
+ .orbit-controls button{min-height:34px}
+}
+@media(max-width:350px) and (orientation:portrait){
+ .trade-circuit{min-height:258px;aspect-ratio:1.3}
+}
+
+/* Regional geography extends behind the globe and the open trade circuit. */
+#region-geography{position:absolute;left:4%;top:34%;width:55%;height:63%;z-index:-1;pointer-events:none;color:var(--map-ink);opacity:.55}
+#region-geography svg{display:block;width:100%;height:100%;overflow:visible}
+@media(max-width:700px) and (orientation:portrait){
+ #region-geography{left:1%;top:calc(70px + min(25vw,145px));width:112%;height:min(160vw,750px);opacity:.47}
+}
+
+@media(min-width:701px),(orientation:landscape){
+ #scene[data-region=oc] #region-geography{left:2%;top:25%;width:70%;height:80%}
+}
+
+/* Distinct regional inks preserve the print hierarchy while making each silhouette legible. */
+#scene[data-region=na]{--map-ink:#729ec5}
+#scene[data-region=sa]{--map-ink:#c17c96}
+#scene[data-region=we]{--map-ink:#a092cb}
+#scene[data-region=ee]{--map-ink:#8298b6}
+#scene[data-region=me]{--map-ink:#c78c70}
+#scene[data-region=sas]{--map-ink:#c4a06d}
+#scene[data-region=sea]{--map-ink:#6cb6a1}
+#scene[data-region=ea]{--map-ink:#c27f85}
+#scene[data-region=wa]{--map-ink:#b580ac}
+#scene[data-region=saf]{--map-ink:#aa927e}
+#scene[data-region=eaf]{--map-ink:#94b2a4}
+#scene[data-region=caf]{--map-ink:#76a58a}
+#scene[data-region=cas]{--map-ink:#8fadc9}
+#scene[data-region=oc]{--map-ink:#6bb7c3}

@@ -1,0 +1,21 @@
+/* Keep geographical content and all hit targets unchanged. */
+.forces>.section-bar{outline-color:#387e80}
+.force{border-color:color-mix(in srgb,var(--f) 65%,#061217)}
+.force:after{opacity:.26}
+.records.frame,.civilian-strip{border-color:#397b7e}
+.records .section-bar{border-color:#397b7e}
+.event{border-color:#77928f;box-shadow:inset 0 0 0 3px #061217,inset 0 0 0 4px #2d454a}
+.event:last-child{border-right-color:#77928f}
+.map-case{border-color:#77d4d1}
+.dispatch{border-color:#68ccc8}
+.radio{pointer-events:none}
+@media(min-width:1001px){
+ .dispatch{margin-top:66px}
+ .radio{width:128px;height:123px;top:-79px;right:9px;z-index:2;filter:drop-shadow(3px 5px 3px #0009)}
+ .dispatch-heading>.label{display:block;padding-right:132px;min-height:22px;letter-spacing:2px}
+ .dispatch-heading h2{margin-top:17px}
+}
+@media(max-width:1000px){
+ .radio{position:relative;display:block;top:auto;right:auto;width:95px;height:87px;margin:0 0 8px auto;float:none;break-after:avoid}
+ .dispatch{columns:auto}
+}

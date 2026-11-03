@@ -1,0 +1,99 @@
+[
+  {
+    "file": "assets/photo-energy.jpg",
+    "page": "https://www.pif.gov.sa/en/our-investments/our-portfolio/acwa-power/",
+    "image": "https://www.pif.gov.sa/-/media/project/pif-corporate/pif-corporate-site/our-investments/portfolio/slider-images/acwa-power/sudair-pv.jpg?h=285&iar=0&w=430",
+    "sha256": "96752425fb4ee9013d49927da3e2a6efd1d79420ba7fff2cb0585e4201e685cf",
+    "treatment": "Original bytes; display via CSS monochrome and scanline overlay only",
+    "used": true,
+    "review": "Visually inspected; used as sourced photographic content, original bytes retained.",
+    "credit": "PIF corporate gallery"
+  },
+  {
+    "file": "assets/photo-urban.webp",
+    "page": "https://www.pif.gov.sa/en/our-investments/giga-projects/roshn/",
+    "image": "https://www.pif.gov.sa/-/media/project/pif-corporate/pif-corporate-site/our-investments/giga-projects/roshn/gallery-slider-image1.webp?h=1125&iar=0&w=1800",
+    "sha256": "ee33b976610c956a8de2f0084e5603282fd167408598a3e9810b423569ea1466",
+    "treatment": "Original bytes; display via CSS monochrome and scanline overlay only",
+    "used": false,
+    "review": "Rejected: architectural visualization, not used as a photograph.",
+    "credit": "PIF corporate gallery"
+  },
+  {
+    "file": "assets/photo-tourism.jpg",
+    "page": "https://www.pif.gov.sa/en/our-investments/giga-projects/red-sea-global/",
+    "image": "https://www.pif.gov.sa/-/media/project/pif-corporate/pif-corporate-site/our-investments/giga-projects/red-sea-project/red-sea-banner.jpg",
+    "sha256": "f28483ee4359f91ea6997f274a4985b895278ffc49504edefb0935b69d1b136b",
+    "treatment": "Original bytes; display via CSS monochrome and scanline overlay only",
+    "used": false,
+    "review": "Not used: airport render/photo provenance uncertain.",
+    "credit": "PIF corporate gallery"
+  },
+  {
+    "file": "assets/photo-advanced.jpg",
+    "page": "https://www.pif.gov.sa/en/our-investments/our-portfolio/ceer/",
+    "image": "https://www.pif.gov.sa/-/media/project/pif-corporate/pif-corporate-site/our-investments/portfolio/slider-images/ceer/ceer.jpg?h=667&iar=0&w=1000",
+    "sha256": "a34270787125dc2f2f3bdc6fb9f7edfe28731aa41d9c332e2e0b68add08915ad",
+    "treatment": "Original bytes; display via CSS monochrome and scanline overlay only",
+    "used": false,
+    "review": "Not used: generic city-light stock visual, not CEER facility.",
+    "credit": "PIF corporate gallery"
+  },
+  {
+    "file": "assets/photo-ports.png",
+    "page": "https://www.saudiglobalports.com.sa/en/sgp_multipurpose_terminal",
+    "image": "https://www.saudiglobalports.com.sa/img/Multipurpose Terminal - Banner.png",
+    "sha256": "9b8cc813737153760d6ed36edce23548fec50f83838365ac9526aa02c265679d",
+    "treatment": "Original bytes; display via CSS monochrome and scanline overlay only",
+    "used": true,
+    "review": "Visually inspected; used as sourced photographic content, original bytes retained.",
+    "credit": "Saudi Global Ports"
+  },
+  {
+    "file": "assets/photo-khartoum.webp",
+    "page": "https://www.unicef.org/sudan/stories/race-against-time-0",
+    "image": "https://www.unicef.org/sudan/sites/unicef.org.sudan/files/styles/media_large_image/public/UNI779539.webp?itok=qn1AA-U9",
+    "sha256": "78c580c11650ae7fe8a3306d59af859a68a30c99c0bd7c7fcadaa6d107e18e8c",
+    "treatment": "Original bytes; display via CSS monochrome and scanline overlay only",
+    "used": true,
+    "review": "Visually inspected; used as sourced photographic content, original bytes retained.",
+    "credit": "UNICEF 2025 / Ahmed Mohamdeen Elfatih"
+  },
+  {
+    "file": "assets/photo-khartoum-health.webp",
+    "page": "https://www.unicef.org/sudan/stories/race-against-time-0",
+    "image": "https://www.unicef.org/sudan/sites/unicef.org.sudan/files/styles/media_large_image/public/UNI811508.webp?itok=B71PjH2w",
+    "sha256": "5594b1e5e95d2f9cd9c9086c786c4b0d0ad78b8bea6b9f23a1ed487c626893f0",
+    "treatment": "Original bytes; display via CSS monochrome and scanline overlay only",
+    "used": true,
+    "review": "Visually inspected; used as sourced photographic content, original bytes retained.",
+    "credit": "UNICEF 2025 / Ahmed Mohamdeen Elfatih"
+  },
+  {
+    "file": "assets/photo-roshn2.webp",
+    "page": "https://www.pif.gov.sa/en/our-investments/giga-projects/roshn/",
+    "image": "https://www.pif.gov.sa/-/media/project/pif-corporate/pif-corporate-site/our-investments/giga-projects/roshn/gallery-slider-image2.webp?h=1125&iar=0&w=1800",
+    "sha256": "d6adb36cf170425b5683f0ba23a28dd0ff0848fa62004f9ec37388858c93e098",
+    "used": false,
+    "review": "Not used: composited promotional scene.",
+    "credit": "PIF corporate gallery"
+  },
+  {
+    "file": "assets/photo-roshn3.webp",
+    "page": "https://www.pif.gov.sa/en/our-investments/giga-projects/roshn/",
+    "image": "https://www.pif.gov.sa/-/media/project/pif-corporate/pif-corporate-site/our-investments/giga-projects/roshn/gallery-slider-image3.webp?h=1125&iar=0&w=1800",
+    "sha256": "8170ce0301511f2cda7243ffda9648816267eb3187476402dcac1e0d6dab2ed6",
+    "used": true,
+    "review": "Visually inspected; used as sourced photographic content, original bytes retained.",
+    "credit": "PIF corporate gallery"
+  },
+  {
+    "file": "assets/photo-redsea-island.webp",
+    "page": "https://www.pif.gov.sa/en/our-investments/giga-projects/red-sea-global/",
+    "image": "https://www.pif.gov.sa/-/media/project/pif-corporate/pif-corporate-site/our-investments/giga-projects/red-sea-project/slider/thuwal-island.webp?iar=0",
+    "sha256": "64f8ba8215e48264e8a7fe789a85da2696dbf1821bc4236ace2653a7a1e6588d",
+    "used": true,
+    "review": "Visually inspected; used as sourced photographic content, original bytes retained.",
+    "credit": "PIF corporate gallery"
+  }
+]
