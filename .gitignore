@@ -1,0 +1,11 @@
+node_modules/
+**/build/
+**/.gradle/
+**/local.properties
+**/keystore/
+**/*.jks
+**/*.keystore
+electron/app/
+electron/release/
+android/app/src/main/assets/
+.DS_Store

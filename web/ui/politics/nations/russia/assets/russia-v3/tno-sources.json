@@ -1,0 +1,7 @@
+{
+  "oil": "CAN/focus_CAN_alberta_oil_jack.dds",
+  "metal": "ENG/focus_ENG_steel_from_the_forges.dds",
+  "grain": "SBA/focus_SBA_roads_for_grain.dds",
+  "chemical": "Generic/focus_generic_chemical_program.dds",
+  "machine": "Generic/focus_generic_improving_factory_efficiency.dds"
+}

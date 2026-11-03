@@ -1,0 +1,13 @@
+/* The native 18 px rail includes both end frames; 16 px arrows sit inside them. */
+.tno-scrollbar{position:absolute;inset:0 0 0 auto;z-index:3;width:18px;display:grid;grid-template-rows:18px minmax(0,1fr) 18px;border:0;border-image:url('nation-assets/fidelity/original/scrollbar-rail.png') 52 0 fill/52px 0 stretch;user-select:none;-webkit-user-select:none}
+.tno-scrollbar[hidden]{display:none!important}
+.tno-scrollbar .tno-scrollbar-arrow{all:unset;box-sizing:border-box;display:block;justify-self:center;align-self:center;width:16px;height:16px;min-width:16px;min-height:16px;padding:0;margin:0;border:0;border-radius:0;box-shadow:none;background-position:center;background-size:16px 16px;background-repeat:no-repeat;cursor:pointer;touch-action:none}
+.tno-scrollbar .tno-scrollbar-up{background-image:url('nation-assets/fidelity/original/scroll-up.png')}
+.tno-scrollbar .tno-scrollbar-down{background-image:url('nation-assets/fidelity/original/scroll-down.png')}
+.tno-scrollbar-track{position:relative;min-height:0;background:none;touch-action:none}
+.tno-scrollbar-thumb{position:absolute;top:0;left:1px;box-sizing:border-box;width:16px;height:16px;background:url('nation-assets/fidelity/original/scroll-thumb.png') center/16px 16px no-repeat;cursor:grab;touch-action:none}
+.tno-scrollbar.is-dragging .tno-scrollbar-thumb{cursor:grabbing}
+.tno-scrollbar .tno-scrollbar-arrow:disabled{opacity:.55;cursor:default}
+.tno-scrollbar .tno-scrollbar-arrow:focus-visible,.tno-scrollbar-thumb:focus-visible{outline:1px solid #dcda50;outline-offset:1px}
+
+.tno-scrollbar{image-rendering:pixelated}

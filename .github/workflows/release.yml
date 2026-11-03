@@ -1,63 +1,36 @@
-name: build-release
+name: build-installers
 
 on:
   workflow_dispatch:
-  push:
-    tags: ["v*"]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build-windows:
+  windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Prepare app content (web -> electron/app)
+          node-version: 22
+          cache: npm
+          cache-dependency-path: electron/package-lock.json
+      - name: Prepare the frozen web payload
         run: Copy-Item -Recurse web electron\app
-      - name: Install deps
-        working-directory: electron
-        run: npm install
-      - name: Build Windows (nsis + zip, x64 + arm64)
+      - name: Build the Windows x64 installer
         working-directory: electron
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
-        run: npx electron-builder --win nsis zip --x64 --arm64
+        run: |
+          npm ci
+          npx electron-builder --win nsis --x64 --publish never
       - uses: actions/upload-artifact@v4
         with:
-          name: win
-          path: |
-            electron/release/*.exe
-            electron/release/*.zip
-
-  build-macos:
-    runs-on: macos-14
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Prepare app content (web -> electron/app)
-        run: cp -R web electron/app
-      - name: Install deps
-        working-directory: electron
-        run: npm install
-      - name: Build macOS (dmg + zip, x64 + arm64)
-        working-directory: electron
-        env:
-          CSC_IDENTITY_AUTO_DISCOVERY: "false"
-        run: npx electron-builder --mac dmg zip --x64 --arm64
-      - uses: actions/upload-artifact@v4
-        with:
-          name: mac
-          path: |
-            electron/release/*.dmg
-            electron/release/*.zip
-
-  build-android:
+          name: windows-installer
+          path: electron/release/*.exe
+          if-no-files-found: error
+  android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -65,44 +38,31 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: Prepare web assets (web -> android www)
+      - name: Prepare the frozen web payload
         run: |
           mkdir -p android/app/src/main/assets
           cp -R web android/app/src/main/assets/www
-      - name: Decode signing keystore
+      - name: Restore the existing signing identity
         env:
-          JKS: ${{ secrets.NEXUS_JKS_B64 }}
+          NEXUS_JKS_B64: ${{ secrets.NEXUS_JKS_B64 }}
         run: |
-          mkdir -p android/app/keystore
-          echo "$JKS" | base64 -d > android/app/keystore/nexus.jks
-      - name: Build APK (gradle wrapper)
+          mkdir -p "$RUNNER_TEMP/nexus-signing"
+          printf '%s' "$NEXUS_JKS_B64" | base64 -d > "$RUNNER_TEMP/nexus-signing/nexus.jks"
+      - name: Build the Android installer
         working-directory: android
-        run: ./gradlew assembleRelease
-      - name: Rename APK
-        run: cp android/app/build/outputs/apk/release/app-release.apk TheNexusOrder-0.2.0.apk
+        env:
+          NEXUS_KEYSTORE_PATH: ${{ runner.temp }}/nexus-signing/nexus.jks
+          NEXUS_KEYSTORE_PASSWORD: ${{ secrets.NEXUS_KEYSTORE_PASSWORD }}
+          NEXUS_KEY_ALIAS: ${{ secrets.NEXUS_KEY_ALIAS }}
+          NEXUS_KEY_PASSWORD: ${{ secrets.NEXUS_KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon assembleRelease
       - uses: actions/upload-artifact@v4
         with:
-          name: android
-          path: TheNexusOrder-0.2.0.apk
-
-  publish:
-    needs: [build-windows, build-macos, build-android]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-      - uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v0.2.0
-          name: "The Nexus Order v0.2.0"
-          body: |
-            网页公开版: https://maijiaosu.github.io/the-nexus-order/
-
-            Windows: TheNexusOrder-Setup-0.2.0.exe (x64/arm64 一键安装) + 便携 zip
-            macOS: The Nexus Order-0.2.0-arm64.dmg (Apple 芯片) / The Nexus Order-0.2.0.dmg (Intel) + 便携 zip
-            Android: TheNexusOrder-0.2.0.apk (Android 7+ 直装)
-          draft: false
-          prerelease: false
-          overwrite: true
-          files: artifacts/**/*
+          name: android-installer
+          path: android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+      - name: Remove temporary signing material
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/nexus-signing"

@@ -1,0 +1,40 @@
+{
+  "levels": [
+    "温和",
+    "平衡",
+    "中等",
+    "大幅",
+    "严重"
+  ],
+  "metrics": [
+    "economicBlockade",
+    "militaryConflict",
+    "politicalCondemnation",
+    "chinaReadiness",
+    "regionReadiness"
+  ],
+  "countries": {
+    "JPN": [
+      3,
+      2,
+      5,
+      1,
+      2
+    ],
+    "PHL": [
+      1,
+      4,
+      4,
+      4,
+      2
+    ],
+    "TWN": [
+      1,
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  "source": "User-specified project ratings, 2026-10-29"
+}

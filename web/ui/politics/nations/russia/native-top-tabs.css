@@ -1,0 +1,13 @@
+/* TNO gfx/interface/bop/GFX_BoP_Tab.dds, original two-frame strip. */
+.frame .edge-tabs,.frame .tabs{position:absolute;left:-5px;right:auto;top:-36px;bottom:auto;width:min(100%,1120px);height:34px;display:flex;flex-direction:row;gap:2px;border:0;background:none;z-index:20}
+.frame .tabs{left:-9px;width:min(100%,896px)}
+.frame .edge-tabs button,.frame .tabs button,.frame .edge-tabs button:hover,.frame .tabs button:hover,.frame .edge-tabs button[aria-selected=true],.frame .tabs button[aria-selected=true]{position:relative;flex:1;min-width:0;min-height:0;margin:0;padding:0 5px 0 35px;border:0;border-radius:0;clip-path:none;display:flex;align-items:center;justify-content:center;writing-mode:horizontal-tb;letter-spacing:0;background:transparent;color:#eeeeea;box-shadow:none;outline:none;text-shadow:1px 1px #111;font-weight:700;font-size:19px;isolation:isolate}
+.frame .edge-tabs button:before,.frame .tabs button:before{content:'';position:absolute;inset:0;z-index:-1;background:url('assets/edge-tab.png') left top/200% 100% no-repeat;filter:none;pointer-events:none}
+.frame .edge-tabs button[aria-selected=true]:before,.frame .tabs button[aria-selected=true]:before{background-position:right top}
+.frame .edge-tabs button:hover:before,.frame .tabs button:hover:before{filter:brightness(1.12)}
+.frame .edge-tabs .edge-icon,.frame .tabs .edge-icon{position:absolute;left:7px;top:7px;width:21px;height:20px;object-fit:contain;pointer-events:none}
+.frame .edge-tabs button .edge-label,.frame .tabs button .edge-label{position:static;display:block;writing-mode:horizontal-tb;letter-spacing:0;margin:0;color:inherit;font:inherit;text-shadow:1px 1px #111;pointer-events:none}
+.frame .edge-tabs button:focus-visible .edge-label,.frame .tabs button:focus-visible .edge-label{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:700px){.frame .edge-tabs button,.frame .tabs button{font-size:13px;padding-left:22px;padding-right:1px}.frame .edge-tabs .edge-icon,.frame .tabs .edge-icon{left:5px;width:15px;height:17px;top:8px}}
+@media(max-width:700px){.frame:has(.edge-tabs){left:8px;width:calc(100vw - 16px)}}
+@media(max-width:700px){.frame .edge-tabs button[role=tab],.frame .tabs button[role=tab]{font-size:13px;padding-left:22px;padding-right:1px;flex:1 1 0}}

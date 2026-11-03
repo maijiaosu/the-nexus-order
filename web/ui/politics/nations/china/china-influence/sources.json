@@ -1,0 +1,203 @@
+{
+  "JPN": {
+    "name": "日本",
+    "checked_on": "2026-10-13",
+    "status": "matches_local_fields_with_retrieval_limit",
+    "fields": {
+      "leader": "高市早苗 / TAKAICHI Sanae",
+      "office": "日本首相",
+      "since": "2025-10-21",
+      "party": "自由民主党；与日本维新会联合执政"
+    },
+    "notes": [
+      "2026-09-17官邸发布内容支持现任首相及自民党—维新会联合执政。相关现行页面全文读取返回内部错误，因此现状依据官邸官方检索摘录，未假装全文读取成功。",
+      "就任日期用日本参议院官方页面及首相官邸2025-10-21新内阁记者会交叉核验。"
+    ],
+    "sources": [
+      {
+        "title": "高市内閣総理大臣記者会見",
+        "url": "https://www.kantei.go.jp/jp/105/statement/2026/0917kaiken.html",
+        "publication_date": "2026-09-17",
+        "retrieved_on": "2026-10-13",
+        "supports": "高市首相身份；自由民主党和日本维新会联合政权。",
+        "access": "official_search_excerpt_full_fetch_failed",
+        "kind": "official_primary_source"
+      },
+      {
+        "title": "Designation of the Prime Minister",
+        "url": "https://www.sangiin.go.jp/eng/featurednews/2025/251021en.htm",
+        "publication_date": "2025-10-21",
+        "retrieved_on": "2026-10-13",
+        "supports": "参议院2025-10-21指定高市早苗为首相。",
+        "access": "official_search_excerpt",
+        "kind": "official_primary_source"
+      },
+      {
+        "title": "Press Conference by Prime Minister Takaichi",
+        "url": "https://japan.kantei.go.jp/104/actions/202510/21kaiken.html",
+        "publication_date": "2025-10-21",
+        "retrieved_on": "2026-10-13",
+        "supports": "高市内阁2025-10-21成立后的记者会。",
+        "access": "official_search_excerpt",
+        "kind": "official_primary_source"
+      }
+    ]
+  },
+  "KOR": {
+    "name": "韩国",
+    "checked_on": "2026-10-13",
+    "status": "matches_local_fields",
+    "fields": {
+      "leader": "李在明 / Lee Jae Myung",
+      "office": "韩国总统",
+      "since": "2025-06-04",
+      "party": "共同民主党 / Democratic Party of Korea"
+    },
+    "notes": [
+      "现行总统府人物页列李在明为韩国总统，并列出2022–2025年共同民主党党首经历；政府新闻页核实其作为共同民主党候选人当选及任期起始。"
+    ],
+    "sources": [
+      {
+        "title": "President Lee Jae Myung",
+        "url": "https://en.president.go.kr/president",
+        "publication_date": null,
+        "retrieved_on": "2026-10-13",
+        "supports": "现任韩国总统为李在明；官方履历列其共同民主党经历。",
+        "access": "page_read",
+        "kind": "official_primary_source"
+      },
+      {
+        "title": "Lee Jae Myung officially sworn in as nation's 21st president",
+        "url": "https://www.korea.net/NewsFocus/policies/view?articleId=272644&koreanId=272630",
+        "publication_date": "2025-06-04",
+        "retrieved_on": "2026-10-13",
+        "supports": "李在明作为共同民主党候选人当选，2025-06-04开始任期。",
+        "access": "official_search_excerpt",
+        "kind": "official_primary_source"
+      }
+    ]
+  },
+  "TWN": {
+    "name": "台湾地区",
+    "checked_on": "2026-10-13",
+    "status": "matches_local_person_party_and_month",
+    "fields": {
+      "leader": "赖清德 / 賴清德",
+      "office_as_source": "中华民国总统",
+      "office_as_project": "地区领导人",
+      "since": "2024-05-20",
+      "party": "民主进步党"
+    },
+    "notes": [
+      "沿用项目“台湾地区”名称，不在审计中改动政治地理对象名。",
+      "政党身份由2026-10-11民进党官方报道直接称“民进党主席赖清德”核实。"
+    ],
+    "sources": [
+      {
+        "title": "賴清德總統",
+        "url": "https://www.president.gov.tw/Page/694",
+        "publication_date": null,
+        "retrieved_on": "2026-10-13",
+        "supports": "现行总统府人物页为赖清德。",
+        "access": "page_read",
+        "kind": "official_primary_source"
+      },
+      {
+        "title": "第十六任總統暨副總統就職專輯：總統簡介",
+        "url": "https://www.president.gov.tw/Page/697",
+        "publication_date": "2024-05-20",
+        "retrieved_on": "2026-10-13",
+        "supports": "开始就任时间明确为2024-05-20。",
+        "access": "page_read",
+        "kind": "official_primary_source"
+      },
+      {
+        "title": "力挺王美惠競總成立！ 賴清德列四大理由",
+        "url": "https://www.dpp.org.tw/media/contents/11804",
+        "publication_date": "2026-10-11",
+        "retrieved_on": "2026-10-13",
+        "supports": "党官方报道直接称赖清德为民进党主席。",
+        "access": "page_read",
+        "kind": "official_primary_source"
+      }
+    ]
+  },
+  "IDN": {
+    "name": "印度尼西亚",
+    "checked_on": "2026-10-13",
+    "status": "matches_local_fields",
+    "fields": {
+      "leader": "普拉博沃·苏比延多 / Prabowo Subianto",
+      "office": "印度尼西亚总统",
+      "since": "2024-10-20",
+      "party": "大印尼行动党 / Gerindra"
+    },
+    "notes": [
+      "2026年印尼国家秘书处官方报道继续称其为总统。",
+      "Gerindra官网公布其2025–2030年党主席及指导委员会主席任期，核实政党身份。"
+    ],
+    "sources": [
+      {
+        "title": "Prabowo Subianto dan Gibran Rakabuming Raka Resmi Dilantik",
+        "url": "https://setneg.go.id/baca/index/prabowo_subianto_dan_gibran_rakabuming_raka_resmi_dilantik_sebagai_presiden_dan_wakil_presiden_republik_indonesia",
+        "publication_date": "2024-10-20",
+        "retrieved_on": "2026-10-13",
+        "supports": "2024-10-20正式就任总统，任期2024–2029。",
+        "access": "page_read",
+        "kind": "official_primary_source"
+      },
+      {
+        "title": "Hadapi Geopolitik yang Dinamis, Presiden Prabowo Perkuat Politik Nonblok Indonesia",
+        "url": "https://setneg.go.id/baca/index/hadapi_geopolitik_yang_dinamis_presiden_prabowo_perkuat_politik_nonblok_indonesia",
+        "publication_date": "2026-06-10",
+        "retrieved_on": "2026-10-13",
+        "supports": "2026年官方政府报道中的现任总统为Prabowo。",
+        "access": "page_read",
+        "kind": "official_primary_source"
+      },
+      {
+        "title": "Gerindra Gelar KLB, Prabowo Kembali Terpilih Sebagai Ketua Umum dan Ketua Dewan Pembina",
+        "url": "https://gerindra.id/2025/02/13/gerindra-gelar-klb-prabowo-kembali-terpilih-sebagai-ketua-umum-dan-ketua-dewan-pembina/",
+        "publication_date": "2025-02-13",
+        "retrieved_on": "2026-10-13",
+        "supports": "Prabowo再次出任Gerindra党主席，任期2025–2030。",
+        "access": "page_read",
+        "kind": "official_primary_source"
+      }
+    ]
+  },
+  "AUS": {
+    "name": "澳大利亚",
+    "checked_on": "2026-10-13",
+    "status": "matches_local_fields",
+    "fields": {
+      "leader": "安东尼·阿尔巴尼斯 / Anthony Albanese",
+      "office": "澳大利亚总理",
+      "since": "2022-05-23",
+      "party": "澳大利亚工党 / Australian Labor Party"
+    },
+    "notes": [
+      "首相官网现行人物页同时写明总理任职和工党党首身份。"
+    ],
+    "sources": [
+      {
+        "title": "About the Prime Minister",
+        "url": "https://www.pm.gov.au/about-prime-minister",
+        "publication_date": null,
+        "retrieved_on": "2026-10-13",
+        "supports": "现任总理为Anthony Albanese；2022-05-23宣誓就任；2019年当选工党领袖。",
+        "access": "page_read",
+        "kind": "official_primary_source"
+      },
+      {
+        "title": "Your Ministry",
+        "url": "https://www.pm.gov.au/your-ministry",
+        "publication_date": null,
+        "retrieved_on": "2026-10-13",
+        "supports": "现行Albanese政府部长名单。",
+        "access": "official_search_excerpt",
+        "kind": "official_primary_source"
+      }
+    ]
+  }
+}

@@ -1,26 +1,22 @@
-# The Nexus Order · 世界沙盘
+# The Nexus Order
 
-以世界地图为核心的地缘态势沙盘：152 国政治档案、意识形态饼图、10 场战争前线/占区、8 种地图视图、每日新闻情报。
+A TNO-inspired world sandbox with country dossiers, eight map views, daily news and national political interfaces.
 
-## 网页版
+[Open the web edition](https://maijiaosu.github.io/the-nexus-order/) · [Download Windows and Android](https://github.com/maijiaosu/the-nexus-order/releases/latest)
 
-直接打开 GitHub Pages 即可：<https://maijiaosu.github.io/the-nexus-order/>
+Version 1.2.0 uses one shared web payload for Windows x64 and Android. It includes the 37 approved parliamentary interfaces and the continuously rotating China diplomacy globe. Existing China, Russia, Saudi Arabia and Sudan interfaces remain available.
 
-每日 07:23 自动嗅探国际新闻并更新数据（Gist 通道），页面右上角可点「检查更新」手动拉取最新快照。
+The bundled snapshot opens offline. While online and in the foreground, the application checks the read-only Nexus service every 45 seconds and immediately after returning or reconnecting. Only changed data sections and new images are downloaded, verified and applied; a failed update retains the previous data. Server content updates do not require reinstalling the application. Native engine or application-code updates can still require a new installer.
 
-## 桌面 / 移动端下载
+## Runtime and builds
 
-打开网页后点右上角「⬇ 桌面 App」，或直接访问 [GitHub Releases](https://github.com/maijiaosu/the-nexus-order/releases/latest)：
+- `web/`: the frozen, shared application payload, including offline public data.
+- `electron/`: Windows desktop shell; `npm ci` then `npm run dist` after copying `web/` to `electron/app/`.
+- `android/`: Android WebView shell; copy `web/` to `android/app/src/main/assets/www/`, then run `./gradlew assembleRelease` with the existing signing environment settings.
+- `release-manifest.json`: payload hashes and source revision metadata.
 
-- **Windows**：`TheNexusOrder-Setup-0.1.0.exe`（一键安装，x64/arm64 双架构）
-- **macOS**：`The Nexus Order-0.1.0-arm64.dmg`（Apple 芯片）/ `The Nexus Order-0.1.0.dmg`（Intel）
-- **Android**：`TheNexusOrder-0.2.0.apk`（直装，Android 7+）
+The manual installer workflow builds artifacts only. It never overwrites a historical GitHub release. Release assets are published after verification.
 
-## 仓库结构
+Windows targets x64 Windows 10 or newer. Android requires Android 7 or newer and an up-to-date system WebView. No Android device or Windows machine was available for native acceptance in this release session; see the release record for the checks actually performed. The Windows installer is unsigned. Android retains the previous application ID and signing certificate.
 
-- `web/` — 静态网页版全部资源（GitHub Pages 发布目录）
-- `android/` — Android WebView 壳工程（源码；构建时把 `web/` 复制到 `app/src/main/assets/www`）
-
-## 技术栈
-
-纯前端：HTML/CSS/JS + ECharts + Canvas 单图层合成；数据由 Python 生成器与每日嗅探器产出，无后端。
+Daily collection and client delivery are independent. The existing paid weekly-review worker remains paused at its previously exhausted CNY 10 budget; this release does not change the collection budget.

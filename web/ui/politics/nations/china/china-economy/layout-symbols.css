@@ -1,0 +1,51 @@
+.econ-console{--layout-columns:minmax(0,43fr) minmax(0,34fr) minmax(0,23fr);--layout-rows:minmax(0,62fr) minmax(0,38fr);--chassis-gap:14px;--chassis-inner:14px;--chassis-row:12px;grid-template-columns:var(--layout-columns);grid-template-rows:var(--layout-rows);gap:var(--chassis-row) var(--chassis-gap)}
+.econ-ledger,.econ-fiscal-bottom,.econ-fiscal-detail{display:contents}
+.econ-ledger>.econ-output{grid-column:2;grid-row:1;height:100%;align-self:stretch;min-width:0}
+.econ-ledger>.econ-enterprises{grid-column:3;grid-row:1;height:60%;align-self:start;align-items:stretch;padding:1px 3px 7px;gap:9px;border:0;grid-template-rows:1fr}
+.econ-enterprise{height:100%;align-self:stretch;justify-content:flex-start;padding:0;min-height:0}
+.econ-enterprise-image{min-height:0;height:0;flex:1;aspect-ratio:auto;padding:0}
+.enterprise-art{height:100%;width:100%;max-height:none}
+.econ-enterprise-caption{margin-top:3px;font-size:11px;line-height:1.4;letter-spacing:-.02em}
+.econ-enterprise>strong{font-size:17px;line-height:1.5;margin-top:4px}
+.econ-enterprise+.econ-enterprise:before{top:8px;bottom:6px;opacity:.6}
+.fiscal-metrics{grid-column:3;grid-row:1;align-self:end;height:38%;min-height:0;display:grid;grid-template-columns:1fr;grid-template-rows:repeat(6,minmax(0,1fr));padding:4px 6px 0;gap:0;border-top:3px double #648a80}
+.fiscal-metric{padding:0 1px;display:flex;flex-direction:row;align-items:center;border-bottom:1px solid #476a603f;gap:6px}
+.fiscal-metric:last-child{border-bottom:0}
+.fiscal-metric>span,.fiscal-metric[data-metric=debt]>span{font-size:12px;line-height:1.25;color:#b9cbc4}
+.fiscal-metric strong{font-size:19px;line-height:1}.fiscal-metric[data-metric=debt] strong{font-size:16px}.fiscal-metric strong small{font-size:9px}
+.fiscal-pies{grid-column:2;grid-row:2;min-width:0;min-height:0;height:100%;gap:12px;padding:3px 5px 2px;position:relative}
+.fiscal-pie{grid-template-rows:52px minmax(0,1fr);padding:0;position:relative;min-height:0}
+.fiscal-pie>header{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0 0 4px 25px;border-bottom:1px solid #55796f}
+.fiscal-pie h3{font-size:16px;line-height:1.1;letter-spacing:0}.fiscal-pie header strong{font-size:20px;line-height:1.1}.fiscal-pie small{font-size:8px}
+.fiscal-pie-mark{position:absolute;left:-2px;top:3px;width:39px;height:41px;pointer-events:none}
+.fiscal-pie>svg{padding:4px 0 10px;box-sizing:border-box}
+.fiscal-legend-wrap{right:1px;bottom:3px}
+.fiscal-warnings{grid-column:3;grid-row:2;width:calc(100% + var(--chassis-x) + 7px);height:auto;align-self:end;margin:0 calc(-1 * var(--chassis-x)) calc(-1 * var(--chassis-bottom)) -7px}
+.econ-structure{grid-template-columns:var(--layout-columns);grid-template-rows:var(--layout-rows);gap:var(--chassis-row) var(--chassis-gap)}
+.econ-structure-top,.econ-structure-bottom{display:contents}
+.econ-structure-top i:first-child{grid-column:2;grid-row:1}.econ-structure-top i:last-child{grid-column:3;grid-row:1}
+.econ-structure-bottom i:first-child{grid-column:2;grid-row:2}.econ-structure-bottom i:last-child{grid-column:3;grid-row:2}
+.econ-structure-top i:last-child:before{bottom:calc(var(--chassis-row)/-2)}
+.econ-structure i:before{box-shadow:inset 0 0 0 1px #45645c}
+.econ-structure-left{grid-template-rows:72% 28%}
+.econ-map-street{width:45%;height:27%;bottom:0;left:0;background:none}
+.econ-map-emblem{position:absolute;left:0;top:0;width:23%;height:24%;pointer-events:none;opacity:.95}
+.econ-bank-orders{position:absolute;right:-1%;bottom:2%;width:18%;height:22%;pointer-events:none}
+.econ-title-art{width:105px;max-height:76px;display:flex;align-items:center}
+.econ-title-art .econ-symbol{max-height:76px}
+.econ-case .econ-sector h4,.econ-case.econ-portrait .econ-sector h4{font-size:13px}
+.econ-case .econ-sector>span,.econ-case.econ-portrait .econ-sector>span{font-size:10px}
+.econ-case .econ-resource-junctions>div,.econ-case.econ-portrait .econ-resource-junctions>div{font-size:10px}
+@media(max-height:780px){
+ .econ-console{--layout-rows:minmax(0,57fr) minmax(0,43fr);--chassis-gap:12px;--chassis-inner:12px;--chassis-row:9px}
+ .econ-enterprise-caption{font-size:10px}.econ-enterprise>strong{font-size:15px}
+ .fiscal-metric>span,.fiscal-metric[data-metric=debt]>span{font-size:11px}.fiscal-metric strong{font-size:17px}.fiscal-metric[data-metric=debt] strong{font-size:14px}
+ .fiscal-pie{grid-template-rows:47px minmax(0,1fr)}.fiscal-pie h3{font-size:14px}.fiscal-pie header strong{font-size:18px}.fiscal-pie-mark{width:32px;height:37px}
+ .econ-title-art{width:82px;max-height:62px}
+ .econ-case .econ-sector h4,.econ-case.econ-portrait .econ-sector h4{font-size:12px}.econ-case .econ-sector>span,.econ-case.econ-portrait .econ-sector>span{font-size:9px}
+}
+
+body[data-page=economy] .mast-mark{display:none}
+.mast-mark img{display:none}
+body[data-page=economy] .mast h1{display:flex;justify-content:center;align-items:center;gap:.22em;white-space:nowrap;padding-left:15px;padding-right:15px}
+body[data-page=economy] .mast h1::before{content:"";display:block;flex:0 0 1em;height:1em;background:url(assets/ccp-native.png) center/contain no-repeat}

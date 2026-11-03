@@ -1,0 +1,170 @@
+/* Refit after visual rejection. China deliberately keeps its previous approved screen.
+   Ground: ink black. Interface: cyan. Political actors: separate red/blue/gold/purple.
+   No global sepia tint, olive panels, paper collage or simulated ageing. */
+body[data-refit]{--bg:#060d13;--cyan:#70d4d0;--line:#55999f;--dim:#91b9c0;--white:#c8d4d6;background:#03090e;color:#c8d4d6}
+body[data-refit] .console,body[data-refit] .frame{background:#060d13}
+body[data-refit] button{background:#07141e;color:#c3d6dc;border-color:#4a8d98}
+body[data-refit] button:hover{background:#102b3b;color:#e8ffff;border-color:#85e1e1}
+body[data-refit] button[aria-selected=true],body[data-refit] button[aria-pressed=true]{color:#e2f8f5;background:#173343;border-color:#8fe1dd;box-shadow:inset 0 -2px #6bd2d2}
+body[data-refit] .window-title{height:51px;border-bottom:3px double #6dbbbd;color:#b8e6df;letter-spacing:1px}
+body[data-refit] .window-title>span{font-size:24px;letter-spacing:1px;white-space:normal;line-height:1.15}
+body[data-refit] .window-title small{color:#74bcca;font-size:8px;max-width:150px;letter-spacing:1px}
+body[data-refit] .institution-footer,body[data-refit] .power-grid>div,body[data-refit] .dossier{background:#06131d;border-color:#497e8b;color:#bfcdd0}
+body[data-refit] .power-grid b{color:#8ad9db}body[data-refit] .power-grid .number{color:#ecce78}
+body[data-refit] .party-counts{background:#060d13;gap:4px}
+body[data-refit] .party-button{background:#081622;border-color:#315d72;border-left-color:var(--party);border-left-width:3px;box-shadow:none}
+body[data-refit] .party-button strong{color:var(--party)}body[data-refit] .party-button.selected{background:#142b3d;border-color:#6abfce}
+body[data-refit] .chamber-stage{background:#060e16;border-block:1px solid #2d6372}
+body[data-refit] .chamber-tabs{background:#060d13}
+body[data-refit] #national-structure{background:#06121c;border:1px solid #488990;position:relative;isolation:isolate;overflow:visible;min-height:175px;padding:12px;margin:10px}
+body[data-refit] .national-caption{background:#081720;border:0;border-bottom:1px solid #519ca4;padding:5px 0 9px;color:#8fcfd9;position:relative;letter-spacing:2px}
+body[data-refit] .institution-route{gap:6px;margin:10px 0;position:relative}
+body[data-refit] .institution-route>div{background:#061019e8;border:1px solid #306679;color:#c7d8db;min-height:38px;padding:8px;font-size:12px;line-height:1.5}
+body[data-refit] .institution-route>div small{display:inline-block;color:#e0cf72;margin-right:9px;font:11px TNOAldrich}
+body[data-refit] #national-structure>p{font-size:10px;line-height:1.7;color:#9baec2;position:relative;margin-bottom:0}
+.institution-geography{position:absolute;inset:32px 0 0;width:100%;height:calc(100% - 35px);object-fit:contain;opacity:.25;z-index:-1}
+.institution-motif{position:absolute;right:12px;top:-20px;width:82px;height:82px;z-index:2;filter:drop-shadow(2px 3px 2px #000);pointer-events:none}
+body[data-refit] .institution-motif~.national-caption{padding-right:85px}
+body[data-refit=westminster] .chamber-stage{background:linear-gradient(#061820 0 45%,#264453 45% 46%,#030910 46% 53%,#264453 53% 54%,#061820 54%)}
+body[data-refit=westminster] #national-structure{border-inline:1px solid #519ca4}
+body[data-refit=westminster] .route-b{border-left:3px solid #d5777f}
+body[data-refit=westminster] .route-c{border-right:3px solid #759fe5}
+body[data-refit=diet] #national-structure{padding-top:17px;border-top:3px double #c2849d}
+body[data-refit=diet] .national-caption{color:#e4b7d1;text-align:center;letter-spacing:7px}
+body[data-refit=diet] .route-a{color:#c79ab5;border-bottom:1px solid #b37998}
+body[data-refit=union] #national-structure{border-top:3px double #edbd75}
+body[data-refit=union] .national-caption{color:#edbd75}
+body[data-refit=union] .route-c{border-left:3px solid #8fb2b9}
+body[data-refit=federation] #national-structure{min-height:230px}
+body[data-refit=federation] .institution-geography{opacity:.42}
+body[data-refit=archipelago] #national-structure{min-height:205px}
+body[data-refit=archipelago] .institution-route{padding-top:45px}
+body[data-refit=archipelago] .institution-geography{opacity:.6;top:30px;height:110px}
+body[data-refit=twohouses] .institution-route{grid-template-columns:1fr 1fr;gap:10px}
+body[data-refit=twohouses] .route-a{border-top:2px solid #78a8e4}
+body[data-refit=twohouses] .route-b{border-top:2px solid #e59093}
+body[data-refit=twohouses] .route-c{grid-column:1/-1;border-top:1px solid #6bd0d3}
+body[data-refit=coalition] .national-caption{color:#d6cf77}
+body[data-refit=wartime] #national-structure{border-left:3px solid #79a6e8;border-right:3px solid #e1d273}
+/* Preserve USA's seat/seal composition; restore distinct saturated seat colors. */
+body[data-refit][data-iso=USA] .chamber-stage{background:#050d12}
+body[data-refit][data-iso=USA] .seal-center{opacity:1}
+body[data-refit][data-iso=USA] .state-map{opacity:.6}
+/* Republic portrait gallery is an in-game political panel, not a scrapbook. */
+body[data-refit][data-iso=FRA] #national-structure{padding:12px 12px 12px 120px;min-height:255px;border-block:1px solid #70b8c6;background:#07111e}
+body[data-refit][data-iso=FRA] .republic-allegory{width:152px;filter:saturate(1.05);opacity:.9}
+body[data-refit][data-iso=FRA] .national-caption{font-size:16px;letter-spacing:2px;color:#a7cbe9}
+body[data-refit][data-iso=FRA] .french-poles{gap:7px;margin:10px 0}
+body[data-refit][data-iso=FRA] .french-poles article{transform:none;background:#07131d;padding:3px;border:1px solid #517ead;box-shadow:none}
+body[data-refit][data-iso=FRA] .french-poles article:nth-child(2){transform:none;background:#07131d;border-color:#a5cec9}
+body[data-refit][data-iso=FRA] .french-poles article:nth-child(3){transform:none;background:#07131d;border-color:#ce7f8b}
+body[data-refit][data-iso=FRA] .french-poles img{filter:none;height:112px}
+body[data-refit][data-iso=FRA] .french-poles b{color:#cfd7de}
+body[data-refit][data-iso=FRA] .french-poles span{color:#89b5ca}
+body[data-refit][data-iso=FRA] #national-structure>p{color:#8fbbc7;border-top:1px solid #477580}
+/* Instrument only: black dial, clean scale, separate live indicator. */
+body[data-refit][data-iso=DEU] .coalition-lab{background:#06131e;border:1px solid #6ba8b5;box-shadow:inset 0 0 0 3px #071016;padding:10px 14px}
+body[data-refit][data-iso=DEU] .instrument-name{color:#cee0e5;border-color:#5fa6b2}
+body[data-refit][data-iso=DEU] .instrument-name span{color:#86bfd1}
+body[data-refit][data-iso=DEU] .dial-arc{fill:#02090f;stroke:#82c9ca}
+body[data-refit][data-iso=DEU] .dial-inner{stroke:#386d80}
+body[data-refit][data-iso=DEU] .dial-ticks line{stroke:#87c4cc}
+body[data-refit][data-iso=DEU] .dial-ticks .majority-tick{stroke:#f0d46e}
+body[data-refit][data-iso=DEU] .dial-needle path{fill:#e87881;stroke:#f1b5b6}
+body[data-refit][data-iso=DEU] .dial-value{fill:#e7d37a}
+body[data-refit][data-iso=DEU] .coalition-result{color:#e2d27c;border-color:#477e92}
+body[data-refit][data-iso=DEU] .majority-dial text{fill:#a9cedc}
+body[data-refit][data-iso=DEU] .coalition-lab[data-majority=true] .dial-value{fill:#7ae2aa}
+/* Theme dossiers */
+body[data-refit] #country-dossier{color:#c6d6dc;margin:8px;line-height:1.5}
+body[data-refit] #country-dossier p{color:#a2bdca;font-size:11px;line-height:1.7}
+body[data-refit] #country-dossier h3{color:#90d8dc;font-size:14px}
+body[data-refit] .dossier-heading{background:none;border:0;border-bottom:1px solid #3d7484;padding:3px 2px 10px}
+body[data-refit] .dossier-heading>small{color:#74c4d3;letter-spacing:2px;font-size:10px}
+body[data-refit] .dossier-heading p{color:#aabfcc;font-size:10px}
+body[data-refit] .dossier-footnote,body[data-refit] .chart-caption{color:#7da0b3!important;border-color:#244a5b;font-size:9px!important;padding:8px 2px}
+.operations-screen{display:grid;grid-template-columns:minmax(0,1fr) 185px;gap:8px;margin-top:8px}
+body[data-refit] .theatre-board{margin:0;border:1px solid #58999f;background:#050e17}
+body[data-refit] .theatre-coordinate{min-height:0;padding:6px;color:#79bfc9;font-size:9px;background:#091725;border-color:#355c72}
+body[data-refit] .theatre-coordinate span{display:none}
+.theatre-status{display:flex;justify-content:space-between;gap:8px;padding:6px;border-bottom:1px solid #4c8090;font-size:11px;color:#d6d87b}
+.theatre-status b{font:9px TNOAldrich;color:#82aeca}
+body[data-refit] .theatre-map svg{height:300px;width:100%;background:#05101a}
+body[data-refit] .theatre-map svg>rect:first-of-type{fill:#06121d}
+body[data-refit] .theatre-map svg>path:not([data-side]):not([fill="none"]){fill:#132a38;stroke:#6aa9bd}
+body[data-refit] .theatre-map [data-side=left]{fill:#5599a9;stroke:#91d6dc}
+body[data-refit] .theatre-map [data-side=right]{fill:#b36d87;stroke:#e8a2b5}
+body[data-refit] .theatre-key{border-color:#386578;font-size:9px;gap:5px;padding:7px 6px}
+body[data-refit] .map-record{font-size:8px!important;padding:0 6px 7px}
+.operations-channel{border:1px solid #457f8a;min-width:0;background:#07141c}
+.channel-label{font-size:11px;text-align:center;border-bottom:1px solid #457f8a;padding:7px;color:#82ccd0}
+body[data-refit] .theatre-actors{display:grid;gap:5px;padding:6px}
+body[data-refit] .theatre-actors button{padding:8px 5px;font-size:10px;text-align:left;border-left:3px solid #75c4d6;line-height:1.4}
+body[data-refit] .theatre-actors button:last-child{border-left-color:#d28caa}
+body[data-refit] .actor-brief{background:transparent;border:0;border-top:1px solid #365f76;padding:9px;min-height:155px}
+body[data-refit] .actor-brief h3{font-size:12px!important}
+body[data-refit] .actor-brief li{display:block;border-color:#284858;padding-block:7px;font-size:11px}
+body[data-refit] .actor-brief li span{display:block;color:#bba2c8;font-size:10px;margin-top:2px}
+body[data-refit] .field-notes{gap:8px;padding:10px 0}
+body[data-refit] .field-notes article{border-top:1px solid #6479b4;padding:7px}
+body[data-refit] .field-notes article:nth-child(2){border-top-color:#c5899d}
+body[data-refit] .field-notes p{font-size:10px!important}
+/* Institution circuits, with selectable nodes and one compact readout. */
+.circuit-legend{display:flex;gap:10px;flex-wrap:wrap;padding:10px 2px;font-size:9px}.circuit-legend span:before{content:'■';margin-right:4px}
+.circuit-screen{position:relative;border:1px solid #447d92;background:#040e17;aspect-ratio:560/320;isolation:isolate}
+.circuit-screen>svg{position:absolute;inset:0;width:100%;height:100%}
+body[data-refit] .circuit-node{position:absolute;transform:translate(-50%,-50%);width:30%;max-width:150px;min-height:45px;padding:5px;background:#07141df5;border:1px solid var(--signal);color:var(--signal);font-size:11px;line-height:1.4;box-shadow:0 0 0 4px #061019}
+.circuit-node span{display:block;font:10px TNOAldrich;margin-bottom:4px}.circuit-node b{font-weight:400}
+body[data-refit] .circuit-node[aria-pressed=true]{background:#183247;color:var(--signal);box-shadow:0 0 0 3px #08101a,inset 0 -3px var(--signal)}
+.circuit-readout{min-height:86px;padding:12px;border:1px solid #487e8b;border-top:0;background:#07141e}
+.circuit-readout p{margin-top:5px!important}.institution-supplement{margin:10px 0;border:1px solid #5a608e;padding:8px 10px;background:#0b1423}.institution-supplement summary{cursor:pointer;color:#b5a6de;font-size:12px}.institution-supplement p{padding-top:8px}.guardian-sectors{display:flex;gap:15px;align-items:center;border-top:1px solid #394566;margin-top:9px}.guardian-sectors b{font:27px TNOAldrich;color:#dece79;white-space:nowrap}.guardian-sectors b span{font-size:15px;color:#79c8cf}
+/* Geography-based diplomacy */
+body[data-refit] .diplomatic-chart,body[data-refit][data-iso=MNG] .diplomatic-chart{display:block;position:relative;min-height:365px;height:365px;margin:12px 0 0;padding:0;background:#06131e;border:1px solid #467f93}
+.transit-map{position:absolute;inset:18px 25px 0 0}.transit-map>img,.transit-map>svg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.transit-home{position:absolute;top:55%;left:49%;color:#e8d877;font-size:19px;transform:translateX(-50%);text-shadow:2px 2px #000}
+body[data-refit] .neighbour{position:absolute;width:42%;padding:9px 7px;text-align:center;background:#071823ed;border:1px solid #57999f;line-height:1.4}
+.neighbour small{display:block;color:#83c8e6;font-size:12px}.neighbour span{display:block;font-size:9px;color:#a7c3ce;margin-top:3px}.neighbour.north{top:10px;left:22%}.neighbour.south{bottom:10px;left:22%;border-color:#cf858f}.neighbour.south small{color:#e6a3a6}.neighbour.third{right:6px;top:44%;width:27%;border-color:#aa95cc}.neighbour.third small{color:#c6ade8}
+.diplomatic-readout{display:flex;gap:15px;padding:10px;border:1px solid #447d92;border-top:0;font-size:11px;background:#081824}.diplomatic-readout b{color:#82c7d7;font-weight:400}.diplomatic-readout span{color:#c3cdd6}
+/* Court and investment: emblem, linked resource ledger, no broad green/gold wash. */
+body[data-refit] .royal-record{background:#050f19;border:1px solid #5e9ca0;margin-top:12px;padding:12px}
+body[data-refit] .royal-heading{position:relative;text-align:left;min-height:115px;padding:24px 0 15px 160px;border-bottom:1px solid #669aaa}
+.royal-insignia{position:absolute;left:10px;top:-20px;width:135px;height:140px}.royal-insignia svg{width:100%;height:100%;filter:drop-shadow(2px 3px 1px #000)}
+body[data-refit] .royal-flow{padding:0;display:grid;grid-template-columns:1fr;gap:5px;margin-top:12px}
+body[data-refit] .royal-flow article{display:grid;grid-template-columns:95px 1fr;padding:9px;border:1px solid #396b81;background:#07141f;column-gap:12px}
+body[data-refit] .royal-flow small{grid-row:1/3;align-self:center;color:#e3d475;font-size:12px}.royal-flow article:nth-child(2) small{color:#ac92d6!important}.royal-flow article:nth-child(3) small{color:#6bd5c2!important}
+body[data-refit] .royal-flow p{font-size:10px!important;grid-column:2}
+body[data-refit] .vision-imprint{margin-top:12px;color:#75c7d4;letter-spacing:2px;font-size:11px}.vision-imprint strong{font-size:30px;color:#d5d98c}
+/* Federal geography and economic decisions */
+body[data-refit] .federal-ledger{gap:12px;margin:12px 0;grid-template-columns:190px 1fr}
+body[data-refit] .federal-register{background:#071825;border:1px solid #519aa3;padding:8px;position:relative;text-align:center}
+.federal-register>img{width:100%;height:170px;object-fit:contain}
+body[data-refit] .federal-register>strong{font:45px TNOAldrich;color:#e2d478;display:inline-block;margin-right:8px}
+body[data-refit] .federal-register>span{color:#7cd5c9;font-size:18px}
+body[data-refit] .federal-register small{display:block;color:#81b6c9;font-size:10px;margin:10px 0}
+body[data-refit] .distribution-record article{border-color:#437888;padding:9px 0}
+body[data-refit] .distribution-record small{color:#ddbd78}.distribution-record article:nth-child(2) small{color:#90b3ba}.distribution-record article:nth-child(3) small{color:#c0a1dc}
+body[data-refit] .supply-ledger{background:#050e17;border:0;padding:0;margin:12px 0}
+body[data-refit] .supply-ledger article{position:relative;padding:15px 10px 15px 95px;border:1px solid #527f97;margin-bottom:8px;min-height:110px;background:#071622}
+.supply-ledger article>img{position:absolute;left:8px;top:12px;width:72px;height:78px;object-fit:contain}.supply-ledger article>img[src$='.png']{filter:brightness(2)}
+body[data-refit] .supply-ledger small{color:#dd858d}.supply-ledger article:nth-child(2) small{color:#ead374}.supply-ledger article:nth-child(3) small{color:#a994dc}
+body[data-refit] #chamber-reveal{background:#0a1926;border-color:#5a8daa;color:#85c7dc;font-size:11px;padding:8px}
+@media(max-width:500px){body[data-refit] .window-title>span{font-size:20px}.operations-screen{grid-template-columns:1fr}.operations-channel{display:grid;grid-template-columns:120px 1fr}.channel-label{grid-column:1/-1}.operations-channel .actor-brief{border-top:0;border-left:1px solid #365f76}.operations-channel .theatre-actors{align-content:start}body[data-refit] .theatre-map svg{height:260px}body[data-refit] .field-notes{grid-template-columns:1fr 1fr}.circuit-node b{font-size:9px}body[data-refit] .circuit-node{min-height:40px;padding:3px;width:31%}.circuit-node span{font-size:8px}.circuit-legend{font-size:8px;gap:5px}.circuit-screen{aspect-ratio:560/350}body[data-refit] .federal-ledger{grid-template-columns:120px 1fr}.federal-register>img{height:140px}body[data-refit] .distribution-record h3{font-size:12px!important}.distribution-record p{font-size:10px!important}body[data-refit] .royal-heading{padding-left:115px}.royal-insignia{width:105px;left:0}body[data-refit] .royal-flow article{grid-template-columns:75px 1fr}.institution-motif{width:65px;height:65px;top:-13px}body[data-refit] .institution-motif~.national-caption{padding-right:64px}body[data-refit][data-iso=FRA] #national-structure{padding-left:67px}.neighbour.third span{font-size:8px}body[data-refit][data-iso=MNG] .diplomatic-chart,body[data-refit] .diplomatic-chart{height:330px;min-height:330px}}
+body[data-refit] .party-button strong{color:#cbdde4}
+body[data-refit] .chamber-baseline{background:#06111b;border-color:#4d8291;color:#9fc6ce}
+body[data-refit] .chamber-name,body[data-refit] .window-title>span{color:#b7e5df}
+body[data-refit] .chamber-baseline strong{color:#e6d374}
+.institutional-art{background-image:url('assets/institution-foreground-atlas.png');background-size:200% 200%;background-repeat:no-repeat;width:102px;height:102px;right:5px;top:-17px;filter:drop-shadow(2px 4px 2px #000a)}
+.art-GBR{background-position:0 0}.art-JPN{background-position:100% 0}.art-IND{background-position:0 100%}.art-BRA{background-position:100% 100%}
+body[data-refit] .institutional-art~.national-caption{padding-right:100px;min-height:64px;display:flex;align-items:center}
+body[data-refit=union] .institutional-art,body[data-refit=federation] .institutional-art{width:105px;height:105px;right:-8px;top:-22px}
+body[data-refit=union] .institutional-art~.national-caption,body[data-refit=federation] .institutional-art~.national-caption{padding:82px 0 8px}
+@media(max-width:500px){.institutional-art{width:82px;height:82px;right:2px;top:-15px}body[data-refit] .institutional-art~.national-caption{padding-right:80px;min-height:52px}body[data-refit=union] .institutional-art~.national-caption,body[data-refit=federation] .institutional-art~.national-caption{padding:76px 0 8px}}
+/* Japan: the Diet building anchors the institutional composition, not a corner sticker. */
+body[data-refit=diet] #national-structure{min-height:238px;padding:18px 13px 12px 225px}
+body[data-refit=diet] .institutional-art{width:220px;height:220px;left:-5px;right:auto;top:0}
+body[data-refit=diet] .institutional-art~.national-caption{padding:0 0 8px;min-height:0;font-size:20px;letter-spacing:4px;text-align:left;display:block}
+body[data-refit=diet] .institution-route{display:flex;flex-direction:column;margin:8px 0;gap:5px}
+body[data-refit=diet] .institution-route>div{min-height:0;padding:6px 8px;font-size:11px;border:0;border-left:2px solid #7aaabe;background:#081620c9}
+body[data-refit=diet] .institution-route>.route-a{border-left-color:#c9869c;color:#d9abbc}
+body[data-refit=diet] .institution-geography{left:0;top:0;width:100%;height:100%;opacity:.1}
+@media(max-width:500px){body[data-refit=diet] #national-structure{padding-left:133px;min-height:225px}body[data-refit=diet] .institutional-art{width:135px;height:135px;top:32px;left:-3px}body[data-refit=diet] .institutional-art~.national-caption{font-size:14px;letter-spacing:1px;padding:0 0 8px;min-height:0}body[data-refit=diet] .institution-route>div{font-size:10px}}

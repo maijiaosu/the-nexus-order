@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Nexus Order · 世界沙盘</title>
-<link rel="stylesheet" href="assets/fonts.css">
+
 <style>
 :root{
   --bg:#090c10; --bg2:#0b0f14; --panel:#0d1218; --line:#1b2830; --line2:#33505e;
   --steel:#5b8296; --steelhi:#8fb8cb;
-  --txt:#d8cfae; --dim:#8f8a74; --faint:#5d5947;
+  --txt:#b5ccd1; --dim:#54a4af; --faint:#346970;
   --gold:#c9a84c; --goldhi:#e3c565;
-  --paper:#ddd2b0; --paperln:#8f8464; --ink:#2b2620;
-  --r-ally:#4e708c; --r-good:#5d7f4e; --r-tense:#b08a2a; --r-war:#a63d2e;
+  --paper:#bacfd3; --paperln:#4e9ba5; --ink:#162c35;
+  --r-ally:#4e708c; --r-good:#42838b; --r-tense:#b08a2a; --r-war:#a63d2e;
   --sans:"TNO Sans",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
   --serif:"TNO Serif","Songti SC","STSong","Noto Serif SC",serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Courier New",monospace;
@@ -23,10 +24,10 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 a{color:inherit}
 #app{position:relative;width:100%;height:100%;display:flex;flex-direction:column;background:var(--bg)}
 
-/* ===== 顶栏 ===== */
+/* ===== Top bar ===== */
 #topbar{position:relative;z-index:30;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-  padding:10px 14px;padding-inline-end:var(--daimon-widget-host-safe-inline-end,82px);
-  padding-block-start:calc(8px + var(--daimon-widget-host-safe-block-start,0px));
+  padding:10px 14px;padding-inline-end:14px;
+  padding-block-start:calc(8px + 0px);
   border-bottom:1px solid var(--line2);background:linear-gradient(180deg,rgba(13,18,24,.97),rgba(9,12,16,.94));}
 .brand{display:flex;align-items:center;gap:9px;font-family:var(--serif);font-size:14px;letter-spacing:3px;color:var(--txt)}
 .brand .dot{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);animation:pulse 3.2s infinite}
@@ -42,13 +43,13 @@ a{color:inherit}
 #meta .stale{color:var(--gold)}
 #modeind{color:var(--gold)}
 
-/* ===== 地图区 ===== */
+/* ===== Map area ===== */
 #mapwrap{position:relative;flex:1;min-height:0;background:var(--bg)}
 #map{position:absolute;inset:0;z-index:1}
 .vignette{position:absolute;inset:0;pointer-events:none;z-index:6;
   background:radial-gradient(ellipse at 50% 45%,transparent 58%,rgba(0,0,0,.62) 100%);}
 
-/* ===== 图例 ===== */
+/* ===== Legend ===== */
 #legend{position:absolute;z-index:20;right:12px;bottom:44px;display:none;flex-direction:column;gap:3px;
   background:rgba(10,14,19,.92);border:1px solid var(--line2);padding:8px 10px;max-width:190px}
 #legend.show{display:flex}
@@ -59,7 +60,7 @@ a{color:inherit}
 #legend .lg-i.lnk:hover{background:rgba(232,224,200,.08)}
 #legend .lg-i.lnk.on{background:rgba(232,224,200,.13);border-color:var(--line2);color:var(--steelhi)}
 
-/* ===== 侧栏 ===== */
+/* ===== Sidebar ===== */
 #sidebar{position:absolute;z-index:40;top:0;left:0;bottom:0;width:348px;max-width:92vw;
   background:linear-gradient(90deg,rgba(11,16,21,.98),rgba(11,16,21,.95));
   border-right:1px solid var(--line2);transform:translateX(-105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
@@ -79,21 +80,21 @@ a{color:inherit}
 #sb-resizer::after{content:"";position:absolute;top:0;bottom:0;right:4px;width:1px;background:var(--line2);transition:background .15s}
 #sb-resizer:hover::after,#sidebar.dragging #sb-resizer::after{width:3px;right:3px;background:var(--gold)}
 
-/* ===== 紧张度指示器(地图右上角) ===== */
+/* ===== Tension indicator (top-right map corner) ===== */
 #defcon{position:absolute;z-index:22;top:10px;right:12px;display:flex;flex-direction:column;align-items:center;
   padding:7px 12px 5px;background:rgba(8,12,17,.92);border:1px solid var(--line2);cursor:pointer;font-family:var(--mono)}
 #defcon:hover{border-color:var(--gold)}
 #defcon:focus-visible{outline:1px solid var(--gold)}
-#defcon .dc-num{font-size:22px;font-weight:700;line-height:1.1;color:#4fa875}
+#defcon .dc-num{font-size:22px;font-weight:700;line-height:1.1;color:#4f9ea8}
 #defcon .dc-cap{font-size:9px;letter-spacing:2px;color:var(--dim);margin-top:2px}
-#defcon.lv2 .dc-num{color:#8ac79f}
+#defcon.lv2 .dc-num{color:#95b6bc}
 #defcon.lv3 .dc-num{color:#b08a2a}
 #defcon.lv4 .dc-num{color:#c25a4a}
 #defcon.lv5{border-color:rgba(227,75,63,.7)}
 #defcon.lv5 .dc-num{color:#e34b3f;animation:dcpulse 1.1s ease-in-out infinite}
 @keyframes dcpulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-/* ===== 战争清单(右侧栏) ===== */
+/* ===== War list (right sidebar) ===== */
 #warbar{position:absolute;z-index:40;top:0;right:0;bottom:0;width:348px;max-width:92vw;
   background:linear-gradient(270deg,rgba(11,16,21,.98),rgba(11,16,21,.95));
   border-left:1px solid var(--line2);transform:translateX(105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
@@ -152,7 +153,7 @@ a{color:inherit}
 .kv dt{color:var(--faint);font-family:var(--mono);font-size:10px;letter-spacing:1px;padding-top:2px}
 .kv dd{color:var(--txt)}
 
-/* 体制悬停解说 */
+/* Political-system hover explanations */
 .tip{position:relative;border-bottom:1px dotted var(--dim);cursor:help}
 .tip .tip-q{font-style:normal;font-family:var(--mono);font-size:9px;color:var(--gold);
   border:1px solid rgba(201,168,76,.5);padding:0 3px;margin-left:5px;vertical-align:1px}
@@ -170,21 +171,56 @@ a{color:inherit}
 .pie-lg .pi b{margin-left:auto;font-family:var(--mono);font-weight:400;color:var(--dim)}
 .trd{font-family:var(--mono);font-size:9px;letter-spacing:-1px}
 .trd.u{color:#c2593a}
-.trd.d{color:#6d9a55}
-.trd.f{color:#5d5947}
-.pie-note{font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:7px;letter-spacing:.5px;line-height:1.7}
+.trd.d{color:#4c98a3}
+.trd.f{color:#346970}
 
-/* 政局 · 议会半圆图 */
-.parl-one,.parl-us{margin:2px 0 2px}
-.parl-us{display:flex;gap:10px}
-.parl-us .pu{flex:1;min-width:0}
-.pu-t{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:1px;margin-bottom:3px}
-.parl-svg{width:100%;height:auto;display:block}
-.parl-lg{display:flex;flex-wrap:wrap;gap:3px 10px;margin-top:6px}
-.parl-lg .pi{display:flex;align-items:center;gap:5px;font-size:11px}
-.parl-lg .pi i{width:8px;height:8px;flex:none}
-.parl-lg .pi b{font-family:var(--mono);font-weight:400;color:var(--dim)}
-.parl-note{font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:5px;letter-spacing:.5px}
+/* Politics: country-specific parliament diagrams compress seats proportionally while text retains actual counts. */
+.parl-card{--pa:#5aa7b1;--pb:#536d7b;position:relative;overflow:hidden;margin:3px 0 2px;padding:9px 9px 8px;border:1px solid color-mix(in srgb,var(--pa) 55%,var(--line2));background:linear-gradient(135deg,color-mix(in srgb,var(--pa) 12%,#0d1319),rgba(11,16,22,.94));box-shadow:inset 3px 0 0 var(--pa),inset 0 1px rgba(255,255,255,.035)}
+.parl-card:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.42;background:repeating-linear-gradient(90deg,transparent 0 18px,color-mix(in srgb,var(--pa) 28%,transparent) 19px 20px,transparent 21px 39px)}
+.parl-card>*{position:relative;z-index:1}
+.parl-top{display:flex;align-items:baseline;gap:8px;padding-bottom:5px;border-bottom:1px solid color-mix(in srgb,var(--pa) 45%,transparent)}
+.parl-kicker{font-family:var(--mono);font-size:9px;letter-spacing:1.15px;color:var(--pa);white-space:nowrap}
+.parl-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--serif);font-size:14px;color:var(--txt);font-weight:700}
+.parl-status{display:flex;justify-content:space-between;gap:8px;margin:5px 0 4px;font-family:var(--mono);font-size:9px;letter-spacing:.45px;color:var(--dim)}
+.parl-status b{font-weight:400;color:var(--pa);text-align:right;white-space:nowrap}
+.parl-heritage{display:flex;gap:6px;align-items:baseline;margin:-1px 0 5px;font-family:var(--mono);font-size:8px;letter-spacing:.45px;color:var(--faint)}.parl-heritage span{color:color-mix(in srgb,var(--pa) 76%,#bed2d6)}.parl-heritage b{font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.parl-one,.parl-us{margin:1px 0 2px}.parl-us{display:flex;gap:8px}.parl-us .pu{flex:1;min-width:0}
+.pu-t{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:.65px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.parl-svg{width:100%;height:auto;display:block}.parl-us .parl-svg{min-height:67px}
+.parl-lg{display:flex;flex-wrap:wrap;gap:3px 9px;margin-top:6px}.parl-lg .pi{display:flex;align-items:center;gap:5px;font-size:10px;line-height:1.25}.parl-lg .pi i{width:7px;height:7px;flex:none}.parl-lg .pi b{font-family:var(--mono);font-weight:400;color:var(--dim)}
+.parl-note{font-family:var(--mono);font-size:8.5px;color:var(--faint);margin-top:5px;letter-spacing:.35px;line-height:1.5}
+.parl-card.theme-westminster{--pa:#5ba8b2;--pb:#ad3842;background:linear-gradient(135deg,#0c191e,#0d1319 60%)}.parl-card.theme-westminster:before{background:repeating-linear-gradient(0deg,transparent 0 8px,rgba(187,155,82,.13) 9px 10px,transparent 11px 19px)}
+.parl-card.theme-capitol{--pa:#bf4946;--pb:#4f87bf;background:linear-gradient(115deg,#172536,#0d1319 58%,#30171a)}.parl-card.theme-capitol:before{background:radial-gradient(ellipse at 50% 112%,rgba(191,73,70,.22),transparent 47%),repeating-linear-gradient(90deg,transparent 0 12px,rgba(255,255,255,.045) 13px 14px)}
+.parl-card.theme-congress{--pa:#d44a3f;--pb:#c89a38;background:linear-gradient(135deg,#2a1517,#11171b 65%)}.parl-card.theme-congress:before{background:repeating-radial-gradient(ellipse at 50% 115%,transparent 0 15px,rgba(212,74,63,.16) 16px 17px,transparent 18px 29px)}
+.parl-card.theme-kremlin{--pa:#cb5545;--pb:#6b8090;background:linear-gradient(135deg,#251719,#10171d)}.parl-card.theme-kremlin:before{background:repeating-linear-gradient(90deg,rgba(203,85,69,.11) 0 1px,transparent 1px 21px)}
+.parl-card.theme-euro{--pa:#d1b24f;--pb:#54799a;background:linear-gradient(135deg,#10202a,#0d1319 62%,#112128)}.parl-card.theme-euro:before{background:radial-gradient(circle at 15% 12%,rgba(209,178,79,.18) 0 1px,transparent 2px) 0 0/17px 17px}
+.parl-card.theme-pacific{--pa:#d1524b;--pb:#d1dfe2;background:linear-gradient(135deg,#1b202a,#0d1319 68%)}.parl-card.theme-pacific:before{background:repeating-linear-gradient(45deg,transparent 0 14px,rgba(209,82,75,.13) 15px 16px)}
+.parl-card.theme-federal{--pa:#4e9ba5;--pb:#d0a63d;background:linear-gradient(135deg,#10211f,#0d1319 62%,#112229)}.parl-card.theme-federal:before{background:repeating-linear-gradient(90deg,transparent 0 22px,rgba(79,164,132,.16) 23px 24px)}
+.parl-card.theme-crisis{--pa:#c66143;--pb:#71859a;background:linear-gradient(135deg,#251917,#0d1319 60%)}.parl-card.theme-crisis:before{background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(198,97,67,.13) 9px 10px)}
+.parl-card.theme-council{--pa:#ceaa47;--pb:#497b78;background:linear-gradient(135deg,#112128,#0d1319 64%)}.parl-card.theme-council:before{background:repeating-linear-gradient(0deg,transparent 0 11px,rgba(206,170,71,.13) 12px 13px)}
+.parl-card.theme-mosaic{--pa:#63acb6;--pb:#d49042;background:linear-gradient(135deg,#102026,#0d1319 60%)}.parl-card.theme-mosaic:before{background:linear-gradient(55deg,transparent 44%,rgba(112,169,130,.12) 45% 46%,transparent 47%),linear-gradient(-55deg,transparent 44%,rgba(212,144,66,.10) 45% 46%,transparent 47%);background-size:24px 24px}
+.parl-card[data-iso="ISR"]{--pa:#5b94cb}.parl-card[data-iso="IRN"]{--pa:#4d99a3}.parl-card[data-iso="SAU"]{--pa:#c8a448}.parl-card[data-iso="EGY"]{--pa:#c58b4b}.parl-card[data-iso="TWN"]{--pa:#6d9bc9}.parl-card[data-iso="ZAF"]{--pa:#61abb4}.parl-card[data-iso="VEN"]{--pa:#c75348}
+/* The second layer is a country's historical/cultural material, order, and decorative syntax, not merely a palette name. */
+.parl-card[data-culture="anglo"]{background:linear-gradient(135deg,#251b17,#11161b 67%)}.parl-card[data-culture="anglo"]:before{background:repeating-linear-gradient(90deg,rgba(176,132,76,.12) 0 1px,transparent 1px 18px),repeating-linear-gradient(0deg,transparent 0 13px,rgba(176,132,76,.09) 14px 15px)}
+.parl-card[data-culture="sinic"]{background:linear-gradient(135deg,#351519,#12161a 68%)}.parl-card[data-culture="sinic"]:before{background:repeating-linear-gradient(90deg,transparent 0 13px,rgba(213,69,56,.14) 14px 16px,transparent 17px 29px),repeating-linear-gradient(0deg,transparent 0 13px,rgba(202,157,55,.11) 14px 15px)}
+.parl-card[data-culture="russian"]{background:linear-gradient(135deg,#28191a,#11161b 64%)}.parl-card[data-culture="russian"]:before{background:linear-gradient(45deg,transparent 46%,rgba(201,76,61,.14) 47% 48%,transparent 49%) 0 0/22px 22px,linear-gradient(-45deg,transparent 46%,rgba(201,76,61,.10) 47% 48%,transparent 49%) 0 0/22px 22px}
+.parl-card[data-culture="republican"]{background:linear-gradient(135deg,#14233a,#11161b 65%,#2b1719)}.parl-card[data-culture="republican"]:before{background:linear-gradient(90deg,rgba(62,104,165,.20) 0 2px,transparent 2px calc(50% - 2px),rgba(211,69,60,.16) calc(50% - 2px) calc(50% + 2px),transparent calc(50% + 2px)),repeating-linear-gradient(0deg,transparent 0 10px,rgba(238,221,164,.06) 11px 12px)}
+.parl-card[data-culture="bauhaus"]{background:linear-gradient(135deg,#172027,#10161a)}.parl-card[data-culture="bauhaus"]:before{background:linear-gradient(90deg,transparent 47%,rgba(213,178,79,.18) 48% 52%,transparent 53%),linear-gradient(0deg,transparent 47%,rgba(79,121,154,.14) 48% 52%,transparent 53%);background-size:30px 30px}
+.parl-card[data-culture="mediterranean"]{background:linear-gradient(135deg,#13252d,#11161a 66%)}.parl-card[data-culture="mediterranean"]:before{background:repeating-linear-gradient(90deg,rgba(205,180,111,.13) 0 2px,transparent 2px 23px),linear-gradient(0deg,transparent 45%,rgba(205,180,111,.11) 46% 54%,transparent 55%)}
+.parl-card[data-culture="iberian"]{background:linear-gradient(135deg,#261b19,#11161a)}.parl-card[data-culture="iberian"]:before{background:linear-gradient(45deg,transparent 43%,rgba(189,137,60,.15) 44% 47%,transparent 48%) 0 0/18px 18px,linear-gradient(-45deg,transparent 43%,rgba(180,59,52,.13) 44% 47%,transparent 48%) 0 0/18px 18px}
+.parl-card[data-culture="ukrainian"]{background:linear-gradient(135deg,#17253a,#11161a 70%)}.parl-card[data-culture="ukrainian"]:before{background:repeating-linear-gradient(90deg,transparent 0 6px,rgba(218,183,58,.16) 7px 9px,transparent 10px 16px),repeating-linear-gradient(0deg,transparent 0 11px,rgba(82,133,193,.12) 12px 13px)}
+.parl-card[data-culture="japanese"]{background:radial-gradient(circle at 83% 23%,rgba(194,65,58,.24) 0 13px,transparent 14px),linear-gradient(135deg,#202222,#11161a 70%)}.parl-card[data-culture="japanese"]:before{background:repeating-linear-gradient(0deg,transparent 0 8px,rgba(223,219,196,.08) 9px 10px)}
+.parl-card[data-culture="korean"]{background:linear-gradient(135deg,#182737,#11161a 67%)}.parl-card[data-culture="korean"]:before{background:repeating-linear-gradient(45deg,transparent 0 12px,rgba(83,130,177,.14) 13px 14px),repeating-linear-gradient(-45deg,transparent 0 12px,rgba(191,66,59,.10) 13px 14px)}
+.parl-card[data-culture="indic"]{background:linear-gradient(135deg,#142932,#11161a 68%)}.parl-card[data-culture="indic"]:before{background:repeating-radial-gradient(circle at 50% 100%,transparent 0 12px,rgba(213,157,63,.15) 13px 14px,transparent 15px 24px)}
+.parl-card[data-culture="islamic"]{background:linear-gradient(135deg,#102128,#11161a 67%)}.parl-card[data-culture="islamic"]:before{background:linear-gradient(30deg,transparent 44%,rgba(73,161,135,.15) 45% 48%,transparent 49%) 0 0/22px 19px,linear-gradient(-30deg,transparent 44%,rgba(199,164,68,.12) 45% 48%,transparent 49%) 0 0/22px 19px}
+.parl-card[data-culture="brazilian"]{background:linear-gradient(135deg,#12242b,#11161a 67%)}.parl-card[data-culture="brazilian"]:before{background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(103,177,128,.15) 19px 21px,transparent 22px 39px),linear-gradient(0deg,transparent 52%,rgba(218,183,63,.13) 53% 55%,transparent 56%)}
+.parl-card[data-culture="mesoamerican"]{background:linear-gradient(135deg,#132730,#11161a 67%)}.parl-card[data-culture="mesoamerican"]:before{background:linear-gradient(90deg,transparent 44%,rgba(197,133,58,.15) 45% 55%,transparent 56%),linear-gradient(0deg,transparent 44%,rgba(197,133,58,.12) 45% 55%,transparent 56%);background-size:20px 20px}
+.parl-card[data-culture="levantine"]{background:linear-gradient(135deg,#142830,#11161a 68%)}.parl-card[data-culture="levantine"]:before{background:repeating-linear-gradient(90deg,rgba(196,176,128,.12) 0 1px,transparent 1px 12px),repeating-linear-gradient(0deg,transparent 0 12px,rgba(91,148,203,.10) 13px 14px)}
+.parl-card[data-culture="nile"]{background:linear-gradient(135deg,#13272f,#11161a 67%)}.parl-card[data-culture="nile"]:before{background:repeating-linear-gradient(90deg,transparent 0 8px,rgba(198,139,75,.14) 9px 11px,transparent 12px 20px),linear-gradient(0deg,transparent 48%,rgba(74,136,144,.13) 49% 53%,transparent 54%)}
+.parl-card[data-culture="african"]{background:linear-gradient(135deg,#13262e,#11161a 67%)}.parl-card[data-culture="african"]:before{background:linear-gradient(45deg,transparent 43%,rgba(113,169,111,.16) 44% 48%,transparent 49%) 0 0/20px 20px,linear-gradient(-45deg,transparent 43%,rgba(211,149,61,.12) 44% 48%,transparent 49%) 0 0/20px 20px}
+.parl-card[data-culture="archipelago"]{background:linear-gradient(135deg,#172a30,#11161a 67%)}.parl-card[data-culture="archipelago"]:before{background:repeating-radial-gradient(ellipse at 20% 80%,transparent 0 8px,rgba(70,146,144,.14) 9px 10px,transparent 11px 18px)}
+.parl-card[data-culture="caribbean"]{background:linear-gradient(135deg,#13252d,#11161a 67%)}.parl-card[data-culture="caribbean"]:before{background:repeating-linear-gradient(135deg,transparent 0 9px,rgba(197,76,64,.14) 10px 12px,transparent 13px 22px)}
+.parl-card[data-culture="civic"]{background:linear-gradient(135deg,#182532,#11161a 67%)}.parl-card[data-culture="civic"]:before{background:linear-gradient(90deg,transparent 47%,rgba(103,151,196,.15) 48% 52%,transparent 53%),linear-gradient(0deg,transparent 47%,rgba(211,72,63,.11) 48% 52%,transparent 53%);background-size:24px 24px}
 
 .chips{display:flex;flex-wrap:wrap;gap:4px}
 .chips .chip{font-size:10px;font-family:var(--mono);padding:2px 7px;border:1px solid var(--line2);color:var(--dim)}
@@ -194,7 +230,7 @@ a{color:inherit}
 .rel-sum .rs{position:relative;font-family:var(--mono);font-size:10px;padding:3px 8px;border:1px solid var(--line2);color:var(--dim)}
 .rel-sum .rs b{font-weight:400;margin-left:4px}
 .rs.a{color:var(--r-ally)}.rs.g{color:var(--r-good)}.rs.t{color:var(--r-tense)}.rs.w{color:var(--r-war)}
-/* 悬停/点按: 关系成员国小旗弹层 */
+/* Hover/tap popup with relationship members' flags */
 .rs-pop{display:none;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + 7px);z-index:60;
   min-width:160px;max-width:240px;background:rgba(8,12,17,.97);border:1px solid var(--line2);padding:8px 9px;
   flex-wrap:wrap;gap:5px 9px;box-shadow:0 8px 20px rgba(0,0,0,.55)}
@@ -203,7 +239,7 @@ a{color:inherit}
 .rs:hover .rs-pop,.rs:focus-within .rs-pop,.rs.open .rs-pop{display:flex}
 .rs-c{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;color:var(--txt);white-space:nowrap}
 
-/* 新闻列表 · 可展开 */
+/* Expandable news list */
 #news-list{list-style:none;display:flex;flex-direction:column}
 #news-list li{border-top:1px dashed #26323c;padding:8px 0}
 #news-list li.xp{cursor:pointer}
@@ -217,30 +253,54 @@ a{color:inherit}
 #news-list li.open .n-caret{transform:rotate(90deg);color:var(--gold)}
 #news-list .n-detail{display:none;margin-top:8px;background:var(--paper);border:1px solid var(--paperln);border-top:3px double var(--paperln);padding:8px 10px 9px}
 #news-list li.open .n-detail{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
-#news-list .n-detail::before{content:"··· 前线电讯 ···";flex:0 0 100%;font-family:var(--mono);font-size:8px;letter-spacing:3px;color:#7a7052;text-align:center;margin:-1px 0 2px}
+#news-list .n-detail::before{content:"";flex:0 0 100%;font-family:var(--mono);font-size:8px;letter-spacing:3px;color:#41828b;text-align:center;margin:-1px 0 2px}
 #news-list .n-body{flex:1;min-width:0}
 #news-list .n-sum{font-family:var(--serif);font-size:12px;line-height:1.65;color:var(--ink)}
-#news-list .n-orig{font-family:var(--mono);font-size:9px;color:#6d6750;margin-top:5px;line-height:1.5}
-#news-list .n-img{width:96px;max-height:96px;flex:none;border:1px solid var(--paperln);object-fit:cover;background:#c9bd9a;filter:grayscale(1) contrast(1.03)}
+#news-list .n-orig{font-family:var(--mono);font-size:9px;color:#3c7981;margin-top:5px;line-height:1.5}
+#news-list .n-img{width:96px;max-height:96px;flex:none;border:1px solid var(--paperln);object-fit:cover;background:#a0bdc3;filter:grayscale(1) contrast(1.03)}
 #news-list .n-link{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:10px;color:#7a5a1a;text-decoration:none}
 #news-list .n-link:hover{color:#4a3310}
 .news-empty{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:1px;padding:10px 0}
 .twn-note{font-size:11px;color:var(--dim);border:1px dashed var(--line2);padding:8px;margin-bottom:10px}
+#news-list li.fp{cursor:pointer}
+#news-list li.fp:hover .n-t{color:var(--goldhi)}
+#news-list .n-pchip{font-family:var(--serif);font-size:9px;color:var(--gold);border:1px solid rgba(201,168,76,.5);padding:0 3px;flex:none;margin-top:2px}
+#news-list li[data-paper="1"]{cursor:pointer}
+#news-list li[data-paper="1"]:hover .n-t{color:var(--goldhi)}
 
-/* ===== 底部情报流 ===== */
-#ticker{position:relative;z-index:25;height:30px;border-top:1px solid var(--line2);background:rgba(9,12,16,.95);
-  display:flex;align-items:center;overflow:hidden}
-#ticker .tk-tag{flex:none;font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--gold);padding:0 12px;height:100%;display:flex;align-items:center;border-right:1px solid var(--line2)}
-#ticker .tk-view{flex:1;overflow:hidden;position:relative;height:100%}
-#ticker .tk-track{position:absolute;white-space:nowrap;display:flex;align-items:center;height:100%;animation:tick 60s linear infinite;font-family:var(--mono);font-size:11px;color:var(--dim)}
-#ticker .tk-track:hover{animation-play-state:paused}
-#ticker .tk-track .tk-i{margin:0 18px;cursor:pointer}
-#ticker .tk-track .tk-i:hover{color:var(--goldhi)}
-#ticker .tk-track .tk-src{color:var(--steel);font-size:9px}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ===== Full-text newspaper popup uses the actual original TNO EventWindow_News frame ===== */
+#paper-back{position:fixed;inset:0;z-index:90;background:rgba(4,6,9,.58);backdrop-filter:blur(1px);display:none}
+#paper-back.show{display:block}
+#paper-stage{position:fixed;z-index:95;left:50%;top:50%;width:min(640px,calc(100vw - 48px));height:min(720px,calc(100dvh - 64px));aspect-ratio:528/595;transform:translate(-50%,-50%);display:none;filter:drop-shadow(0 20px 38px rgba(0,0,0,.7))}
+#paper-stage.show{display:block}
+/* The original texture includes flat paper, exposed stacked pages at the right/top/bottom, and a left image slot. */
+.paper-sheet{display:none}
+#paper{position:absolute;inset:0;display:none;overflow:hidden;color:#102026;font-family:var(--serif);background:url("assets/tno-event-news-bg.png") center/100% 100% no-repeat}
+#paper.show{display:block}
+.pp-frame{position:absolute;inset:0;display:grid;grid-template-rows:25% minmax(0,1fr);padding:0 5.1% 5.1%}
+.pp-back{position:absolute;z-index:5;left:1.5%;top:6.7%;width:23px;height:23px;border:0;background:transparent;color:#18303b;font:700 16px/1 var(--mono);cursor:pointer;opacity:.7}
+.pp-back:hover{opacity:1}
+/* Paper frame comes from the original; mastheads retain this project's 49 existing media decoration assets. */
+.pp-head{min-width:0;display:grid;grid-template-rows:58% auto auto;align-content:start;padding:0 7%;text-align:center}
+.pp-mast{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;transform:translateY(9px)}.pp-orn{position:absolute;width:88%;height:91%;object-fit:contain;opacity:.76;filter:contrast(.92) saturate(.88);mix-blend-mode:multiply}.pp-name{position:relative;z-index:1;max-width:76%;padding:1px 10px 3px;background:rgba(232,229,215,.3);color:#0f1e24;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1;font-weight:900;text-shadow:0 1px rgba(255,255,255,.3)}.pp-name.mast-serif{font-family:Georgia,'Times New Roman',var(--serif);font-size:clamp(18px,2.55vw,30px);letter-spacing:.2px}.pp-name.mast-gothic{font-family:'MastGothic','Old English Text MT',Georgia,serif;font-size:clamp(20px,2.85vw,33px);letter-spacing:-1px}.pp-name.mast-sans{font-family:var(--sans),Arial,sans-serif;font-size:clamp(16px,2.3vw,27px);letter-spacing:1.35px}.pp-name.mast-calli{font-family:'MastCalli','STKaiti','Kaiti SC',var(--serif);font-size:clamp(22px,3.05vw,36px);letter-spacing:2px}.pp-name.mast-mono{font-family:var(--mono);font-size:clamp(15px,2.1vw,24px);letter-spacing:1px}
+.pp-title{position:relative;top:32px;margin:0;color:#0b161b;font-family:var(--serif);font-size:clamp(13px,1.32vw,16px);font-weight:800;line-height:1.2;letter-spacing:.05px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.pp-by{position:relative;top:32px;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 8px;margin-top:4px;color:#3d7a83;font:8px/1.2 var(--mono);letter-spacing:.55px}.pp-by .pp-sec{color:#285162}.pp-by .pp-lang{display:none}
+/* Fix the left image; only the right article viewport scrolls, without moving the heading or footer. */
+.pp-body{display:grid;grid-template-columns:34.5% minmax(0,1fr);gap:2.7%;min-height:0;padding-top:0}.pp-body.no-image{grid-template-columns:minmax(0,1fr)}
+.pp-imgcol{position:relative;min-height:0;overflow:hidden;border:1px solid rgba(42,38,30,.7);background:#adc6cb}.pp-imgcol img{width:100%;height:100%;object-fit:contain;display:block;filter:none}.pp-imgcol img.pp-fallback{object-fit:fill;filter:grayscale(1) contrast(1.06)}
+.pp-maincol{min-width:0;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto}
+/* Landscape photographs use a horizontal frame; portraits retain the original two columns. */
+#paper.paper-wide:before{content:"";position:absolute;left:4.7%;right:5%;top:23%;bottom:4.8%;background:url("assets/tno-event-news-bg.png") 76% 65%/280% 160% no-repeat}
+#paper.paper-wide .pp-body{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,54%) minmax(0,1fr);gap:10px}
+#paper.paper-wide .pp-imgcol{border:1px solid rgba(42,38,30,.45);background:rgba(36,33,26,.06)}
+#paper.paper-wide .pp-imgcol img{width:100%;height:100%;object-fit:contain}
+.pp-textcol{min-width:0;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0 7px 0 1px;scrollbar-width:thin;scrollbar-color:rgba(67,62,51,.5) transparent;color:#142932;font-size:clamp(11px,1.15vw,13px);line-height:1.58;text-align:justify}.pp-textcol::-webkit-scrollbar{width:5px}.pp-textcol::-webkit-scrollbar-thumb{background:rgba(67,62,51,.48);border-radius:5px}.pp-textcol p{margin:0 0 10px}.pp-textcol .pp-summary{font-size:1.06em;line-height:1.62}
+/* Original TNO event_option_entry is the fixed bottom bar and centered option itself, not a CSS imitation. */
+.pp-foot{position:relative;display:block;min-height:52px;margin:0 -4px -2px;background:url("assets/tno-event-option-entry.png") center/100% 100% no-repeat}.pp-opt{position:absolute;inset:0;border:0;background:transparent;padding:7px 18px;color:#19323d;font:700 10px/1.15 var(--serif);letter-spacing:.8px;cursor:pointer}.pp-opt:hover{color:#111;text-shadow:0 1px rgba(255,255,255,.65)}
+
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-/* ===== 紧凑适配 ===== */
+/* ===== Compact layout ===== */
 @media (max-width:560px){
   #meta{display:none}
   .brand .ver{display:none}
@@ -248,9 +308,16 @@ a{color:inherit}
   #warbar{width:100vw!important;max-width:100vw;border-left:none}
   #sb-resizer{display:none}
   #legend{bottom:40px;right:8px;max-width:150px}
+  #paper-stage{width:min(calc(100vw - 22px),calc((100dvh - 38px)*.8874));height:auto;aspect-ratio:528/595}
+  .pp-frame{padding-inline:5.1%}
+  .pp-title{font-size:clamp(12px,3.5vw,16px)}
+  .pp-by{font-size:7px}
+  .pp-body{grid-template-columns:34.5% minmax(0,1fr);gap:2.7%;padding-top:0}
+  .pp-textcol{font-size:clamp(10px,2.7vw,12px);line-height:1.5}
+  .pp-foot{gap:5px}.pp-source,.pp-opt{font-size:7px}.pp-opt{padding:4px 5px}
 }
 @media (prefers-reduced-motion:reduce){
-  .brand .dot,#ticker .tk-track{animation:none}
+  .brand .dot{animation:none}
   #sidebar,#warbar,#defcon.lv5 .dc-num{transition:none;animation:none}
 }
 #geo-toast{position:fixed;left:50%;bottom:64px;transform:translateX(-50%) translateY(8px);z-index:999;
@@ -259,10 +326,12 @@ a{color:inherit}
   max-width:80%;text-align:center}
 #geo-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
+<link rel="stylesheet" href="ui/tno-shell.css?v=figures-nov02b">
+<link rel="stylesheet" href="ui/tno-skin.css?v=figures-nov02b">
 </head>
 <body>
-<main id="app" class="kimi-host-safe-context">
-  <header id="topbar" class="kimi-host-safe-header">
+<main id="app" class="nexus-context">
+  <header id="topbar" class="nexus-header">
     <div class="brand"><span class="dot"></span>The&nbsp;Nexus&nbsp;Order</div>
     <nav class="modes" role="group" aria-label="地图视图模式">
       <button data-mode="default" class="on" aria-pressed="true">态势</button>
@@ -274,18 +343,14 @@ a{color:inherit}
       <button data-mode="power" aria-pressed="false">电力</button>
       <button data-mode="markets" aria-pressed="false">股票</button>
     </nav>
-    <div id="meta">
-      <span id="modeind">视图·态势</span>
-      <span id="asof"></span>
-      <span id="newsstamp">嗅探器待机</span>
-    </div>
+    <div id="meta"></div>
   </header>
 
   <div id="mapwrap">
     <div id="map" role="application" aria-label="世界地图"></div>
     <div class="vignette"></div>
     <div id="legend" aria-hidden="true"></div>
-    <button id="defcon" class="lv3" aria-label="全球紧张度，点击查看战争清单" title="紧张度 3/5 · 点击查看战争清单">
+    <button id="defcon" class="lv3" aria-label="全球紧张度，点击查看战争清单" title="紧张度 3/5">
       <span class="dc-num" id="dc-num">3</span>
       <span class="dc-cap">紧张度</span>
     </button>
@@ -293,7 +358,7 @@ a{color:inherit}
 
   <aside id="sidebar" aria-label="国家情报栏">
     <div id="sb-head">
-      <div id="sb-title"><h2 id="sb-name">—</h2><div class="sub" id="sb-sub"></div></div>
+      <div id="sb-flag" aria-hidden="true"></div><div id="sb-title"><h2 id="sb-name">—</h2><div class="sub" id="sb-sub"></div></div>
       <button id="sb-close" aria-label="关闭情报栏">✕</button>
     </div>
     <div id="sb-body"></div>
@@ -302,161 +367,77 @@ a{color:inherit}
 
   <aside id="warbar" aria-label="战争清单">
     <div id="wb-head">
-      <div id="wb-title"><h2>战争与冲突</h2><div class="sub" id="wb-sub"></div></div>
+      <div id="wb-title"><h2>战争与冲突</h2></div>
       <button id="wb-close" aria-label="关闭战争清单">✕</button>
     </div>
     <div id="wb-body"></div>
   </aside>
 
-  <div id="ticker">
-    <span class="tk-tag">情报流</span>
-    <div class="tk-view"><div class="tk-track" id="tk-track"></div></div>
+  <div id="paper-back"></div>
+  <div id="paper-stage" aria-hidden="true">
+    <div class="paper-sheet paper-sheet-back" aria-hidden="true"></div>
+    <div class="paper-sheet paper-sheet-mid" aria-hidden="true"></div>
+    <article id="paper" role="dialog" aria-label="新闻报纸"></article>
   </div>
 </main>
+<dialog id="country-extension" hidden aria-label="内政" aria-modal="true"><button id="close-extension" aria-label="关闭机构详情">×</button><iframe id="politics-frame" title="内政"></iframe></dialog>
 
-<script src="vendor/echarts.min.js"></script>
-<script src="world.geo.js"></script>
+<script src="vendor/echarts.min.js?v=national-sep26d"></script>
+<script src="world.geo.js?v=national-sep26d"></script>
 <script src="data.js"></script>
-<script src="econ.js"></script>
-<script src="conflict.js"></script>
-<script src="assets/water.geo.js"></script>
+<script src="econ.js?v=national-sep26d"></script>
+<script src="conflict.js?v=national-sep26d"></script>
+<script src="assets/water.geo.js?v=national-sep26d"></script>
 <script src="assets/admin1.geo.js"></script>
-<!-- 独立版: 数据快照 + DaimonWidget 兼容垫片 (Kimi 内运行时 DaimonWidget 存在, 垫片自动失效) -->
+<!-- Standalone data client. Public distribution downloads data only; no remote execution. -->
 <script src="live.js"></script>
+<script src="ui/data-bundled.js"></script>
+<script src="ui/data-sync.js?v=sync20261103-1"></script>
+<link rel="stylesheet" href="ui/pipeline.css">
+<script src="ui/pipeline.js" defer></script>
+<script src="ui/content-sync.js" defer></script>
 <script>
-/* 远程快照通道: 打开应用/点「检查更新」时拉 Gist 最新快照, 失败回退包内快照 */
-window.GEO_LIVE_URL = "https://gist.githubusercontent.com/maijiaosu/7a9f833528497a76af2adbefdadf4d72/raw/live.js";
-(function(){
-  var _cb = null;
-  function fire(d){ if(d && _cb) _cb({ main: d }); }
-  function fetchLive(done){
-    if (!window.GEO_LIVE_URL) { done(false); return; }
-    var x = new XMLHttpRequest();
-    var sep = window.GEO_LIVE_URL.indexOf("?") > -1 ? "&" : "?";
-    x.open("GET", window.GEO_LIVE_URL + sep + "_=" + Date.now(), true);
-    x.timeout = 10000;
-    x.onload = function(){
-      try{
-        var m = /GEO_LIVE\s*=\s*(\{[\s\S]*\})\s*;?\s*$/.exec(x.responseText || "");
-        if (m){ window.GEO_LIVE = JSON.parse(m[1]); done(true); return; }
-      }catch(e){}
-      done(false);
-    };
-    x.onerror = x.ontimeout = function(){ done(false); };
-    try{ x.send(); }catch(e){ done(false); }
-  }
-  if (!window.DaimonWidget) {
-    window.DaimonWidget = { onDataChange: function(cb){
-      _cb = cb;
-      fetchLive(function(){ fire(window.GEO_LIVE); });
-    }};
-  }
-  /* 「检查更新」按钮(仅独立/打包版; Kimi 版无此垫片, 数据由 Automation 直推) */
-  function addBtn(){
-    if (document.getElementById("geo-upd")) return;
-    var b = document.createElement("button");
-    b.id = "geo-upd"; b.textContent = "检查更新";
-    b.style.cssText = "margin-left:8px;background:none;border:1px solid #3a4450;color:#8fa3b8;font-size:10px;padding:1px 8px;border-radius:4px;cursor:pointer";
-    b.onclick = function(){
-      b.textContent = "检查中…"; b.disabled = true;
-      fetchLive(function(ok){
-        fire(window.GEO_LIVE);
-        b.textContent = ok ? "已更新" : "失败·用本地";
-        setTimeout(function(){ b.textContent = "检查更新"; b.disabled = false; }, 2500);
-      });
-    };
-    var st = document.getElementById("newsstamp");
-    if (st && st.parentNode) st.parentNode.appendChild(b);
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", addBtn);
-  else addBtn();
-})();
-</script>
-<script>
-/* 网页公开端专属: 「下载桌面 App」栏 (仅 http/https 显示; Electron/Kimi/本地 file:// 自动隐藏) */
-(function(){
-  if (!/^https?:$/.test(location.protocol)) return;
-  var BASE = "https://github.com/maijiaosu/the-nexus-order/releases/latest/download/";
-  var ITEMS = [
-    {os:"Windows 安装包", name:"TheNexusOrder-Setup-0.2.0.exe", note:"一键安装 · x64/arm64"},
-    {os:"Windows 便携版", name:"The Nexus Order-0.2.0-win.zip", note:"免安装解压即用 · x64"},
-    {os:"macOS · Apple 芯片", name:"The Nexus Order-0.2.0-arm64.dmg", note:"安装镜像 · M1/M2/M3/M4"},
-    {os:"macOS · Intel", name:"The Nexus Order-0.2.0.dmg", note:"安装镜像 · Intel Mac"},
-    {os:"Android", name:"TheNexusOrder-0.2.0.apk", note:"APK 直装 · Android 7+"}
-  ];
-  function css(el, s){ for (var k in s) el.style[k] = s[k]; }
-  function build(){
-    var wrap = document.createElement("div");
-    wrap.id = "geo-dl";
-    css(wrap, {position:"fixed", top:"58px", right:"14px", zIndex:950, fontFamily:"var(--sans, sans-serif)"});
-    var btn = document.createElement("button");
-    btn.id = "geo-dl-btn";
-    btn.textContent = "⬇ 桌面 App";
-    css(btn, {background:"rgba(15,20,26,.92)", color:"#d8cfae", border:"1px solid #3a4450",
-      borderRadius:"6px", fontSize:"11px", padding:"5px 12px", cursor:"pointer", letterSpacing:"1px"});
-    var panel = document.createElement("div");
-    panel.id = "geo-dl-panel";
-    css(panel, {position:"absolute", top:"100%", right:"0", marginTop:"6px", minWidth:"250px",
-      background:"rgba(13,18,24,.97)", border:"1px solid #3a4450", borderRadius:"8px", padding:"6px",
-      display:"none", boxShadow:"0 8px 24px rgba(0,0,0,.5)"});
-    function show(on){ panel.style.display = on ? "block" : "none"; }
-    btn.onmouseenter = function(){ show(true); };
-    btn.onclick = function(){ show(panel.style.display !== "block"); };
-    ITEMS.forEach(function(it){
-      var a = document.createElement("a");
-      a.href = BASE + encodeURIComponent(it.name);
-      a.target = "_blank"; a.rel = "noopener";
-      css(a, {display:"block", padding:"7px 10px", textDecoration:"none", borderRadius:"6px"});
-      var os = document.createElement("div");
-      os.textContent = it.os;
-      css(os, {color:"#e8e0c8", fontSize:"12px", fontWeight:"bold"});
-      var note = document.createElement("div");
-      note.textContent = it.note;
-      css(note, {color:"#8fa3b8", fontSize:"10px", marginTop:"2px"});
-      a.appendChild(os); a.appendChild(note);
-      a.onmouseenter = function(){ css(this, {background:"rgba(63,78,94,.35)"}); };
-      a.onmouseleave = function(){ css(this, {background:"transparent"}); };
-      panel.appendChild(a);
-    });
-    document.addEventListener("click", function(e){
-      if (!wrap.contains(e.target)) show(false);
-    });
-    wrap.appendChild(btn); wrap.appendChild(panel);
-    document.body.appendChild(wrap);
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
-  else build();
-})();
+// The embedded title is presentation-only; the standalone project stays independent.
+if (new URLSearchParams(location.search).get('embed') === 'console') {
+  document.title = '奈溯计划';
+  const brand = document.querySelector('#topbar .brand');
+  if (brand) brand.textContent = '奈溯计划';
+}
 </script>
 
+<script src="ui/country-systems.js?v=nation-sidebar-20261030-fidelity7"></script>
+<script src="ui/country-spirits-a.js?v=nation-sidebar-20261030-fidelity7"></script>
+<script src="ui/country-spirits-b.js?v=nation-sidebar-20261030-fidelity7"></script>
+<script src="ui/country-stage-icons.js?v=nation-sidebar-20261030-fidelity7"></script>
+<script src="ui/nation-scrollbar.js?v=fidelity7"></script>
+<script src="ui/nation-assets/fonts/fonts.js?v=fidelity7"></script>
+<script src="ui/ideology-actors.js?v=pie-20261102"></script><script src="ui/ruling-party-colors.js?v=ruling-20261103"></script><script src="ui/ideology-palette.js?v=ruling-20261103"></script>
+<script src="ui/political-language-picks.js?v=ink-double-1103"></script>
+<script src="ui/political-language.js?v=ink-double-1103"></script>
+<script src="ui/nation-bitmap.js?v=ink-1103"></script>
+<script src="ui/parliament-registry.js?v=parliament20261103-1"></script>
+<script src="ui/nation-panel.js?v=entry-arrow20261103-1"></script>
+<script src="ui/politics/nations/china/china-society/authored.js"></script>
+<script src="ui/politics/nations/china/china-v2/config.js?v=thoughts-nov02"></script>
+<script src="ui/china-thought-profiles.js?v=thoughts-nov02"></script>
+<script src="ui/political-excerpts.js?v=bio-nov02-final"></script><script src="ui/faction-figures.js?v=bio-nov02"></script><script src="ui/politics/dossiers.js?v=national-sep26d"></script><script src="ui/tno-shell.js?v=parliament20261103-1"></script>
 <script>
 (function(){
 "use strict";
 if (window.__GEO_APP) return; window.__GEO_APP = true;
 
-/* ---------- 常量 ---------- */
-var CLS_COLOR = {libdem:"#5a7a9e",consdem:"#6d7d95",hybrid:"#8a7a48",auth:"#8a5a38",comm:"#9e3d32",
-                 theo:"#6a5a7e",mon:"#8a7340",mil:"#5f6248",failed:"#3a3d42"};
-var CLS_NAME = {libdem:"自由民主",consdem:"保守民主",hybrid:"混合体制",auth:"威权体制",comm:"一党社会主义",
-                theo:"神权体制",mon:"君主制",mil:"军政府/过渡",failed:"战乱·失控"};
-var PIE_COLOR = {"民族主义":"#a86a42","保守主义":"#6d7d95","自由主义":"#5a7a9e","社会民主":"#5a8a72",
-  "社会主义":"#9e3d32","威权主义":"#5f5f66","神权政治":"#6a5a7e","军国主义":"#5f6248","民粹主义":"#8a6a42",
-  "威权社会主义-右派":"#767676","威权社会主义-左派":"#8a2b2b","威权社会主义-中间派":"#33496a",
-  "毛泽东思想-新左派":"#b53a3a","民主社会主义-泛左派":"#c98a96","自由主义-反对派":"#7ba3c9","极端民族主义":"#26262b",
-  "法西斯主义":"#51392a",
-  "威权社会主义":"#7a4a4a","民主社会主义":"#c98a96","毛泽东思想":"#b53a3a",
-  "君主制":"#8a7340","个人崇拜":"#7d5f42","教派分权":"#7d7055","军阀割据":"#454548","部族政治":"#8a6248","无政府":"#3a3d42"};
+/* ---------- Constants ---------- */
 var AL_PRIORITY = ["北约","欧盟","集安组织","金砖国家","上合组织","东盟","非盟","海合会","南共市","英联邦","突厥国家组织","欧佩克","五眼联盟","澳英美联盟","四方机制","G7","G20"];
 var AL_COLOR = {"北约":"#4e708c","欧盟":"#3a5f8a","集安组织":"#8a453c","金砖国家":"#a8873a","上合组织":"#9e5342",
   "东盟":"#4e8a5f","非盟":"#7d6a42","海合会":"#4e8a80","南共市":"#4e7d55","英联邦":"#6d7280","突厥国家组织":"#5a8899",
   "欧佩克":"#5f5480","五眼联盟":"#525f72","澳英美联盟":"#455066","四方机制":"#5f6d84","G7":"#7d7d85","G20":"#525258"};
 var REL_COLOR = {ally:"#4e708c",good:"#5d7f4e",tense:"#b08a2a",war:"#a63d2e"};
 var REL_NAME = {ally:"同盟",good:"友好",tense:"紧张",war:"交战"};
-var BASE_FILL = "#12171d", BASE_BORDER = "rgba(205,210,214,.38)", DIM_FILL = "#10151a", SEL_BORDER = "#e8e0c8";
+var BASE_FILL = "#12171d", BASE_BORDER = "rgba(3,7,12,.94)", DIM_FILL = "#10151a", SEL_BORDER = "#e8e0c8";
 var ALL_GRAY = "#3d444e";
-/* TNO 政治地图: 每国一块低饱和暗色(按 ISO 稳定散列), 有情报的国家微微提亮 */
-var TNO_BASE = ["#3d4740","#414a53","#4a433c","#3c4848","#4c463e","#39434e",
-                "#454e42","#42464e","#4a4943","#3e4750","#4d3f42","#474e3d"];
+/* TNO political map: stable ISO hashes select muted dark country colors; countries with intelligence are slightly brighter. */
+var TNO_BASE = ["#304854","#344862","#48405b","#285455","#3b4b63","#314359",
+                "#345663","#404c61","#3e4661","#2b4c5e","#583f53","#335463"];
 var TRD_MARK = {up2:'<span class="trd u">▲▲</span>',up:'<span class="trd u">▲</span>',
                 flat:'<span class="trd f">●</span>',down:'<span class="trd d">▼</span>',down2:'<span class="trd d">▼▼</span>'};
 var MODE_NAME = {"default":"态势",ideo:"意识形态",alliance:"联盟",temp:"气温",gdp:"GDP",gdppc:"人均GDP",power:"电力·夜视",markets:"股票·行情"};
@@ -468,7 +449,7 @@ var CONFLICT = window.GEO_CONFLICT || {defcon:null, defcon_scale:[], defcon_note
 var state = {mode:"default", sel:null, selAlliance:null};
 var chart = null;
 
-/* ---------- 工具 ---------- */
+/* ---------- Utilities ---------- */
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function cname(iso){return CN[iso]||(window.GEO_ISO2NAME||{})[iso]||iso}
 function newsOf(iso){return (DATA.news && DATA.news[iso]) || []}
@@ -483,7 +464,7 @@ function lift(hex, k){
   r += (216-r)*k; g += (207-g)*k; b += (174-b)*k;
   return "rgb("+(r|0)+","+(g|0)+","+(b|0)+")";
 }
-/* 填色加透明度, 让地形底图隐约透出(hex 与 rgb() 都兼容) */
+/* Add fill opacity so terrain shows through; support both hex and rgb(). */
 function alpha(col, a){
   if(!col) return col;
   if(col.charAt(0)==="#"){
@@ -492,15 +473,29 @@ function alpha(col, a){
   }
   return col.replace("rgb(","rgba(").replace(")",","+a+")");
 }
-/* ---------- 国名标注元数据: 国土主轴角(倾斜国名) + 面积(字号分档) ----------
-   运行时从 geojson 计算一次: 全部外环点做 PCA 求主轴, 经度解绕防跨日界线;
-   角度换算到屏幕方向(x 乘 echarts geo 默认 aspectScale 0.75) */
+/* ---------- Country-label metadata: principal-axis angle and area-based font size ----------
+   Compute once from geojson: PCA on all outer-ring points, unwrapping longitude across the dateline;
+   convert angles to screen direction using echarts geo's default x aspectScale of 0.75. */
 var LBL_META = {};
-var LBL_CACHE_KEY = "geo_lblmeta_v2";
+var LBL_CACHE_KEY = "geo_lblmeta_v5";
+function interiorLabelAxis(ring,deg){
+ var angle=-Math.max(-68,Math.min(68,deg))*Math.PI/180,co=Math.cos(angle),si=Math.sin(angle);
+ var pts=ring.map(function(p){return [p[0]*.75*co+p[1]*si,-p[0]*.75*si+p[1]*co]});
+ var ys=pts.map(function(p){return p[1]}),lo=Math.min.apply(null,ys),hi=Math.max.apply(null,ys),best=null;
+ for(var row=2;row<=8;row++){
+  var y=lo+(hi-lo)*row/10,cross=[];
+  for(var i=0;i<pts.length;i++){var a=pts[i],b=pts[(i+1)%pts.length];if((a[1]>y)!==(b[1]>y))cross.push(a[0]+(y-a[1])*(b[0]-a[0])/(b[1]-a[1]));}
+  cross.sort(function(a,b){return a-b});
+  for(var j=0;j+1<cross.length;j+=2){var w=cross[j+1]-cross[j],score=w*(1-Math.abs(row-5)*.07);if(!best||score>best.score)best={x:(cross[j]+cross[j+1])/2,y:y,w:w*.67,score:score};}
+ }
+ if(!best)return null;
+ function back(x,y){return [(x*co-y*si)/.75,x*si+y*co]}
+ return back(best.x-best.w/2,best.y).concat(back(best.x+best.w/2,best.y));
+}
 function buildLabelMeta(){
   var gj = window.WORLD_GEOJSON;
   if(!gj || !gj.features) return;
-  /* 缓存: 标签元数据只依赖几何, 存 localStorage 省去每次启动的 PCA 计算(几何变则签名失效) */
+  /* Label metadata depends only on geometry; cache it in localStorage to avoid PCA at startup, invalidating the signature when geometry changes. */
   var sig = 0;
   gj.features.forEach(function(f){
     var g = f && f.geometry; if(!g) return;
@@ -520,6 +515,8 @@ function buildLabelMeta(){
   var R = 0.75;
   gj.features.forEach(function(f){
     var nm = f.properties && f.properties.name;
+    /* Exclude parent-merged features from label metadata so they do not overwrite Britain/France labels. */
+    if(nm && /^(Falkland Islands|French Guiana)$/.test(nm)) return;
     var iso = nm && N2I[nm];
     if(!iso || !DB[iso]) return;
     var geom = f.geometry; if(!geom) return;
@@ -546,6 +543,9 @@ function buildLabelMeta(){
       area += Math.abs(a/2);
     });
     area *= cw;
+    // The principal mainland sets the reading direction; remote islands must not rotate the label.
+    rings.sort(function(a,b){function area(r){var sum=0;for(var q=0;q<r.length;q++){var p=r[q],n=r[(q+1)%r.length];sum+=p[0]*n[1]-n[0]*p[1]}return Math.abs(sum)}return area(b)-area(a)});
+    rings=rings.slice(0,1);
     var mx=0, my=0, n=0;
     rings.forEach(function(pts){ pts.forEach(function(p){ mx+=p[0]*R; my+=p[1]; n++; }); });
     mx/=n; my/=n;
@@ -555,7 +555,8 @@ function buildLabelMeta(){
     });});
     var deg = -0.5*Math.atan2(2*sxy, sxx-syy)*180/Math.PI;
     while(deg>90) deg-=180; while(deg<=-90) deg+=180;
-    LBL_META[iso] = {area:area, deg:Math.round(deg)};
+    var xs=rings[0].map(function(p){return p[0]}),ys=rings[0].map(function(p){return p[1]});
+    LBL_META[iso] = {axis:interiorLabelAxis(rings[0],deg),area:area, deg:Math.round(deg),bounds:[Math.min.apply(null,xs),Math.min.apply(null,ys),Math.max.apply(null,xs),Math.max.apply(null,ys)]};
   });
   try{
     if(window.localStorage && Object.keys(LBL_META).length){
@@ -564,10 +565,11 @@ function buildLabelMeta(){
   }catch(e2){}
 }
 function lblSize(a){
-  if(a>=600) return 15;
-  if(a>=150) return 12;
-  if(a>=40)  return 10;
-  return 8.5;
+  if(a>=600) return 32;
+  if(a>=150) return 26;
+  if(a>=40) return 22;
+  if(a>=10) return 16;
+  return 12;
 }
 function tempColor(t){
   if (t==null) return BASE_FILL;
@@ -580,9 +582,9 @@ function tempColor(t){
       return "rgb("+(r|0)+","+(g|0)+","+(bl|0)+")";}}
   return BASE_FILL;
 }
-/* ---------- 经济数据(世界银行/OWID, econ.js) ---------- */
+/* ---------- Economic data (World Bank / OWID, econ.js) ---------- */
 var ECON = window.GEO_ECON || {gdp:{}, gdppc:{}, power:{}, sub:{}};
-function lerpStops(v, stops, fallback){  // 连续色阶插值, 与 tempColor 同手法
+function lerpStops(v, stops, fallback){  // Continuous color interpolation, following tempColor.
   if (v==null || isNaN(v)) return fallback;
   if(v<=stops[0][0])return stops[0][1]; if(v>=stops[stops.length-1][0])return stops[stops.length-1][1];
   for(var i=0;i<stops.length-1;i++){var a=stops[i],b=stops[i+1];
@@ -593,15 +595,15 @@ function lerpStops(v, stops, fallback){  // 连续色阶插值, 与 tempColor �
   return fallback;
 }
 function log10v(v){ return v>0 ? Math.log(v)/Math.LN10 : 0; }
-function gdpColor(v){  // GDP 总量(美元), log10 色阶 10^10(~小经济体)→10^13.5(美国)
+function gdpColor(v){  // Total GDP in USD: log10 color scale from 10^10 (small economies) to 10^13.5 (USA).
   if (v==null || isNaN(v)) return "#12171d";
   return lerpStops(log10v(v), [[10,"#262e36"],[11,"#33413a"],[11.7,"#4d5a3d"],[12.4,"#8a7a3a"],[13,"#b8933a"],[13.5,"#e3c565"]], "#12171d");
 }
-function gdppcColor(v){  // 人均 GDP(美元), log10 色阶 10^2.7(500)→10^4.9(8万)
+function gdppcColor(v){  // GDP per capita in USD: log10 scale from 10^2.7 (500) to 10^4.9 (80,000).
   if (v==null || isNaN(v)) return "#12171d";
   return lerpStops(log10v(v), [[2.7,"#262e36"],[3.2,"#33413a"],[3.7,"#4d5a3d"],[4.1,"#8a7a3a"],[4.5,"#b8933a"],[4.9,"#e3c565"]], "#12171d");
 }
-function powerColor(v){  // 发电量(TWh), log10 亮度阶: 暗夜→暖光
+function powerColor(v){  // Electricity generation in TWh: log10 brightness scale from dark night to warm light.
   if (v==null || isNaN(v)) return "#0a0f14";
   return lerpStops(log10v(v), [[-0.5,"#101820"],[0.8,"#27313d"],[2,"#4d4a33"],[2.7,"#8a6f2e"],[3.3,"#c9992f"],[3.8,"#f0cf6a"],[4.05,"#fff3c0"]], "#0a0f14");
 }
@@ -623,7 +625,7 @@ function relOfSelected(iso){
     var o = DB[other];
     var has = out.war[other]||out.tense[other]||out.good[other]||out.ally[other];
     if(!has){
-      // 镜像: 对方档案定义了对我方的关系, 我方未自定义时按对方定义染色(解决"伊朗看美国红, 美国看伊朗不红")
+      // Mirror the counterpart dossier's relationship when ours is unspecified, fixing Iran seeing the USA in red while the reverse is not red.
       var orel = o.rel || {};
       ["war","tense","good","ally"].forEach(function(k){
         if(!out[k][other] && (orel[k]||[]).indexOf(iso)>=0) out[k][other]=1;
@@ -638,7 +640,7 @@ function relOfSelected(iso){
   return out;
 }
 
-/* ---------- 体制悬停解说匹配 ---------- */
+/* ---------- Political-system hover explanation matching ---------- */
 var TIP_ORDER = {
   gov: [["半总统制",["半总统"]],["总统制",["总统制","总统共和"]],["议会制",["议会制","议会民主","议会共和"]],
         ["君主立宪",["君主立宪"]],["绝对君主制",["绝对君主","专制君主"]],["君主制",["君主"]],
@@ -660,69 +662,91 @@ function tipFor(kind, text){
   return null;
 }
 function tipDD(label, kind, val){
-  var v = val || "—";
-  var tip = tipFor(kind, val);
-  return "<dt>"+label+"</dt><dd>"+
-    (tip ? '<span class="tip" data-tip="'+esc(tip)+'">'+esc(v)+'<i class="tip-q">?</i></span>' : esc(v))+
-    "</dd>";
+  return '<dt>'+label+'</dt><dd>'+esc(val||'—')+'</dd>';
 }
 
-/* ---------- 地图着色 ---------- */
+/* ---------- Map coloring ---------- */
 function buildRegions(){
-  var regions = [];
-  var geoNames = Object.keys(N2I);
+  var regions = [], occupied=[];
+  /* Features merged into a parent country, such as Falklands/Guiana, omit separate labels to avoid crowding small-country names. */
+  var NO_LBL = /^(Falkland Islands|French Guiana)$/;
+  var geoNames = Object.keys(N2I).sort(function(a,b){return ((LBL_META[N2I[b]]||{}).area||0)-((LBL_META[N2I[a]]||{}).area||0)});
   geoNames.forEach(function(eng){
     var iso = N2I[eng];
-    /* 填色已并入合成层(worldCv), 这里只保留矢量国界线(任意缩放都锋利)与国名标签;
-       每个国家输出三联(原名/#W/#E), 让左右两个环绕副本也有边框和国名 */
-    var border = BASE_BORDER, bw = 0.6;
+    /* Country fills are in the worldCv composite; retain vector borders sharp at every zoom and country-name labels here.
+       Emit three copies per country (original/#W/#E) so both wrapped copies also have borders and labels. */
+    var border = BASE_BORDER, bw = 1.25;
     if (iso==="ATA" || iso==="ATF") border = "rgba(198,205,210,.12)";
     if (state.sel===iso){ border=SEL_BORDER; bw=1.8; }
     var style = {areaColor:"rgba(0,0,0,0)", borderColor:border, borderWidth:bw};
-    var lbl = null;
-    if (state.mode==="default" && DB[iso]){
-      var tier = DB[iso].tier, lm = LBL_META[iso];
-      if (tier==="M" || (tier==="F" && lm && lm.area>=55)){
-        lbl = {show:true, rotate: lm?lm.deg:0, fontSize: lm?lblSize(lm.area):9};
-      }
-    }
-    function mk(nm){
-      var r = {name:nm, itemStyle:style};
-      if(lbl) r.label = lbl;
-      return r;
-    }
+    function mk(nm){return {name:nm,itemStyle:style,label:{show:false}};}
     regions.push(mk(eng));
     regions.push(mk(eng+"#W"));
     regions.push(mk(eng+"#E"));
   });
   return regions;
 }
+/* Cartographic baselines in lon/lat: follow the mainland, never the capital. */
+var LABEL_AXES={
+ RUS:[48,61,137,63],CHN:[83,36,115,34],USA:[-119,40,-83,37],CAN:[-128,59,-70,59],
+ BRA:[-67,-8,-44,-14],AUS:[119,-23,145,-27],IND:[74,27,80,14],KAZ:[50,48,81,48],
+ MNG:[91,46,114,47],SAU:[40,25,49,20],IRN:[47,33,59,29],TUR:[28,40,43,38],
+ GBR:[-5,52,-3,58],FRA:[-1,47,6,45],DEU:[7,52,13,48],ITA:[8,45,16,39],JPN:[132,33,141,40],
+ NOR:[7,60,22,69],SWE:[13,58,20,66],FIN:[24,62,29,67],CHL:[-72,-26,-73,-48],ARG:[-66,-26,-66,-46],
+ PAK:[63,28,73,33],VNM:[105,21,108,12],THA:[99,18,101,12],IDN:[103,-3,119,-5],
+ EGY:[26,28,31,25],DZA:[0,31,5,25],LBY:[14,29,21,26],SDN:[26,18,32,12],COD:[19,0,27,-6],
+ ZAF:[19,-28,29,-30],NZL:[168,-46,175,-39],UKR:[25,49,37,48],ESP:[-7,41,1,39]
+};
+function countryLabelData(){
+ var out=[];
+ Object.keys(LBL_META).forEach(function(iso){
+  var lm=LBL_META[iso],b=lm.bounds;if(!b||lm.area<.15)return;
+  var axis=LABEL_AXES[iso]||lm.axis;
+  if(!axis){var x=(b[0]+b[2])/2,y=(b[1]+b[3])/2,w=b[2]-b[0],h=b[3]-b[1];
+   var angle=Math.abs(lm.deg)>72?0:lm.deg*Math.PI/180;
+   var dx=Math.cos(angle),dy=Math.sin(angle)*.75;
+   var length=Math.min(w*.65/Math.max(.2,Math.abs(dx)),h*.55/Math.max(.2,Math.abs(dy)));
+   axis=[x-length*dx/2,y-length*dy/2,x+length*dx/2,y+length*dy/2];
+  }
+  for(var k=-1;k<=1;k++)out.push({value:[axis[0]+k*360,axis[1],axis[2]+k*360,axis[3]],name:CN[iso]||iso});
+ });return out;
+}
+function drawCountryLabel(params,api){
+ var a=api.coord([api.value(0),api.value(1)]),b=api.coord([api.value(2),api.value(3)]);
+ var dx=b[0]-a[0],dy=b[1]-a[1],len=Math.sqrt(dx*dx+dy*dy),x=(a[0]+b[0])/2,y=(a[1]+b[1])/2;
+ var name=params.dataIndex>=0?countryLabels[params.dataIndex].name:'';
+ var size=Math.min(23,len/(name.length*1.35));
+ if(size<9||x+len<0||x-len>api.getWidth()||y+len<0||y-len>api.getHeight())return null;
+ var step=Math.min(size*1.65,len/Math.max(1,name.length)),angle=Math.atan2(dy,dx);
+ return {type:'group',x:x,y:y,rotation:-angle,silent:true,children:name.split('').map(function(ch,i){return {type:'text',style:{x:(i-(name.length-1)/2)*step,y:0,text:ch,font:size+'px TNOCartography',fill:'#c6c3cb',stroke:'#081015',lineWidth:.65,align:'center',verticalAlign:'middle'}}})};
+}
+var countryLabels=[];
 function newsMarkers(){
   var pts = [];
   Object.keys(DB).forEach(function(iso){
     var n = newsOf(iso).length; if(!n) return;
     var cap = DB[iso].cap; if(!cap) return;
-    for(var k=-1;k<=1;k++){   // 三联世界, 每个副本各打一个点
+    for(var k=-1;k<=1;k++){   // Place one point in each of the three world copies.
       pts.push({name:cname(iso), value:[cap.lon + k*360, cap.lat, n], iso:iso,
-        itemStyle:{color: state.sel===iso ? "#e3c565" : "#cfc6a2"}});
+        itemStyle:{color:state.sel===iso?"#dcda50":"#63b2b0"}});
     }
   });
   return pts;
 }
-/* 微型/难点选国家与南海诸岛: 加可点击标记点(三联世界各一份), 避免小岛点不中 */
+/* Clickable markers for microstates, difficult selections, and South China Sea islands in all three world copies make tiny islands selectable. */
 var MICRO_STATES = [
   ["SGP", 103.85, 1.35], ["BHR", 50.55, 26.0], ["MLT", 14.38, 35.90],
   ["ATG", -61.79, 17.12], ["BRB", -59.62, 13.10], ["DMA", -61.38, 15.31],
   ["GRD", -61.75, 12.06], ["KNA", -62.72, 17.30], ["LCA", -60.99, 14.01],
   ["VCT", -61.23, 13.16], ["CYN", 33.37, 35.19], ["PMR", 29.63, 46.84],
-  ["KUR", 41.22, 37.06], ["SOL", 44.07, 9.56], ["FLK", -57.85, -51.70],
+  ["KUR", 41.22, 37.06], ["SOL", 44.07, 9.56], ["GBR", -57.85, -51.70, "福克兰群岛(英)"],
   ["SGS", -36.49, -54.28], ["SCS", 112.33, 16.83]
 ];
 function microMarkers(){
   var pts = [];
   MICRO_STATES.forEach(function(m){
     var scs = m[0]==="SCS", iso = scs ? "CHN" : m[0];
-    var nm = scs ? "南海诸岛" : cname(iso);
+    var nm = scs ? "南海诸岛" : (m[3] || cname(iso));
     for(var k=-1;k<=1;k++){
       pts.push({name:nm, value:[m[1]+k*360, m[2]], iso:iso,
         itemStyle:{color: state.sel===iso ? "#e3c565" : "rgba(216,207,174,.92)",
@@ -740,7 +764,7 @@ function marketMarkers(){
   DATA.markets.forEach(function(m){
     var grp = byCity[m.city];
     var idx = grp.indexOf(m);
-    var off = (idx - (grp.length-1)/2) * 20;  // 同城多指数纵向错开(纽约三大指数)
+    var off = (idx - (grp.length-1)/2) * 20;  // Offset multiple indices in the same city vertically, including New York's three major indices.
     var up = m.chg >= 0;
     for(var k=-1;k<=1;k++){
       out.push({name:m.name, value:[m.lon + k*360, m.lat], m:m,
@@ -752,27 +776,55 @@ function marketMarkers(){
   });
   return out;
 }
-function renderMap(){
+var mapFramePending = false, mapForceRefresh = false, mapPartKeys = {};
+function renderMap(force){
   if(!chart) return;
-  chart.setOption({
-    geo:{ regions: buildRegions() },
-    series:[{id:"worldpaint", data:[[COMPOSITE_SEQ,0]]},{id:"markers", data: newsMarkers()},{id:"mkts", data: marketMarkers()},{id:"conflbl", data: conflictMarkers()},
-      {id:"micro", type:"scatter", coordinateSystem:"geo", zlevel:2, z:3, symbol:"circle", data: microMarkers(), label:{show:false}}]
+  mapForceRefresh = mapForceRefresh || force===true;
+  if(mapFramePending) return;
+  mapFramePending = true;
+  if(window.requestAnimationFrame) window.requestAnimationFrame(flushMap);
+  else flushMap();
+}
+function flushMap(){
+  mapFramePending = false;
+  if(!chart) return;
+  repaintWorld();
+  var force = mapForceRefresh; mapForceRefresh = false;
+  var option = {}, series = [];
+  function changed(key, value){
+    var signature = JSON.stringify(value);
+    if(!force && mapPartKeys[key]===signature) return false;
+    mapPartKeys[key] = signature;
+    return true;
+  }
+  var regions = buildRegions();
+  if(changed("regions", regions)) option.geo = {regions:regions};
+  [{id:"worldpaint", data:[[COMPOSITE_SEQ,0]]},{id:"countrylabels", data:countryLabels},
+   {id:"markers", data:newsMarkers()},{id:"mkts", data:marketMarkers()},{id:"conflbl", data:conflictMarkers()},
+   {id:"micro", type:"scatter", coordinateSystem:"geo", zlevel:2, z:3, symbol:"circle", data:microMarkers(), label:{show:false}}].forEach(function(part){
+    if(changed(part.id, part)) series.push(part);
   });
+  if(series.length) option.series = series;
+  if(option.geo || option.series) chart.setOption(option);
   renderLegend();
 }
 function renderLegend(){
   var lg = document.getElementById("legend");
   var html = "";
-  if (state.sel && DB[state.sel] && !DB[state.sel].news_only){
+  if (state.mode!=="ideo" && state.sel && DB[state.sel] && !DB[state.sel].news_only){
     html = '<div class="lg-t">对 '+esc(cname(state.sel))+" 的关系</div>"+
       ["ally","good","tense","war"].map(function(k){
         return '<div class="lg-i"><i style="background:'+REL_COLOR[k]+'"></i>'+REL_NAME[k]+"</div>"}).join("");
   } else if (state.mode==="ideo"){
-    html = '<div class="lg-t">意识形态</div>'+Object.keys(CLS_NAME).map(function(k){
-      return '<div class="lg-i"><i style="background:'+CLS_COLOR[k]+'"></i>'+CLS_NAME[k]+"</div>"}).join("");
+    html = '<div class="lg-t">意识形态</div>'+window.NexusIdeologyPalette.legend.map(function(entry){
+      var colors=entry[1].map(window.NexusIdeologyPalette.mapColor);
+      var swatch=colors.length===1 ? colors[0] : 'linear-gradient(90deg,'+colors.map(function(color,i){
+        return color+' '+(i*100/colors.length)+'% '+((i+1)*100/colors.length)+'%';
+      }).join(',')+')';
+      return '<div class="lg-i"><i style="background:'+swatch+'"></i>'+esc(entry[0])+"</div>";
+    }).join("");
   } else if (state.mode==="alliance"){
-    html = '<div class="lg-t">联盟 · 点击筛选</div>'+AL_PRIORITY.map(function(a){
+    html = '<div class="lg-t">联盟</div>'+AL_PRIORITY.map(function(a){
       var on = state.selAlliance===a;
       return '<div class="lg-i lnk'+(on?' on':'')+'" data-al="'+esc(a)+'"><i style="background:'+(AL_COLOR[a]||"#8a7340")+'"></i>'+esc(a)+"</div>"}).join("")+
       '<div class="lg-i" style="color:var(--faint);font-size:10px;margin-top:3px">选中高亮成员国, 再点取消</div>';
@@ -792,68 +844,76 @@ function renderLegend(){
       [["&lt;1千",600],["1–3千",2000],["3–8千",5500],["0.8–1.5万",11000],["1.5–4万",25000],["&ge;4万",55000]] :
       [["&lt;1",0.5],["1–10",5],["10–100",50],["100–500",300],["500–2000",1000],["2000–6000",4000],["&ge;6000",9000]];
     var cf = state.mode==="gdp" ? gdpColor : state.mode==="gdppc" ? gdppcColor : powerColor;
-    var ttl = state.mode==="gdp" ? "GDP 总量 · 美元(世行2024)" :
-              state.mode==="gdppc" ? "人均 GDP · 美元(世行2024)" : "年发电量 · TWh(模拟夜视)";
+    var ttl = state.mode==="gdp" ? "GDP 总量（美元）" :
+              state.mode==="gdppc" ? "人均 GDP（美元）" : "年发电量（TWh）";
     html = '<div class="lg-t">'+ttl+'</div>'+tiers.map(function(t){
       return '<div class="lg-i"><i style="background:'+cf(t[1])+'"></i>'+t[0]+'</div>'}).join("")+
       '<div class="lg-i"><i style="background:#12171d"></i>无数据</div>'+
       (state.mode==="gdppc" ? '<div class="lg-i" style="color:var(--faint);font-size:10px;margin-top:3px">中美印等13国细分到省/州(约值)</div>' : "");
   } else if (state.mode==="markets"){
-    html = '<div class="lg-t">汇率 · 主要货币</div>'+(DATA.fx||[]).map(function(f){
+    html = '<div class="lg-t">汇率</div>'+(DATA.fx||[]).map(function(f){
       var up = f.chg >= 0;
       return '<div class="lg-i">'+esc(f.pair)+
         '<b style="margin-left:auto;font-family:var(--mono);font-weight:400;color:'+(up?"#d98a7a":"#8ac79f")+'">'+
         f.rate+' '+(up?"▲":"▼")+Math.abs(f.chg).toFixed(2)+'%</b></div>';
     }).join("")+
-    '<div class="lg-i" style="color:var(--faint);font-size:10px;margin-top:3px">日涨跌 · 红涨绿跌 · 每日随嗅探更新</div>';
+    '<div class="lg-i" style="color:var(--faint);font-size:10px;margin-top:3px"></div>';
   }
-  lg.innerHTML = html;
+  if(lg.innerHTML!==html) lg.innerHTML = html;
   lg.classList.toggle("show", !!html);
 }
 
-/* ---------- 侧栏 ---------- */
-/* 派系色: 精确命中用定色; "意识形态-派系" 自动取母色并按后缀做稳定明暗偏移, 同族各派可辨 */
-function pieColor(name){
-  if(PIE_COLOR[name]) return PIE_COLOR[name];
-  var base = String(name).split("-")[0];
-  var col = PIE_COLOR[base];
-  if(!col) return "#5f5f66";
-  var suf = String(name).slice(base.length), h = 0;
-  for(var i=0;i<suf.length;i++) h = (h*131 + suf.charCodeAt(i)) >>> 0;
-  var f = 0.72 + (h % 5) * 0.14;  /* 0.72~1.28 明暗梯度 */
-  return shadeHex(col, f);
-}
-function shadeHex(hex, f){
-  var r = Math.min(255, Math.round(parseInt(hex.slice(1,3),16)*f));
-  var g = Math.min(255, Math.round(parseInt(hex.slice(3,5),16)*f));
-  var b = Math.min(255, Math.round(parseInt(hex.slice(5,7),16)*f));
-  return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
-}
-/* ISO3 → emoji 国旗(GEO_ISO2 全表, data.js 生成) */
+/* ---------- Sidebar ---------- */
+function pieColor(name,iso){ return window.NexusIdeologyPalette.color(name,iso); }
+/* ISO3 → flag emoji using the full GEO_ISO2 table generated in data.js */
 function flagEmoji(iso){
   var c = (window.GEO_ISO2||{})[iso];
   if(!c || c.length!==2) return "🏳";
   return String.fromCodePoint(127462 + c.charCodeAt(0) - 97, 127462 + c.charCodeAt(1) - 97);
 }
-function pieSVG(pie){
+function pieSVG(pie,iso){
+  var fills=window.NexusIdeologyPalette.chartColors(pie,iso);
   var total = pie.reduce(function(s,p){return s+p[1]},0) || 1;
-  var cx=40, cy=40, r=34, ir=20, a0=-Math.PI/2, paths="";
+  var cx=40, cy=40, r=34, ir=0.01, a0=-Math.PI/2, paths="";
   pie.forEach(function(p){
     var frac = p[1]/total, a1 = a0 + frac*Math.PI*2;
     var large = frac>0.5?1:0;
     var x0=cx+r*Math.cos(a0), y0=cy+r*Math.sin(a0), x1=cx+r*Math.cos(a1), y1=cy+r*Math.sin(a1);
     var xi1=cx+ir*Math.cos(a1), yi1=cy+ir*Math.sin(a1), xi0=cx+ir*Math.cos(a0), yi0=cy+ir*Math.sin(a0);
-    var col = pieColor(p[0]);
-    paths += '<path d="M'+x0.toFixed(1)+" "+y0.toFixed(1)+" A"+r+" "+r+" 0 "+large+" 1 "+x1.toFixed(1)+" "+y1.toFixed(1)+
+    var col = fills.get(p[0]);
+    var trendLabel={up2:'▲▲ 大幅上升',up:'▲ 上升',flat:'● 持平',down:'▼ 下降',down2:'▼▼ 大幅下降'}[p[2]];
+    var detail=esc(p[0]+' · '+p[1]+'%'+(trendLabel?' · '+trendLabel:''));
+    var hasCard=window.NexusChinaThoughts?.has(iso,p[0]) || !!window.nexusFactionFigure?.(iso,p[0]);
+    var title=hasCard?'':'<title>'+detail+'</title>';
+    if(frac>=.9999){paths+='<circle cx="40" cy="40" r="34" fill="'+col+'" tabindex="0" aria-label="'+detail+'" data-pie-name="'+esc(p[0])+'" data-pie-detail="'+detail+'">'+title+'</circle>';a0=a1;return;}
+    paths += '<path tabindex="0" aria-label="'+detail+'" data-pie-name="'+esc(p[0])+'" data-pie-detail="'+detail+'" d="M'+x0.toFixed(1)+" "+y0.toFixed(1)+" A"+r+" "+r+" 0 "+large+" 1 "+x1.toFixed(1)+" "+y1.toFixed(1)+
       " L"+xi1.toFixed(1)+" "+yi1.toFixed(1)+" A"+ir+" "+ir+" 0 "+large+" 0 "+xi0.toFixed(1)+" "+yi0.toFixed(1)+
-      ' Z" fill="'+col+'" stroke="#0b0f14" stroke-width="1"/>';
+      ' Z" fill="'+col+'" stroke="none">'+title+'</path>';
     a0 = a1;
   });
-  return '<svg width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">'+paths+"</svg>";
+  return '<svg width="80" height="80" viewBox="0 0 80 80" role="group" aria-label="意识形态构成">'+paths+"</svg>";
 }
 
-/* 政局 · 议会半圆扇形图 */
+/* Politics: 32 focus countries have institutional themes. Sample actual seats proportionally to keep very large parliaments from slowing the sidebar. */
+var PARLIAMENT_THEMES={
+  USA:{kind:"capitol",culture:"anglo",label:"CAPITOL",hint:"联邦两院",heritage:"联邦古典主义与国会山"},CHN:{kind:"congress",culture:"sinic",label:"人民大会堂",hint:"代表大会制",heritage:"中轴礼制与朱红格栅"},RUS:{kind:"kremlin",culture:"russian",label:"ДУМА",hint:"强总统体系",heritage:"克里姆林宫石构与国家垂直权力"},
+  GBR:{kind:"westminster",culture:"anglo",label:"WESTMINSTER",hint:"政府与反对党对席",heritage:"威斯敏斯特哥特木饰"},FRA:{kind:"euro",culture:"republican",label:"PALAIS BOURBON",hint:"半总统制",heritage:"共和三色与波旁宫"},DEU:{kind:"euro",culture:"bauhaus",label:"BUNDESTAG",hint:"联盟协商",heritage:"包豪斯秩序与玻璃穹顶"},ITA:{kind:"euro",culture:"mediterranean",label:"MONTECITORIO",hint:"多党议会",heritage:"罗马石构与蒙特奇托里奥"},ESP:{kind:"euro",culture:"iberian",label:"CORTES",hint:"君主立宪",heritage:"伊比利亚砖饰与王室议院"},POL:{kind:"euro",culture:"republican",label:"SEJM",hint:"议会共和国",heritage:"贵族共和国与白红徽章"},
+  UKR:{kind:"crisis",culture:"ukrainian",label:"ВЕРХОВНА РАДА",hint:"战时议会",heritage:"乌克兰刺绣与战时国家"},JPN:{kind:"pacific",culture:"japanese",label:"国会 DIET",hint:"内阁议会制",heritage:"和纸秩序与日章构图"},KOR:{kind:"pacific",culture:"korean",label:"국회",hint:"总统制制衡",heritage:"韩式现代议政与太极线条"},PRK:{kind:"kremlin",culture:"korean",label:"최고인민회의",hint:"一党政治",heritage:"纪念碑轴线与国家动员"},
+  IND:{kind:"federal",culture:"indic",label:"लोक सभा",hint:"联邦多元代表",heritage:"新德里砂岩与圆形议院"},PAK:{kind:"crisis",culture:"islamic",label:"قومی اسمبلی",hint:"军民权力并置",heritage:"伊斯兰几何与军民并置"},AUS:{kind:"westminster",culture:"anglo",label:"PARLIAMENT",hint:"联邦君主立宪",heritage:"英联邦木饰与堪培拉轴线"},CAN:{kind:"westminster",culture:"anglo",label:"COMMONS",hint:"责任内阁",heritage:"渥太华哥特与双语传统"},
+  BRA:{kind:"federal",culture:"brazilian",label:"CONGRESSO",hint:"联邦总统制",heritage:"巴西利亚现代主义与热带绿金"},MEX:{kind:"federal",culture:"mesoamerican",label:"CONGRESO",hint:"联邦两院",heritage:"中美洲阶台与革命宪制"},ARG:{kind:"federal",culture:"mediterranean",label:"CONGRESO",hint:"总统制共和国",heritage:"布宜诺斯艾利斯新古典与探戈都会"},ISR:{kind:"council",culture:"levantine",label:"כנסת KNESET",hint:"比例代表制",heritage:"耶路撒冷石材与希伯来议政"},
+  IRN:{kind:"council",culture:"islamic",label:"مجلس",hint:"宗教监督体系",heritage:"波斯瓷砖与宗教共和制"},SAU:{kind:"council",culture:"islamic",label:"الشورى",hint:"王室协商",heritage:"阿拉伯纹样与王室协商"},TUR:{kind:"council",culture:"islamic",label:"MECLİS",hint:"总统制议会",heritage:"安纳托利亚几何与共和国"},EGY:{kind:"council",culture:"nile",label:"النواب",hint:"军方主导",heritage:"尼罗河纸草与国家金字塔"},
+  ZAF:{kind:"mosaic",culture:"african",label:"NATIONAL ASSEMBLY",hint:"多族群联盟",heritage:"彩虹国家与多社群编织"},NGA:{kind:"federal",culture:"african",label:"NATIONAL ASSEMBLY",hint:"联邦平衡",heritage:"尼日尔河图样与联邦平衡"},IDN:{kind:"mosaic",culture:"archipelago",label:"DPR",hint:"群岛共和国",heritage:"群岛水纹与多岛代表"},VEN:{kind:"crisis",culture:"caribbean",label:"ASAMBLEA",hint:"过渡权力",heritage:"玻利瓦尔红与加勒比动员"},
+  CUB:{kind:"kremlin",culture:"caribbean",label:"PODER POPULAR",hint:"一党社会主义",heritage:"革命海报与加勒比国家"},SGP:{kind:"pacific",culture:"civic",label:"PARLIAMENT",hint:"长期优势党",heritage:"港口城邦与高密度治理"},TWN:{kind:"pacific",culture:"civic",label:"立法院",hint:"多党竞争",heritage:"海岛公民社会与街头议政"}
+};
+function parlTotal(g){return g.reduce(function(s,x){return s+x[1]},0)}
+function scaledSeats(groups,total){
+  var real=total||parlTotal(groups)||1,shown=Math.max(30,Math.min(176,Math.round(Math.sqrt(real)*4.3))),raw=groups.map(function(x){return x[1]/real*shown}),n=raw.map(Math.floor),left=shown-n.reduce(function(a,b){return a+b},0);
+  raw.map(function(v,i){return [v-Math.floor(v),i]}).sort(function(a,b){return b[0]-a[0]}).slice(0,left).forEach(function(x){n[x[1]]++});
+  return groups.map(function(x,i){return [x[0],n[i],x[2],x[1]]});
+}
+/* Politics: parliamentary semicircular sector chart */
 function hemiSVG(groups, total){
+  groups=scaledSeats(groups,total); total=parlTotal(groups);
   var W=240, H=132, cx=W/2, cy=H-8;
   var rows = total<=110?4 : total<=260?5 : total<=600?7 : 10;
   var R=Math.min(cx-8, cy-4), rIn=R*0.40;
@@ -880,51 +940,58 @@ function hemiSVG(groups, total){
   }
   return '<svg class="parl-svg" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">'+dots+'</svg>';
 }
-function parlHTML(p){
-  if(!p) return "";
-  function tot(g){return g.reduce(function(s,x){return s+x[1]},0)}
-  function lg(g){return '<div class="parl-lg">'+g.map(function(x){
-    return '<div class="pi"><i style="background:'+x[2]+'"></i>'+esc(x[0])+'<b>'+x[1]+'</b></div>'}).join("")+'</div>'}
-  var h='<section class="sec" data-kimi-priority="p1"><div class="sec-t">政局 · 权力格局</div>';
-  if(p.type==="us"){
-    var mg={}, order=[];
-    p.senate.groups.concat(p.house.groups).forEach(function(x){
-      if(!mg[x[0]]){mg[x[0]]=[x[0],0,x[2]];order.push(x[0]);}
-      mg[x[0]][1]+=x[1];
-    });
-    var merged=order.map(function(k){return mg[k]});
-    h+='<div class="parl-us"><div class="pu"><div class="pu-t">'+esc(p.senate.name)+'</div>'+hemiSVG(p.senate.groups,tot(p.senate.groups))+'</div>'+
-       '<div class="pu"><div class="pu-t">'+esc(p.house.name)+'</div>'+hemiSVG(p.house.groups,tot(p.house.groups))+'</div></div>'+
-       lg(merged)+'<div class="parl-note">席位为参众两院合计 · '+esc(p.year||"")+'</div>';
-  } else {
-    h+='<div class="parl-one"><div class="pu-t">'+esc(p.name||"议会")+' · '+(p.total||tot(p.groups))+' 席'+(p.year?' · '+esc(p.year):'')+'</div>'+
-       hemiSVG(p.groups,p.total||tot(p.groups))+'</div>'+lg(p.groups);
+/* Opposing benches, consultative assemblies, and strong-presidential systems use distinct spatial forms rather than one generic semicircle. */
+function gridSVG(groups,total,kind){
+  var g=scaledSeats(groups,total),seats=[],i,j;g.forEach(function(x){for(j=0;j<x[1];j++)seats.push(x[2])});
+  var W=240,H=112,cols=kind==="westminster"?22:20,rows=Math.ceil(seats.length/cols),cellW=(W-16)/cols,cellH=Math.min(11,(H-15)/rows),out="";
+  for(i=0;i<seats.length;i++){
+    var row=Math.floor(i/cols),col=i%cols,x=8+col*cellW,y=H-7-(row+1)*cellH;
+    if(kind==="westminster"){
+      var half=Math.ceil(seats.length/2),side=i<half?0:1,idx=side?i-half:i,rx=side?W/2+8+(idx%10)*9.5:W/2-12-(idx%10)*9.5,ry=H-10-Math.floor(idx/10)*11;
+      out+='<rect x="'+rx.toFixed(1)+'" y="'+ry.toFixed(1)+'" width="7" height="6" rx="1" fill="'+seats[i]+'"/>';
+    }else if(kind==="kremlin"||kind==="council") out+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+Math.max(3,cellW-2).toFixed(1)+'" height="'+Math.max(3,cellH-2).toFixed(1)+'" fill="'+seats[i]+'"/>';
+    else out+='<circle cx="'+(x+cellW/2).toFixed(1)+'" cy="'+(y+cellH/2).toFixed(1)+'" r="'+Math.max(1.3,Math.min(3,cellH*.31)).toFixed(1)+'" fill="'+seats[i]+'"/>';
   }
-  if(p.note) h+='<div class="parl-note">'+esc(p.note)+'</div>';
-  return h+'</section>';
+  if(kind==="westminster")out+='<path d="M120 9V104" stroke="rgba(210,180,88,.55)" stroke-width="1" stroke-dasharray="3 3"/>';
+  if(kind==="kremlin"||kind==="council")out+='<path d="M8 7H232" stroke="rgba(222,207,160,.35)" stroke-width="1"/>';
+  return '<svg class="parl-svg" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">'+out+'</svg>';
+}
+function parlDiagram(groups,total,kind){return (kind==="westminster"||kind==="kremlin"||kind==="council")?gridSVG(groups,total,kind):hemiSVG(groups,total)}
+function parlHTML(p,iso,c){
+  if(!p)return "";
+  var t=PARLIAMENT_THEMES[iso]||{kind:"euro",culture:"civic",label:"LEGISLATURE",hint:"权力格局",heritage:"国家议政传统"},total=p.total||parlTotal(p.groups||[]);
+  function lg(g){return '<div class="parl-lg">'+g.map(function(x){return '<div class="pi"><i style="background:'+x[2]+'"></i>'+esc(x[0])+'<b>'+x[1]+'</b></div>'}).join("")+"</div>"}
+  var h='<section class="sec" data-priority="p1"><div class="sec-t">权力格局</div><div class="parl-card theme-'+esc(t.kind)+'" data-iso="'+esc(iso)+'" data-culture="'+esc(t.culture)+'">'+
+    '<div class="parl-top"><span class="parl-kicker">'+esc(t.label)+'</span><span class="parl-name">'+esc(p.type==="us"?"美国国会":(p.name||"议会"))+'</span></div>'+
+    '<div class="parl-status"><b>执政 '+esc((c&&c.party)||"未知")+'</b></div>';
+  if(p.type==="us"){
+    var merged={},order=[];p.senate.groups.concat(p.house.groups).forEach(function(x){if(!merged[x[0]]){merged[x[0]]=[x[0],0,x[2]];order.push(x[0])}merged[x[0]][1]+=x[1]});
+    h+='<div class="parl-us"><div class="pu"><div class="pu-t">'+esc(p.senate.name)+'</div>'+parlDiagram(p.senate.groups,parlTotal(p.senate.groups),"capitol")+lg(p.senate.groups)+'</div><div class="pu"><div class="pu-t">'+esc(p.house.name)+'</div>'+parlDiagram(p.house.groups,parlTotal(p.house.groups),"capitol")+lg(p.house.groups)+'</div></div>';
+  }else h+='<div class="parl-one"><div class="pu-t">'+esc(p.name||"议会")+' · '+total+' 席'+(p.year?" · "+esc(p.year):"")+'</div>'+parlDiagram(p.groups,total,t.kind)+"</div>"+lg(p.groups);
+  h+='<div class="parl-note">'+esc(p.year||"")+"</div></div></section>";return h;
 }
 
-/* 新闻 · 可展开列表 */
+/* News: expandable list */
 function newsHTML(iso, always){
   var items = newsOf(iso);
   if(!items.length && !always) return "";
-  var h = '<section class="sec" data-kimi-priority="p1"><div class="sec-t">今日情报 · INTEL</div>';
-  if(!items.length){ h += '<div class="news-empty">// 今日暂无重大新闻</div>'; }
+  var h = '<section class="sec sec-intel" data-priority="p1"><div class="sec-t">今日情报</div>';
+  if(!items.length){ h += '<div class="news-empty">暂无新闻</div>'; }
   else {
     h += '<ul id="news-list">'+items.map(function(it,ix){
       var t = it.t || it.title || "";
       var sum = it.s || "";
       var src = it.src || it.source || "WIRE";
       var pub = it.pub || it.published || "";
-      var canX = !!(sum || it.img);
-      return '<li data-ix="'+ix+'"'+(canX?' class="xp"':'')+'>'+
+      var canX = !!(sum || it.img), hasF = !!it.full, canPaper = !!(it.url || canX || hasF);
+      return '<li data-ix="'+ix+'" data-paper="'+(canPaper?'1':'0')+'"'+(hasF?' class="fp"':(canX?' class="xp"':''))+'>'+ 
         '<div class="n-meta"><span class="n-src">'+esc(src)+'</span><span>'+esc(fmtTime(pub))+'</span></div>'+
         '<div class="n-head">'+
-          ((!canX && it.url)
+          ((!canX && !hasF && it.url)
             ? '<a class="n-t" href="'+esc(it.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t)+'</a>'
             : '<span class="n-t">'+esc(t)+'</span>')+
-          (canX?'<span class="n-caret">▸</span>':'')+
-        '</div>'+
+          (canPaper?'<span class="n-pchip" data-open-paper="1">报</span>':(canX?'<span class="n-caret">▸</span>':''))+
+        '</div>'+ 
         (canX ? '<div class="n-detail"><div class="n-body">'+
           (sum?'<div class="n-sum">'+esc(sum)+'</div>':'')+
           (it.t0 && it.t0!==t ? '<div class="n-orig">'+esc(it.t0)+'</div>':'')+
@@ -935,86 +1002,37 @@ function newsHTML(iso, always){
   }
   return h+"</section>";
 }
+var sidebarNewsKey = "";
 function openSidebar(iso){
   var c = DB[iso];
-  var name = cname(iso);
-  document.getElementById("sb-name").textContent = name;
+  if(window.TNOUpdateCountryHeader)window.TNOUpdateCountryHeader(iso);
+  document.getElementById("sb-name").textContent = cname(iso);
   document.getElementById("sb-sub").textContent = iso + " // " + ((window.GEO_ISO2NAME||{})[iso]||"");
-  var body = document.getElementById("sb-body"), h = "";
-  if (c && c.news_only){
-    h += '<div class="twn-note">本区域仅提供新闻情报，不展示政治档案。</div>';
-    h += newsHTML(iso, true);
-  } else if (!c){
-    h += '<div class="twn-note">该国档案暂未收录，月度核对任务将逐步补全。</div>';
-    h += newsHTML(iso, newsOf(iso).length>0);
-  } else {
-    var L = c.leader||{};
-    h += '<div class="leader" data-kimi-priority="p0">'+
-      (L.photo ? '<div class="ph" style="background-image:url(\''+esc(L.photo)+'\')" role="img" aria-label="'+esc(L.n)+' 头像"></div>'
-               : '<div class="ph fallback">◆</div>')+
-      '<div class="who"><div class="nm">'+esc(L.n||"—")+'</div>'+
-      '<div class="tt">'+esc(L.t||"")+(c.party?' · '+esc(c.party):"")+'</div>'+
-      '<div class="sn">在位自 '+(L.since||"—")+"</div></div></div>";
-    if (c.pie && c.pie.length){
-      h += '<section class="sec" data-kimi-priority="p1"><div class="sec-t">意识形态构成</div><div class="pie-row">'+pieSVG(c.pie)+
-        '<div class="pie-lg">'+c.pie.map(function(p){
-          return '<div class="pi"><i style="background:'+pieColor(p[0])+'"></i>'+esc(p[0])+(TRD_MARK[p[2]]||"")+"<b>"+p[1]+"%</b></div>"}).join("")+
-        '</div></div><div class="pie-note">趋势: <span class="trd u">▲▲</span>大幅上升 <span class="trd u">▲</span>小幅上升 <span class="trd f">●</span>持平 <span class="trd d">▼</span>下降 <span class="trd d">▼▼</span>大幅下降<br>※ 基于执政党意识形态与政治结构的定性评估，非民调数据</div></section>';
-    }
-    if (c.parl){
-      h += parlHTML(c.parl);
-    }
-    h += '<section class="sec" data-kimi-priority="p1"><div class="sec-t">体制档案</div><dl class="kv">'+
-      tipDD("政治体制","gov",c.gov)+
-      tipDD("经济制度","econ",c.econ)+
-      "<dt>选举周期</dt><dd>"+esc(c.elec||"—")+"</dd></dl></section>";
-    if (c.al && c.al.length){
-      h += '<section class="sec" data-kimi-priority="p2"><div class="sec-t">参与联盟</div><div class="chips">'+
-        c.al.map(function(a){return '<span class="chip hot">'+esc(a)+"</span>"}).join("")+"</div></section>";
-    }
-    var relOut = relOfSelected(iso) || {ally:{},good:{},tense:{},war:{}};
-    var relCounts = [["ally","同盟"],["good","友好"],["tense","紧张"],["war","交战"]].map(function(k){
-      var isos = Object.keys(relOut[k[0]]);
-      if(!isos.length) return "";
-      var pop = isos.map(function(b){
-        return '<span class="rs-c">'+flagEmoji(b)+esc(cname(b))+"</span>";
-      }).join("");
-      return '<span class="rs '+k[0][0]+'" tabindex="0">'+k[1]+"<b>"+isos.length+"</b>"+
-        '<span class="rs-pop">'+pop+"</span></span>";
-    }).join("");
-    if (relCounts) h += '<section class="sec" data-kimi-priority="p2"><div class="sec-t">对外关系</div><div class="rel-sum">'+relCounts+"</div></section>";
-    h += newsHTML(iso, c.tier==="M");
-  }
-  body.innerHTML = h;
-  body.scrollTop = 0;
-  document.getElementById("sidebar").classList.add("open");
+  window.TNONationPanel.show(iso,c,{
+    pieHTML:c&&c.pie?pieSVG(c.pie,iso):"",
+    newsHTML:newsHTML(iso,true),
+    openArticle:function(index){openPaper(iso,index)},
+    openExternal:openExt
+  });
+  sidebarNewsKey = JSON.stringify(newsOf(iso));
 }
 function closeSidebar(){
+  window.TNOCloseFactionCard?.();
+  if(window.TNONationPanel)window.TNONationPanel.close();
+  if(window.TNOCloseExtension)window.TNOCloseExtension();
   document.getElementById("sidebar").classList.remove("open");
-  state.sel = null; repaintWorld(); renderMap();
+  state.sel = null; renderMap();
 }
-function selectCountry(iso){
+function selectCountry(iso, showArchive){
+  if(state.sel!==iso && window.TNOCloseExtension)window.TNOCloseExtension();
   state.sel = iso;
-  repaintWorld();
   renderMap();
   openSidebar(iso);
+  if(showArchive===true && window.TNOOpenPolitics)window.TNOOpenPolitics(iso);
 }
+window.TNOSelectCountry=selectCountry;
 
-/* ---------- 情报流 ---------- */
-function renderTicker(){
-  var tr = document.getElementById("tk-track");
-  var items = DATA.global || [];
-  if(!items.length){
-    tr.innerHTML = '<span class="tk-i">// 情报嗅探器待启动 —— 首次运行后此处滚动全球头条</span>';
-    tr.style.animation = "none"; return;
-  }
-  var one = items.map(function(it){
-    return '<span class="tk-i" data-u="'+esc(it.url||"")+'"><span class="tk-src">['+esc(it.src||it.source||"WIRE")+']</span> '+esc(it.t||it.title||"")+"</span>";
-  }).join('<span class="tk-i" style="color:#7d6a35">◆</span>');
-  tr.innerHTML = one + '<span class="tk-i" style="color:#7d6a35">◆</span>' + one + '<span class="tk-i" style="color:#7d6a35">◆</span>';
-  tr.style.animation = "";
-}
-/* ---------- 外链打开: 宿主沙盒拦截时兜底复制并提示 ---------- */
+/* ---------- External links: fall back to copying and notification if the host sandbox blocks opening ---------- */
 var _toastT = null;
 function toast(msg){
   var t = document.getElementById("geo-toast");
@@ -1035,39 +1053,53 @@ function openExt(u){
   }catch(e){}
   toast("宿主环境拦截了外跳 · 请手动复制: " + u);
 }
-document.getElementById("tk-track").addEventListener("click", function(e){
-  var el = e.target.closest(".tk-i");
-  if(el && el.dataset.u) openExt(el.dataset.u);
-});
 
-/* ---------- 数据 ---------- */
+/* ---------- Data ---------- */
 function applyData(d){
+  var changes = d && d.changed, globals = changes && changes.globals || [];
+  var sel = state.sel, priorNews = sidebarNewsKey;
+  var onlyParliament = changes && !globals.length && (changes.sections||[]).length &&
+    changes.sections.every(function(section){return section==="parliaments";});
+  if(d && d.snapshot){
+    DB = window.GEO_DB || DB; CN = window.GEO_CN || CN; N2I = window.GEO_NAME2ISO || N2I;
+    ECON = window.GEO_ECON || ECON; CONFLICT = window.GEO_CONFLICT || CONFLICT;
+    if(!changes || globals.indexOf("GEO_CONFLICT")>=0){
+      var conflictKey = conflictPaintKey();
+      if(conflictKey!==CONFLICT_PAINT_KEY) buildConflictPaths();
+      var defcon = document.getElementById("defcon"), number = document.getElementById("dc-num");
+      if(defcon && number){number.textContent=CONFLICT.defcon || "—";defcon.className=CONFLICT.defcon ? "lv"+CONFLICT.defcon : "";}
+      if(document.getElementById("warbar").classList.contains("open")) renderWarbar();
+    }
+    if(!changes || globals.indexOf("GEO_CN")>=0 || globals.indexOf("GEO_NAME2ISO")>=0){
+      buildLabelMeta(); countryLabels = countryLabelData();
+    }
+  }
   var m = (d && d.main) || {};
   DATA.news = m.news || {}; DATA.global = m.global || [];
   DATA.markets = m.markets || []; DATA.fx = m.fx || [];
   DATA.focus = m.focus || []; DATA.temps = m.temps || {}; DATA.temps_sub = m.temps_sub || {};
   DATA.generated_at = m.generated_at || null;
-  var st = document.getElementById("newsstamp");
-  if (DATA.generated_at){
-    st.innerHTML = '嗅探 <b class="live">LIVE</b> · ' + esc(fmtTime(DATA.generated_at));
-  } else {
-    st.innerHTML = '嗅探器 <b class="stale">待机</b>';
-  }
-  renderTicker(); repaintWorld(); renderMap();
-  var sel = state.sel; if (sel) openSidebar(sel);
+  if(!onlyParliament) renderMap();
+  var countryChanged = !changes || globals.some(function(name){return name!=="GEO_LIVE" && name!=="GEO_DB";}) ||
+    (changes.countries||[]).indexOf(sel)>=0 || (globals.indexOf("GEO_DB")>=0 && !(changes.countries||[]).length);
+  if(sel && !onlyParliament && (countryChanged || priorNews!==JSON.stringify(newsOf(sel)))) openSidebar(sel);
 }
 
-/* ---------- 单图层合成引擎: 地形 + 政治色 + 水体镂空 → worldCv ----------
-   地形山脉/河流/海洋与政治色块在同一张离屏画布上合成, 由 custom 系列
-   按经纬度坐标画进 ECharts 同一坐标系 —— 结构上与矢量图不可分离 */
-var W0 = 4096, H0 = 2048;
+/* ---------- Single-layer compositor: terrain + political color + water cutouts → worldCv ----------
+   Mountains, rivers, oceans, and political colors share one offscreen canvas. A custom series
+   draws it by longitude/latitude in the same ECharts coordinate system, inseparable from vectors. */
+/* Android WebView performance mode: composite canvas uses one quarter of the pixels with little visual difference on phones;
+   per-frame composition, texture, and memory costs fall substantially. */
+var IS_MOBILE = !!(typeof navigator !== "undefined" && /Android/i.test(navigator.userAgent || ""));
+var W0 = IS_MOBILE ? 2048 : 4096, H0 = IS_MOBILE ? 1024 : 2048;
 var HAS_2D = (typeof Path2D !== "undefined") && !!(document.createElement);
 var worldCv = null, worldCx = null, terrainImg = null, terrainOK = false;
 var FEAT_PATH = {}, WATER_PATH = {lakes:[], rivers:[]}, COMPOSITE_SEQ = 0;
-var SUB_PATH = {};  // {ISO3: {地区名: Path2D}} 省级边界(人均GDP视图用)
-var GEO_CX = 0, GEO_CY = -3, GEO_SX = 270, GEO_SY = 174;  // geojson 包围盒(视图单位), buildFeaturePaths 实测覆盖
+var COMPOSITE_KEY = "", CONFLICT_PAINT_KEY = "";
+var SUB_PATH = {};  // {ISO3: {region name: Path2D}} provincial boundaries for GDP per capita.
+var GEO_CX = 0, GEO_CY = -3, GEO_SX = 270, GEO_SY = 174;  // Geojson bounding box in view units, covered by actual buildFeaturePaths results.
 function wxy(lon, lat){ return [(lon+180)/360*W0, (90-lat)/180*H0]; }
-/* geojson 多边形 → Path2D(合成像素坐标, 静态缓存; 跨日界线段抬笔防拉穿) */
+/* Geojson polygons → cached Path2D in composite pixels; lift the pen across the dateline to avoid spurious lines. */
 function polyPath(geom){
   var p = new Path2D();
   var polys = geom.type==="Polygon" ? [geom.coordinates] : (geom.type==="MultiPolygon" ? geom.coordinates : []);
@@ -1095,12 +1127,13 @@ function buildSubPaths(){
     }
   });
 }
-/* ---------- 战争图层: 占区/活跃区(纹理填充) + 前线(虚线) ---------- */
+/* ---------- War layer: occupied/active regions with textures and dashed front lines ---------- */
 var CONF_ZONE = [], CONF_FRONT = [], PATC = {};
-/* 停战/控制线(区别于普通国界): 朝韩军事分界线 + 印巴克什米尔控制线(手绘示意) */
+/* Ceasefire/control lines differ from ordinary borders: schematic Korean DMZ and India-Pakistan Kashmir control line. */
 var ARMI_LINES = [
-  {name:"朝韩军事分界线", pts:[[126.12,38.29],[126.45,38.24],[126.80,38.15],[127.15,38.27],[127.50,38.22],[127.85,38.30],[128.20,38.33],[128.55,38.25],[128.90,38.28],[129.30,38.26]]},
-  {name:"印巴克什米尔控制线", pts:[[74.35,35.12],[74.60,34.62],[74.88,34.22],[75.18,33.88],[75.55,33.58],[75.95,33.32],[76.35,33.02],[76.75,32.82],[77.15,32.62],[77.55,32.45],[77.95,32.35],[78.35,32.25],[78.75,32.22],[79.15,32.35],[79.55,32.55]]}
+  /* Coordinates come from shared Korea/India-Pakistan boundaries in NE's 1:10 million basemap, matching map borders exactly. */
+  {name:"朝韩军事分界线", pts:[[128.365,38.624],[128.281,38.584],[128.281,38.484],[128.226,38.4],[128.172,38.356],[128.04,38.304],[127.867,38.305],[127.801,38.294],[127.754,38.325],[127.472,38.296],[127.377,38.319],[127.157,38.307],[127.09,38.286],[126.972,38.219],[126.92,38.135],[126.847,38.082],[126.762,37.979],[126.666,37.938],[126.667,37.828]]},
+  {name:"印巴克什米尔控制线", pts:[[74.656,32.641],[74.685,32.831],[74.574,32.753],[74.346,32.767],[74.307,32.81],[74.337,32.87],[74.311,32.994],[74.154,33.04],[73.988,33.209],[74.002,33.27],[74.096,33.328],[74.158,33.494],[74.142,33.549],[73.977,33.648],[73.971,33.747],[74.035,33.829],[74.213,33.878],[74.272,33.962],[74.228,34.013],[73.977,34.005],[73.894,34.054],[73.893,34.115],[73.995,34.176],[73.991,34.219],[73.938,34.304],[73.829,34.315],[73.775,34.371],[73.926,34.565],[73.919,34.643],[74.349,34.773],[75.018,34.63],[75.213,34.645],[75.348,34.557],[75.612,34.498],[75.777,34.504],[76.023,34.677],[76.155,34.662],[76.438,34.763],[76.536,34.726],[76.653,34.747],[76.744,34.819],[76.758,34.915],[76.921,34.921],[77.013,34.986],[77.049,35.11]]}
 ];
 var ARMI_PATH = [];
 function buildArmiPaths(){
@@ -1111,17 +1144,24 @@ function zoneColor(c, z){
   if(z.kind==="contested" || z.side==="contested") return "#a63d2e";
   return (c.colors && c.colors[z.side]) || "#8a2b2b";
 }
+function conflictPaintKey(){
+  return JSON.stringify((CONFLICT.conflicts||[]).map(function(c){
+    return [c.status,c.colors,c.zones,c.front];
+  }));
+}
 function buildConflictPaths(){
+  CONFLICT_PAINT_KEY = conflictPaintKey();
   CONF_ZONE = []; CONF_FRONT = [];
   if(!HAS_2D) return;
   (CONFLICT.conflicts||[]).forEach(function(c){
+    if(c.status==='ended')return;
     (c.zones||[]).forEach(function(z){
       if(z.geom) CONF_ZONE.push({path: polyPath(z.geom), color: zoneColor(c,z), kind: z.kind||"occ"});
     });
     (c.front||[]).forEach(function(f){ CONF_FRONT.push(linePath(f)); });
   });
 }
-/* 斜纹(占领)/点纹(活跃)/交叉纹(争夺): 与国家平色区分开, 一眼读出"武装控制" */
+/* Hatching (occupation), dots (activity), crosshatching (contested) distinguish armed control from ordinary country fills. */
 function zonePattern(col, kind){
   var key = col+"|"+kind;
   if(PATC[key]) return PATC[key];
@@ -1163,11 +1203,12 @@ function drawConflictLayer(){
     worldCx.restore();
   }
 }
-/* 占区标签(俄占区/RSF控制区/前线活跃区…): 屏幕定级小字, 三联世界各一份 */
+/* Territory labels for Russian occupation, RSF control, active fronts, etc.; screen-scaled small text in all three world copies. */
 function conflictMarkers(){
   if(state.mode!=="default") return [];
   var out = [];
   (CONFLICT.conflicts||[]).forEach(function(c){
+    if(c.status==='ended')return;
     (c.zones||[]).forEach(function(z){
       if(!z.label || !z.at) return;
       var col = zoneColor(c, z);
@@ -1200,7 +1241,7 @@ function buildFeaturePaths(){
   (window.WORLD_GEOJSON.features||[]).forEach(function(f){
     var nm = f.properties && f.properties.name;
     if(nm && f.geometry) FEAT_PATH[nm] = polyPath(f.geometry);
-    // 顺便算 geojson 经纬度包围盒(视图单位常量, 供平移钳制)
+    // Also compute the longitude/latitude geojson bounding box in view units for pan clamping.
     var polys = f.geometry.type==="Polygon" ? [f.geometry.coordinates] : (f.geometry.type==="MultiPolygon" ? f.geometry.coordinates : []);
     for(var i=0;i<polys.length;i++) for(var j=0;j<polys[i].length;j++) for(var k=0;k<polys[i][j].length;k++){
       var c = polys[i][j][k];
@@ -1213,11 +1254,12 @@ function buildFeaturePaths(){
   (W.lakes||[]).forEach(function(f){ if(f.geometry) WATER_PATH.lakes.push(polyPath(f.geometry)); });
   (W.rivers||[]).forEach(function(f){ if(f.geometry) WATER_PATH.rivers.push(linePath(f.geometry)); });
 }
-/* 当前状态(模式/选中/数据)下某国的政治色 —— 纯逻辑, 供合成与测试共用 */
-function fillColorOf(iso){
-  var rel = state.sel && DB[state.sel] ? relOfSelected(state.sel) : null;
+/* Pure political-color logic for a country under current mode/selection/data, shared by compositor and tests. */
+function fillColorOf(iso, rel){
   if (state.mode==="ideo"){
-    var c = DB[iso]; return c && c.cls ? (CLS_COLOR[c.cls]||BASE_FILL) : BASE_FILL;
+    var c = DB[iso], palette = window.NexusIdeologyPalette;
+    var governing = palette.rulingColor(c,iso);
+    return governing ? palette.mapColor(governing) : BASE_FILL;
   }
   if (state.mode==="alliance"){
     if(!state.selAlliance) return ALL_GRAY;
@@ -1229,6 +1271,7 @@ function fillColorOf(iso){
   if (state.mode==="gdppc") return gdppcColor(ECON.gdppc ? ECON.gdppc[iso] : null);
   if (state.mode==="power") return powerColor(ECON.power ? ECON.power[iso] : null);
   if (iso==="ATA" || iso==="ATF") return "#0c1015";
+  if(arguments.length<2) rel = state.sel && DB[state.sel] ? relOfSelected(state.sel) : null;
   if (rel){
     if(rel.war[iso]) return REL_COLOR.war;
     if(rel.tense[iso]) return REL_COLOR.tense;
@@ -1237,21 +1280,52 @@ function fillColorOf(iso){
     if(state.sel!==iso) return DIM_FILL;
   }
   var f = baseFill(iso);
-  if (newsOf(iso).length) f = lift(f, 0.16);
+  if (newsOf(iso).length) f = lift(f, 0.025);
   return f;
 }
 function tintAlpha(iso, col){
   if(col===ALL_GRAY) return 0.82;
-  if(col===DIM_FILL || col===BASE_FILL) return 0.82;  // 压暗/无数据: 盖实一点
+  if(col===DIM_FILL || col===BASE_FILL) return 0.82;  // Use a more opaque cover for darkened/no-data countries.
   if(iso==="ATA"||iso==="ATF") return 0.85;
   var R = REL_COLOR;
-  if(col===R.war||col===R.tense||col===R.good||col===R.ally) return 0.72;  // 关系色要醒目
-  return 0.62;  // 常态: 政治色为主, 地形褶皱透在色块里
+  if(col===R.war||col===R.tense||col===R.good||col===R.ally) return 0.72;  // Relationship colors must stand out.
+  return 0.68;  // Muted political paint over a dark relief; retain fine terrain.
+}
+/* Compare the actual paint inputs, so in-place data updates remain safe and unrelated
+   headlines, selections in thematic modes, and metadata do not redraw the terrain. */
+function worldPaintInputs(){
+  var names = Object.keys(N2I), colors = {}, details = [];
+  var rel = (state.mode==="default" || state.mode==="markets") && state.sel && DB[state.sel] ? relOfSelected(state.sel) : null;
+  names.forEach(function(name){
+    var iso = N2I[name];
+    if(!FEAT_PATH[name]) return;
+    if(!Object.prototype.hasOwnProperty.call(colors,iso)) colors[iso] = fillColorOf(iso, rel);
+    details.push([name,iso,colors[iso]]);
+  });
+  if(state.mode==="power"){
+    Object.keys(DB).forEach(function(iso){
+      var cap = DB[iso] && DB[iso].cap, value = ECON.power && ECON.power[iso];
+      if(cap && value) details.push([iso,cap.lon,cap.lat,value]);
+    });
+  } else if(state.mode==="gdppc" || state.mode==="temp"){
+    Object.keys(SUB_PATH).forEach(function(iso){
+      var sub = state.mode==="gdppc" ? (ECON.sub||{})[iso] : (DATA.temps_sub||{})[iso];
+      var base = state.mode==="gdppc" ? (ECON.gdppc||{})[iso] : (DATA.temps||{})[iso];
+      Object.keys(SUB_PATH[iso]).forEach(function(name){
+        var value = sub && sub[name]!=null ? sub[name] : base;
+        details.push([iso,name,state.mode==="gdppc" ? gdppcColor(value) : tempColor(value)]);
+      });
+    });
+  }
+  return {colors:colors,key:JSON.stringify([state.mode,terrainOK,state.mode==="default" ? CONFLICT_PAINT_KEY : "",details])};
 }
 function repaintWorld(){
   if(!worldCx) return;
+  var inputs = worldPaintInputs();
+  if(inputs.key===COMPOSITE_KEY) return;
+  COMPOSITE_KEY = inputs.key;
   worldCx.clearRect(0,0,W0,H0);
-  if(state.mode==="power"){  /* 电力·夜视: 黑海无地形, 国家亮度+首都光晕 */
+  if(state.mode==="power"){  /* Electricity/night view: dark sea without terrain, country brightness, and capital halos. */
     worldCx.fillStyle = "#04060a"; worldCx.fillRect(0,0,W0,H0);
     var gN = Object.keys(N2I);
     for(var pi=0;pi<gN.length;pi++){
@@ -1274,23 +1348,22 @@ function repaintWorld(){
       worldCx.beginPath(); worldCx.arc(xy[0],xy[1],r,0,6.2832); worldCx.fill();
     }
     COMPOSITE_SEQ++;
-    if(chart) chart.setOption({series:[{id:"worldpaint", data:[[COMPOSITE_SEQ,0]]}]});
     return;
   }
-  if(terrainOK) worldCx.drawImage(terrainImg, 0, 0, W0, H0);
+  if(terrainOK){ worldCx.save(); worldCx.filter="brightness(0.42) saturate(0.3)"; worldCx.drawImage(terrainImg,0,0,W0,H0); worldCx.restore(); }
   else { worldCx.fillStyle = "#0a0d11"; worldCx.fillRect(0,0,W0,H0); }
-  var geoNames = Object.keys(N2I);
+  var geoNames = Object.keys(N2I).sort(function(a,b){return ((LBL_META[N2I[b]]||{}).area||0)-((LBL_META[N2I[a]]||{}).area||0)});
   for(var i=0;i<geoNames.length;i++){
     var path = FEAT_PATH[geoNames[i]];
     if(!path) continue;
     var iso = N2I[geoNames[i]];
-    var col = fillColorOf(iso);
+    var col = inputs.colors[iso];
     worldCx.fillStyle = alpha(col, tintAlpha(iso, col));
     worldCx.fill(path, "evenodd");
   }
-  /* 态势视图: 战争占区/活跃区纹理 + 前线虚线(数据 conflict.js) */
+  /* Conflict view: occupied/active region textures and dashed front lines from conflict.js. */
   if(state.mode==="default") drawConflictLayer();
-  /* 停战/控制线: 金色虚线(朝韩军事分界线/印巴控制线), 与普通国界区分 */
+  /* Gold dashed ceasefire/control lines distinguish the Korean DMZ and India-Pakistan control line from ordinary borders. */
   if(ARMI_PATH.length){
     worldCx.save();
     worldCx.setLineDash([6,4]);
@@ -1300,7 +1373,7 @@ function repaintWorld(){
     for(var aj=0;aj<ARMI_PATH.length;aj++) worldCx.stroke(ARMI_PATH[aj]);
     worldCx.restore();
   }
-  /* 人均GDP视图: 13 个大国细涂到省/州(数据 econ.js sub, 边界 admin1.geo.js) */
+  /* GDP per capita: provincial/state detail for 13 major countries using econ.js sub and admin1.geo.js boundaries. */
   if(state.mode==="gdppc"){
     for(var sIso in SUB_PATH){
       var regs = SUB_PATH[sIso], sData = ECON.sub ? ECON.sub[sIso] : null;
@@ -1315,7 +1388,7 @@ function repaintWorld(){
       }
     }
   }
-  /* 气温视图: 同 13 国细涂到省/州(数据 live.js temps_sub, 缺失回退国家级气温) */
+  /* Temperature view: provincial/state detail for the same 13 countries from live.js temps_sub, with national fallback. */
   if(state.mode==="temp"){
     for(var tIso in SUB_PATH){
       var tregs = SUB_PATH[tIso], tSub = DATA.temps_sub ? DATA.temps_sub[tIso] : null;
@@ -1331,27 +1404,26 @@ function repaintWorld(){
       }
     }
   }
-  /* 水体镂空: 用同源地形图案回填湖泊、描边河流 → 山河穿色块而过 */
+  /* Water cutouts: refill lakes with matching terrain and outline rivers so landforms and waterways cut through country colors. */
   if(terrainOK){
-    var pat = worldCx.createPattern(terrainImg, "no-repeat");
+    var pat = "#040914";
     worldCx.fillStyle = pat;
     for(var j=0;j<WATER_PATH.lakes.length;j++) worldCx.fill(WATER_PATH.lakes[j], "evenodd");
     worldCx.strokeStyle = pat;
-    worldCx.lineWidth = 1.6; worldCx.lineCap = "round"; worldCx.lineJoin = "round";
+    worldCx.lineWidth = 0.75; worldCx.lineCap = "round"; worldCx.lineJoin = "round";
     for(var k=0;k<WATER_PATH.rivers.length;k++) worldCx.stroke(WATER_PATH.rivers[k]);
   }
   COMPOSITE_SEQ++;
-  if(chart) chart.setOption({series:[{id:"worldpaint", data:[[COMPOSITE_SEQ,0]]}]});
 }
-/* ---------- 漫游边界: 垂直瞬时钳制; 水平无限环绕(地球是圆的) ----------
-   地图数据为三联世界(-360°/0°/+360°), 视图中心越过 ±180° 时瞬间平移一个世界,
-   三份完全相同 → 跳变不可见; 缩放永远不低于铺满视口的尺度 */
+/* ---------- Pan bounds: instant vertical clamping and infinite horizontal wrapping ----------
+   Map data triples the world at -360°/0°/+360°. Crossing ±180° shifts the center by one world;
+   identical copies make this jump invisible. Zoom never falls below viewport fill. */
 function worldRectPx(){
   var p0 = chart.convertToPixel({geoIndex:0}, [-180, 90]);
   var p1 = chart.convertToPixel({geoIndex:0}, [180, -90]);
   return {x0:p0[0], y0:p0[1], x1:p1[0], y1:p1[1]};
 }
-/* 反解当前视图中心(视图单位): px = (GEO_C - c)*ppu + L */
+/* Invert the current view center in view units: px = (GEO_C - c)*ppu + L */
 function viewCenterVU(){
   var el = document.getElementById("map");
   var W = el.clientWidth, H = el.clientHeight;
@@ -1362,13 +1434,15 @@ function viewCenterVU(){
            y: GEO_CY + (wcy - H*0.51)/ppuY,
            ppuX: ppuX, ppuY: ppuY, r: r, W: W, H: H };
 }
+var roamClampTimer;
+function scheduleRoamClamp(){clearTimeout(roamClampTimer);roamClampTimer=setTimeout(clampRoam,140);}
 function clampRoam(){
   if(!chart || !chart.getOption || !chart.convertToPixel) return;
   var el = document.getElementById("map"); if(!el) return;
   var W = el.clientWidth, H = el.clientHeight; if(!W || !H) return;
-  /* 1) 缩放下限 = 一个世界刚好铺满视口(动态算) */
-  var opt = chart.getOption();
-  var g0 = (opt.geo && opt.geo[0]) || {};
+  /* 1) Minimum zoom makes one world fill the viewport, calculated dynamically */
+  var geoModel=chart.getModel().getComponent("geo");
+  var g0=geoModel.option;
   var z = g0.zoom || 1;
   var r0 = worldRectPx();
   var wPerZ = (r0.x1-r0.x0)/z, hPerZ = (r0.y1-r0.y0)/z;
@@ -1379,21 +1453,21 @@ function clampRoam(){
   if(Math.abs((lim.min||0)-need) > 0.02) upd.scaleLimit = {min:need, max:need*6.4};
   if(z < need*0.99) upd.zoom = need;
   if(upd.zoom || upd.scaleLimit) chart.setOption({geo:upd});
-  /* 2) 水平回绕: 中心经度越出 ±180°, 平移一个世界(270 视图单位) */
+  /* 2) Horizontal wrapping: crossing ±180° shifts by one world, or 270 view units */
   var v = viewCenterVU();
   var centerLon = -180 + (v.W/2 - v.r.x0)/((v.r.x1-v.r.x0)/360);
   if(centerLon > 180 || centerLon < -180){
     chart.setOption({geo:{center:[v.x + (centerLon>180 ? -270 : 270), v.y]}});
     v = viewCenterVU();
   }
-  /* 3) 垂直钳制(瞬时): 世界南北边不许进入视口内侧 */
+  /* 3) Instant vertical clamping: neither north nor south edge may enter the viewport */
   var h = v.r.y1 - v.r.y0, dy = 0;
   if(h <= v.H){ dy = (v.H-h)/2 - v.r.y0; }
   else if(v.r.y0 > 0){ dy = -v.r.y0; }
   else if(v.r.y1 < v.H){ dy = v.H - v.r.y1; }
   if(dy) chart.setOption({geo:{center:[v.x, v.y + dy/v.ppuY]}});
 }
-/* ---------- 三联世界: 复制三份 geojson(-360°/0°/+360°), 供水平环绕 ---------- */
+/* ---------- Tripled world: copy geojson at -360°/0°/+360° for horizontal wrapping ---------- */
 function shiftCoords(c, dx){
   if(typeof c[0]==="number") return [c[0]+dx, c[1]];
   var out = [];
@@ -1405,8 +1479,8 @@ function world3x(){
   var out = {type:"FeatureCollection", features:[]};
   for(var k=-1;k<=1;k++){
     feats.forEach(function(f){
-      /* 副本必须改名(name 是 echarts 的主键, 重名会被去重导致包围盒算错);
-         中间副本保留原名, 左 #W 右 #E, 查资料库时按 # 截断还原 */
+      /* Rename copies because name is echarts' primary key; duplicate names are deduplicated and corrupt bounding boxes.
+         Keep the central original name; use #W/#E for left/right copies and strip at # for dossier lookup. */
       var props = {};
       if(f.properties) for(var key in f.properties) props[key] = f.properties[key];
       if(k!==0 && props.name) props.name = props.name + (k<0 ? "#W" : "#E");
@@ -1416,13 +1490,13 @@ function world3x(){
   }
   return out;
 }
-/* geojson 要素名(可能带 #W/#E 副本后缀) → ISO3 */
+/* Geojson feature names, possibly with #W/#E copy suffixes, → ISO3 */
 function isoOfName(nm){
   if(!nm) return null;
   var h = nm.indexOf("#");
   return N2I[h>=0 ? nm.slice(0,h) : nm] || null;
 }
-/* ---------- 初始化地图 ---------- */
+/* ---------- Initialize map ---------- */
 function initMap(){
   if (chart || !window.echarts || !window.WORLD_GEOJSON) return;
   echarts.registerMap("world", world3x());
@@ -1435,14 +1509,17 @@ function initMap(){
     worldCv.width = W0; worldCv.height = H0;
     worldCx = worldCv.getContext("2d");
   }
-  chart = echarts.init(document.getElementById("map"), null, {renderer:"canvas"});
   buildLabelMeta();
+  countryLabels=countryLabelData();
+  /* Bound backing-store memory on high-density screens; logical map geometry and zoom stay unchanged. */
+  chart = echarts.init(document.getElementById("map"), null, {renderer:"canvas", devicePixelRatio:Math.min(window.devicePixelRatio||1,2)});
   chart.setOption({
     backgroundColor:"transparent",
-    /* update 过渡归零: 漫游/钳制/换模式全部瞬时跳变, 杜绝元素滑行造成的重影分层 */
+    animation: false,
+    /* Zero update transitions: pan, clamping, and mode switches are instantaneous to prevent sliding-element ghost layers. */
     animationDurationUpdate: 0,
     tooltip:{ trigger:"item", backgroundColor:"#0d1218", borderColor:"#33505e", borderWidth:1,
-      textStyle:{color:"#d8cfae", fontSize:11, fontFamily:"ui-monospace,Menlo,monospace"},
+      textStyle:{color:"#d8cfae", fontSize:11, fontFamily:"TNOAldrich,TNORuizheng,sans-serif"},
       formatter:function(p){
         var iso = isoOfName(p.name); if(!iso) return esc(p.name);
         var c = DB[iso];
@@ -1453,15 +1530,19 @@ function initMap(){
         if(n) h += '<br><span style="color:#8fb8cb">今日情报 ×'+n+"</span>";
         if(state.mode==="temp" && DATA.temps && DATA.temps[iso]!=null)
           h += '<br><span style="color:#c9a84c">'+Math.round(DATA.temps[iso]*10)/10+" ℃</span>";
+        if(['gdp','gdppc','power'].includes(state.mode) && ECON[state.mode]?.[iso]!=null){
+          var year=state.mode==='power'?ECON.power_year?.[iso]:ECON.source_years?.[state.mode]?.[iso];
+          h+='<br>'+esc(MODE_NAME[state.mode])+'：'+Number(ECON[state.mode][iso]).toLocaleString('zh-CN')+(state.mode==='power'?' TWh':' 美元')+' · '+esc(year?year+' 年':'统计年份未提供');
+        }
         return h;
       }},
     geo:{
       map:"world", roam:true, scaleLimit:{min:2.0, max:24}, zoom:3.75, top:"6%", bottom:"4%", zlevel:1,
-      itemStyle:{areaColor:"rgba(0,0,0,0)", borderColor:BASE_BORDER, borderWidth:0.6},
+      itemStyle:{areaColor:"rgba(0,0,0,0)", borderColor:BASE_BORDER, borderWidth:1.25},
       label:{show:false, color:"rgba(226,219,192,.88)", fontSize:9, fontWeight:"bold",
         textBorderColor:"rgba(5,8,11,.72)", textBorderWidth:2,
-        fontFamily:'"Songti SC","STSong","Noto Serif SC",serif',
-        formatter:function(p){var iso=isoOfName(p.name);return iso?(CN[iso]||""):""}},
+        fontFamily:'TNOCartography,sans-serif',
+        formatter:function(p){var iso=isoOfName(p.name);return iso?(CN[iso]||iso):""}},
       labelLayout:{hideOverlap:true},
       emphasis:{ itemStyle:{areaColor:"rgba(226,219,192,.14)", borderColor:"#e8e0c8", borderWidth:1},
                  label:{show:false} },
@@ -1476,25 +1557,28 @@ function initMap(){
         var vw = api.getWidth ? api.getWidth() : 1e9;
         for(var k=-1;k<=1;k++){
           var p0 = api.coord([-180+k*360,90]), p1 = api.coord([180+k*360,-90]);
-          if(p1[0] < 0 || p0[0] > vw) continue;  // 视口外副本不画: 每帧最多省 2/3 的画布开销
+          if(p1[0] < 0 || p0[0] > vw) continue;  // Skip offscreen copies, saving up to two thirds of per-frame canvas work.
           els.push({type:"image", style:{image:worldCv, x:p0[0], y:p0[1], width:p1[0]-p0[0], height:p1[1]-p0[1]}});
         }
         return {type:"group", children:els};
       },
       data:[[0,0]]
     },{
-      id:"markers", type:"effectScatter", coordinateSystem:"geo", zlevel:2,
-      symbolSize:function(v){return Math.min(4 + v[2]*1.6, 12)},
-      rippleEffect:{brushType:"stroke", scale:2.4},
-      itemStyle:{color:"#cfc6a2", shadowBlur:5, shadowColor:"rgba(216,207,174,.4)"},
-      label:{show:false}, data: newsMarkers()
+      id:"countrylabels",type:"custom",coordinateSystem:"geo",zlevel:2,z:0,silent:true,renderItem:drawCountryLabel,data:countryLabels
+    },{
+      id:"markers", type:"scatter", coordinateSystem:"geo", zlevel:2,
+      symbol:"path://M0 -10L3 -3L10 -3L5 2L7 9L0 5L-7 9L-5 2L-10 -3L-3 -3Z",
+      symbolSize:8,
+      rippleEffect: IS_MOBILE ? undefined : {brushType:"stroke", scale:2.4},
+      itemStyle:{color:"#63b2b0",borderColor:"#b5d7d0",borderWidth:.5},
+      label:{show:true,position:"right",distance:4,color:"#a8c5c0",fontSize:9,fontFamily:"TNOAldrich,TNORuizheng,sans-serif",textBorderColor:"#07101a",textBorderWidth:2,formatter:function(p){var c=DB[p.data.iso];return c&&c.cap?c.cap.n:""}},labelLayout:{hideOverlap:true},data:newsMarkers()
     },{
       id:"conflbl", type:"scatter", coordinateSystem:"geo", zlevel:2, silent:true,
       symbolSize:2.5,
       label:{show:true, position:"top", distance:5,
         formatter:function(p){return p.name}, fontSize:10, padding:[2,6], color:"#e8dfc0",
         backgroundColor:"rgba(8,12,17,.85)", borderColor:"rgba(216,207,174,.5)", borderWidth:1,
-        fontFamily:'"PingFang SC","Microsoft YaHei",sans-serif'},
+        fontFamily:'TNORuizheng,sans-serif'},
       data: conflictMarkers()
     },{
       id:"mkts", type:"scatter", coordinateSystem:"geo", zlevel:3, silent:true,
@@ -1519,24 +1603,26 @@ function initMap(){
   chart.on("georoam", function(){
     if(roaming) return;
     roaming = true;
-    try{ clampRoam(); } finally { roaming = false; }
+    try{ scheduleRoamClamp(); } finally { roaming = false; }
   });
-  window.addEventListener("resize", function(){ if(chart){ chart.resize(); clampRoam(); } });
-  /* 首次钳制推迟到首帧渲染完成: 初始化瞬间 geo 变换可能未就绪, 量错会把 zoom 抬爆 */
+  window.addEventListener("resize", function(){ if(chart){ chart.resize(); clampRoam(); renderMap(); } });
+  /* Defer initial clamping until the first render; the initial geo transform may be unavailable, producing a bad measurement and excessive zoom. */
   var firstDone = false;
-  chart.on("finished", function(){ if(!firstDone){ firstDone = true; clampRoam(); } });
-  repaintWorld();
-  /* 地形异步到达后重合成(先出图, 地形随后浮现) */
+  chart.on("finished", function(){ if(!firstDone){ firstDone = true; clampRoam(); renderMap(); } });
+  renderMap();
+  if(document.fonts && document.fonts.load)document.fonts.load('22px TNOCartography','中国美国俄罗斯').then(function(){renderMap(true);if(chart)chart.resize()});
+  /* Recompose after terrain loads asynchronously: render first, then reveal terrain. */
   if(typeof Image !== "undefined"){
     terrainImg = new Image();
-    terrainImg.onload = function(){ terrainOK = true; repaintWorld(); };
+    terrainImg.onload = function(){ terrainOK = true; renderMap(); };
     terrainImg.src = "assets/terrain.jpg";
   }
 }
 
-/* ---------- 控件 ---------- */
+/* ---------- Controls ---------- */
 function setMode(b){
   if(!b || !b.dataset || !b.dataset.mode) return;
+  if(state.mode===b.dataset.mode && !state.sel && !state.selAlliance) return;
   document.querySelectorAll(".modes button").forEach(function(x){
     var on = (x===b);
     x.classList.toggle("on", on);
@@ -1546,40 +1632,286 @@ function setMode(b){
   state.sel = null;
   state.selAlliance = null;
   document.getElementById("sidebar").classList.remove("open");
-  var mi = document.getElementById("modeind");
-  if(mi) mi.textContent = "视图·" + (MODE_NAME[state.mode]||state.mode);
-  repaintWorld();
   renderMap();
 }
 document.querySelectorAll(".modes button").forEach(function(b){
   b.addEventListener("click", function(){ setMode(b); });
 });
-/* 兜底: 捕获阶段 pointerdown 委托, 防止宿主层吞掉 click */
+/* Fallback: delegate pointerdown in the capture phase so host layers cannot swallow click. */
 document.addEventListener("pointerdown", function(e){
   var t = e.target;
   var b = (t && t.closest) ? t.closest(".modes button") : null;
   if(b) setMode(b);
 }, true);
-/* 联盟视图: 图例可点击, 点击联盟高亮成员国, 再点取消 */
+/* Alliance legend: click an alliance to highlight members, click again to clear. */
 document.getElementById("legend").addEventListener("click", function(e){
   var t = e.target && e.target.closest ? e.target.closest(".lg-i.lnk") : null;
   if(!t || !t.getAttribute("data-al")) return;
   var a = t.getAttribute("data-al");
   state.selAlliance = (state.selAlliance===a) ? null : a;
-  repaintWorld(); renderLegend();
+  renderMap();
 });
-/* 新闻展开/收起(事件委托) + 关系徽章点按展开(触屏) */
+/* ---------- Full-text newspaper popup with individually designed country mastheads ----------
+   PAPERS[iso] = [publication name, left ear, right ear, layout (calli/gothic/serif)] */
+var PAPERS = {
+/* --- Major countries --- */
+USA:["The New York Times","All the News That's Fit to Print","25¢","gothic"],
+CHN:["★解放日报★","今日出版一张","发行：解放日报社","calli"],
+TWN:["中国时报","今日出版一张","发行：中国时报社","calli"],
+RUS:["真理报","创刊于1912年","莫斯科","calli"],
+GBR:["The Times","Est. 1785","London","gothic"],
+FRA:["Le Monde","Quotidien national","Paris","serif"],
+DEU:["Frankfurter Allgemeine","Zeitung für Deutschland","Frankfurt","gothic"],
+ITA:["Corriere della Sera","Fondato nel 1876","Milano","serif"],
+ESP:["El País","Diario nacional","Madrid","serif"],
+POL:["Gazeta Wyborcza","Niezależny dziennik","Warszawa","serif"],
+UKR:["乌克兰真理报","独立日报","基辅","serif"],
+JPN:["读卖新闻","全国版","东京","serif"],
+KOR:["朝鲜日报","创刊于1920年","首尔","serif"],
+PRK:["劳动新闻","平壤","","serif"],
+IND:["The Times of India","Est. 1838","New Delhi","serif"],
+PAK:["Dawn","Founded 1941","Karachi","serif"],
+AUS:["The Australian","National Daily","Sydney","serif"],
+CAN:["The Globe and Mail","Canada's National Newspaper","Toronto","serif"],
+BRA:["O Globo","Diário nacional","Rio de Janeiro","serif"],
+MEX:["El Universal","Desde 1916","Ciudad de México","serif"],
+ARG:["Clarín","Buenos Aires","","serif"],
+ISR:["The Jerusalem Post","Est. 1932","Jerusalem","serif"],
+IRN:["Tehran Times","Since 1979","Tehran","serif"],
+SAU:["Arab News","Since 1975","Riyadh","serif"],
+TUR:["Hürriyet","İstanbul","","serif"],
+EGY:["金字塔报","创刊于1875年","开罗","serif"],
+ZAF:["Mail & Guardian","Johannesburg","","serif"],
+NGA:["The Punch","Lagos","","serif"],
+IDN:["Kompas","Jakarta","","serif"],
+VEN:["El Nacional","Caracas","","serif"],
+CUB:["Granma","Órgano del PCC","La Habana","serif"],
+/* --- Middle East / Africa --- */
+IRQ:["الصباح","بغداد","","serif"],SYR:["تشرين","دمشق","","serif"],
+LBN:["النهار","بيروت","","serif"],PSE:["القدس","القدس","","serif"],
+YEM:["Yemen Times","Sana'a","","serif"],QAT:["The Peninsula","Doha","","serif"],
+ARE:["Khaleej Times","Dubai","","serif"],KWT:["Kuwait Times","Kuwait City","","serif"],
+JOR:["Jordan Times","Amman","","serif"],
+SDN:["Sudan Tribune","Khartoum","","serif"],SSD:["The Citizen","Juba","","serif"],
+ETH:["The Ethiopian Herald","Addis Ababa","","serif"],ERI:["Eritrea Profile","Asmara","","serif"],
+SOM:["Hiiraan","Mogadishu","","serif"],KEN:["Daily Nation","Nairobi","","serif"],
+DJI:["La Nation","Djibouti","","serif"],COD:["Le Potentiel","Kinshasa","","serif"],
+COG:["Les Dépêches","Brazzaville","","serif"],TZA:["Daily News","Dar es Salaam","","serif"],
+UGA:["Daily Monitor","Kampala","","serif"],RWA:["The New Times","Kigali","","serif"],
+BDI:["Iwacu","Bujumbura","","serif"],MLI:["L'Essor","Bamako","","serif"],
+BFA:["Sidwaya","Ouagadougou","","serif"],NER:["Le Sahel","Niamey","","serif"],
+TCD:["L'Info","N'Djamena","","serif"],LBY:["Libya Herald","Tripoli","","serif"],
+TUN:["La Presse","Tunis","","serif"],DZA:["El Moudjahid","Alger","","serif"],
+MAR:["Le Matin","Casablanca","","serif"],GHA:["Daily Graphic","Accra","","serif"],
+CIV:["Fraternité Matin","Abidjan","","serif"],SEN:["Le Soleil","Dakar","","serif"],
+CMR:["Cameroon Tribune","Yaoundé","","serif"],GAB:["L'Union","Libreville","","serif"],
+AGO:["Jornal de Angola","Luanda","","serif"],MOZ:["Notícias","Maputo","","serif"],
+ZWE:["The Herald","Harare","","serif"],ZMB:["Zambia Daily Mail","Lusaka","","serif"],
+BWA:["Daily News","Gaborone","","serif"],NAM:["The Namibian","Windhoek","","serif"],
+MDG:["L'Express","Antananarivo","","serif"],MWI:["The Nation","Blantyre","","serif"],
+/* --- Asia-Pacific / Central Asia --- */
+AFG:["Pajhwok News","Kabul","","serif"],MMR:["The Irrawaddy","Yangon","","serif"],
+THA:["Bangkok Post","Bangkok","","serif"],VNM:["人民报","河内","","serif"],
+PHL:["Philippine Daily Inquirer","Manila","","serif"],MYS:["New Straits Times","Kuala Lumpur","","serif"],
+KHM:["The Phnom Penh Post","Phnom Penh","","serif"],LAO:["Vientiane Times","Vientiane","","serif"],
+BGD:["The Daily Star","Dhaka","","serif"],LKA:["Daily News","Colombo","","serif"],
+NPL:["The Kathmandu Post","Kathmandu","","serif"],BTN:["Kuensel","Thimphu","","serif"],
+KAZ:["The Astana Times","Astana","","serif"],UZB:["The Tashkent Times","Tashkent","","serif"],
+TKM:["中立报","阿什哈巴德","","serif"],KGZ:["吉尔吉斯言论报","比什凯克","","serif"],
+TJK:["Asia-Plus","Dushanbe","","serif"],MNG:["The UB Post","Ulaanbaatar","","serif"],
+NZL:["The New Zealand Herald","Auckland","","gothic"],PNG:["Post-Courier","Port Moresby","","serif"],
+FJI:["Fiji Times","Suva","","serif"],
+/* --- Europe --- */
+BLR:["苏维埃白俄罗斯报","明斯克","","serif"],SRB:["政治报","贝尔格莱德","","serif"],
+BIH:["Oslobođenje","Sarajevo","","serif"],ALB:["Shekulli","Tiranë","","serif"],
+MKD:["Nova Makedonija","Skopje","","serif"],MNE:["Vijesti","Podgorica","","serif"],
+HUN:["Magyar Nemzet","Budapest","","serif"],ROU:["Adevărul","București","","serif"],
+BGR:["24小时报","索非亚","","serif"],GRC:["每日报","雅典","","serif"],
+CYP:["Cyprus Mail","Nicosia","","serif"],SWE:["Dagens Nyheter","Stockholm","","serif"],
+NOR:["Aftenposten","Oslo","","serif"],FIN:["Helsingin Sanomat","Helsinki","","serif"],
+DNK:["Politiken","København","","serif"],ISL:["Morgunblaðið","Reykjavík","","serif"],
+NLD:["De Telegraaf","Amsterdam","","serif"],BEL:["De Standaard","Brussel","","serif"],
+LUX:["Luxemburger Wort","Luxembourg","","gothic"],CHE:["Neue Zürcher Zeitung","Zürich","","gothic"],
+AUT:["Die Presse","Wien","","gothic"],IRL:["The Irish Times","Dublin","","gothic"],
+PRT:["Público","Lisboa","","serif"],CZE:["Lidové noviny","Praha","","serif"],
+SVK:["SME","Bratislava","","serif"],SVN:["Delo","Ljubljana","","serif"],
+HRV:["Večernji list","Zagreb","","serif"],EST:["Postimees","Tallinn","","serif"],
+LVA:["Diena","Rīga","","serif"],LTU:["Lietuvos rytas","Vilnius","","serif"],
+GEO:["Georgia Today","Tbilisi","","serif"],ARM:["Azg","Yerevan","","serif"],
+AZE:["AzerNews","Baku","","serif"],MDA:["Timpul","Chișinău","","serif"],
+/* --- Americas --- */
+CHL:["El Mercurio","Santiago","","serif"],COL:["El Tiempo","Bogotá","","serif"],
+PER:["El Comercio","Lima","","serif"],ECU:["El Universo","Guayaquil","","serif"],
+BOL:["El Deber","Santa Cruz","","serif"],PRY:["ABC Color","Asunción","","serif"],
+URY:["El Observador","Montevideo","","serif"],PAN:["La Prensa","Panamá","","serif"],
+CRI:["La Nación","San José","","serif"],SLV:["El Diario de Hoy","San Salvador","","serif"],
+GTM:["Prensa Libre","Ciudad de Guatemala","","serif"],HND:["El Heraldo","Tegucigalpa","","serif"],
+NIC:["La Prensa","Managua","","serif"],HTI:["Le Nouvelliste","Port-au-Prince","","serif"],
+DOM:["Listín Diario","Santo Domingo","","serif"],JAM:["The Gleaner","Kingston","","serif"],
+TTO:["Trinidad Guardian","Port of Spain","","serif"],GUY:["Stabroek News","Georgetown","","serif"],
+SUR:["De Ware Tijd","Paramaribo","","serif"],BLZ:["Amandala","Belize City","","serif"],
+BHS:["The Nassau Guardian","Nassau","","serif"]
+};
+/* Each RSS source is the sole masthead identity source, with fixed decorative assets, accurate text, and its own typography. */
+var SOURCE_MASTHEADS = {
+  "Al Jazeera":{display:"Al Jazeera",asset:"assets/mastheads/al-jazeera.png",style:"mast-calli"},
+  "BBC World":{display:"BBC WORLD",asset:"assets/mastheads/bbc-world.png",style:"mast-sans"},
+  "BBC Africa":{display:"BBC AFRICA",asset:"assets/mastheads/bbc-africa.png",style:"mast-sans"},
+  "DW":{display:"DW",asset:"assets/mastheads/dw.png",style:"mast-sans"},
+  "France24":{display:"FRANCE 24",asset:"assets/mastheads/france24.png",style:"mast-sans"},
+  "The Guardian":{display:"The Guardian",asset:"assets/mastheads/the-guardian.png",style:"mast-serif"},
+  "Euronews":{display:"euronews",asset:"assets/mastheads/euronews.png",style:"mast-sans"},
+  "NPR":{display:"NPR",asset:"assets/mastheads/npr.png",style:"mast-sans"},
+  "CBC World":{display:"CBC WORLD",asset:"assets/mastheads/cbc-world.png",style:"mast-sans"},
+  "ABC AU":{display:"ABC NEWS AUSTRALIA",asset:"assets/mastheads/abc-au.png",style:"mast-sans"},
+  "SMH World":{display:"The Sydney Morning Herald",asset:"assets/mastheads/smh-world.png",style:"mast-serif"},
+  "RT":{display:"RT",asset:"assets/mastheads/rt.png",style:"mast-sans"},
+  "TASS":{display:"TASS",asset:"assets/mastheads/tass.png",style:"mast-serif"},
+  "Moscow Times":{display:"The Moscow Times",asset:"assets/mastheads/moscow-times.png",style:"mast-serif"},
+  "Kyiv Post":{display:"KYIV POST",asset:"assets/mastheads/kyiv-post.png",style:"mast-sans"},
+  "Balkan Insight":{display:"BALKAN INSIGHT",asset:"assets/mastheads/balkan-insight.png",style:"mast-serif"},
+  "OC Media":{display:"OC MEDIA",asset:"assets/mastheads/oc-media.png",style:"mast-sans"},
+  "Xinhua":{display:"新华社",asset:"assets/mastheads/xinhua.png",style:"mast-calli"},
+  "CGTN":{display:"CGTN",asset:"assets/mastheads/cgtn.png",style:"mast-sans"},
+  "SCMP":{display:"South China Morning Post",asset:"assets/mastheads/scmp.png",style:"mast-serif"},
+  "Japan Times":{display:"The Japan Times",asset:"assets/mastheads/japan-times.png",style:"mast-serif"},
+  "Korea Times":{display:"The Korea Times",asset:"assets/mastheads/korea-times.png",style:"mast-sans"},
+  "Taipei Times":{display:"TAIPEI TIMES",asset:"assets/mastheads/taipei-times.png",style:"mast-calli"},
+  "Straits Times":{display:"The Straits Times",asset:"assets/mastheads/straits-times.png",style:"mast-serif"},
+  "Bangkok Post":{display:"Bangkok Post",asset:"assets/mastheads/bangkok-post.png",style:"mast-serif"},
+  "VnExpress":{display:"VnExpress",asset:"assets/mastheads/vnexpress.png",style:"mast-sans"},
+  "Rappler":{display:"RAPPLER",asset:"assets/mastheads/rappler.png",style:"mast-sans"},
+  "Inquirer":{display:"Philippine Daily Inquirer",asset:"assets/mastheads/inquirer.png",style:"mast-serif"},
+  "Philstar":{display:"PHILSTAR",asset:"assets/mastheads/philstar.png",style:"mast-sans"},
+  "Times of India":{display:"The Times of India",asset:"assets/mastheads/times-of-india.png",style:"mast-serif"},
+  "The Hindu":{display:"THE HINDU",asset:"assets/mastheads/the-hindu.png",style:"mast-serif"},
+  "Hindustan Times":{display:"HINDUSTAN TIMES",asset:"assets/mastheads/hindustan-times.png",style:"mast-sans"},
+  "NDTV World":{display:"NDTV WORLD",asset:"assets/mastheads/ndtv-world.png",style:"mast-sans"},
+  "Dawn":{display:"DAWN",asset:"assets/mastheads/dawn.png",style:"mast-serif"},
+  "Middle East Eye":{display:"MIDDLE EAST EYE",asset:"assets/mastheads/middle-east-eye.png",style:"mast-sans"},
+  "Jerusalem Post":{display:"THE JERUSALEM POST",asset:"assets/mastheads/jerusalem-post.png",style:"mast-serif"},
+  "Tehran Times":{display:"TEHRAN TIMES",asset:"assets/mastheads/tehran-times.png",style:"mast-serif"},
+  "972 Mag":{display:"+972 MAGAZINE",asset:"assets/mastheads/972-mag.png",style:"mast-mono"},
+  "AllAfrica":{display:"ALLAFRICA",asset:"assets/mastheads/allafrica.png",style:"mast-sans"},
+  "Sudan Tribune":{display:"SUDAN TRIBUNE",asset:"assets/mastheads/sudan-tribune.png",style:"mast-serif"},
+  "Radio Dabanga":{display:"RADIO DABANGA",asset:"assets/mastheads/radio-dabanga.png",style:"mast-sans"},
+  "Africanews":{display:"africanews",asset:"assets/mastheads/africanews.png",style:"mast-sans"},
+  "Vanguard NG":{display:"VANGUARD",asset:"assets/mastheads/vanguard-ng.png",style:"mast-sans"},
+  "Premium Times NG":{display:"PREMIUM TIMES",asset:"assets/mastheads/premium-times-ng.png",style:"mast-serif"},
+  "Standard KE":{display:"THE STANDARD",asset:"assets/mastheads/standard-ke.png",style:"mast-serif"},
+  "Daily News Egypt":{display:"DAILY NEWS EGYPT",asset:"assets/mastheads/daily-news-egypt.png",style:"mast-serif"},
+  "MercoPress":{display:"MERCOPRESS",asset:"assets/mastheads/mercopress.png",style:"mast-serif"},
+  "Mexico News Daily":{display:"MEXICO NEWS DAILY",asset:"assets/mastheads/mexico-news-daily.png",style:"mast-sans"},
+  "Colombia Reports":{display:"COLOMBIA REPORTS",asset:"assets/mastheads/colombia-reports.png",style:"mast-sans"}
+};
+function openPaperLegacy(iso, ix){
+  var it = newsOf(iso)[ix];
+  if(!it || !it.full) return;
+  var p = PAPERS[iso] || ["环球电讯","GLOBAL WIRE","","serif"];
+  var earR = p[2] || cname(iso);
+  var earCls = p[3]==="gothic" ? " g" : "";
+  var kicker = "阅毕";
+  var paras = String(it.full).split(/\n\n+/).map(function(s){
+    return "<p>"+esc(s.replace(/\n/g," "))+"</p>";
+  }).join("");
+  var h = '<button class="pp-back" aria-label="关闭">◀</button>'+
+    '<div class="pp-frame">'+
+    '<div class="pp-mast"><span class="pp-ear'+earCls+'">'+esc(p[1])+'</span>'+
+      '<span class="pp-name '+p[3]+'">'+esc(p[0])+'</span>'+
+      '<span class="pp-ear r">'+esc(earR)+'</span></div>'+ 
+    '<div class="pp-mastrule"></div>'+
+    '<div class="pp-title">'+esc(it.t||"")+'</div>'+
+    '<div class="pp-by"><span class="pp-sec">'+esc(cname(iso))+'</span><span>'+esc(it.src||"WIRE")+'</span><span>'+esc(fmtTime(it.pub||""))+'</span><span class="pp-lang">'+(it.full_lang==="en"?"原文":"中文全文")+'</span></div>'+
+    (it.img
+      ? '<div class="pp-body"><div class="pp-imgcol"><img src="'+esc(it.img)+'" alt=""></div>'+
+        '<div class="pp-maincol"><div class="pp-textcol">'+paras+'</div>'+ 
+        '<div class="pp-foot"><button class="pp-opt" type="button" title="关闭(Esc)">'+esc(kicker)+'</button></div></div></div>'
+      : '<div class="pp-textcol">'+paras+'</div>'+ 
+        '<div class="pp-foot"><button class="pp-opt" type="button" title="关闭(Esc)">'+esc(kicker)+'</button></div>')+
+    '</div>';
+  var el = document.getElementById("paper");
+  el.innerHTML = h;
+  el.scrollTop = 0;
+  document.getElementById("paper-back").classList.add("show");
+  el.classList.add("show");
+}
+function paperDate(s){
+  var d = s ? new Date(s) : null;
+  if(!d || isNaN(d.getTime())) return "WORLD DESK";
+  return d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}).toUpperCase();
+}
+function paperImageURL(src){
+  /* Published photographs are already sized and verified by the collector. */
+  return String(src||"");
+}
+function openPaper(iso, ix){
+  var it = newsOf(iso)[ix];
+  if(!it) return;
+  var src = it.src || it.source || "WIRE";
+  var m = SOURCE_MASTHEADS[src] || {display:src,asset:"",style:"mast-serif"};
+  var hasFull = !!it.full;
+  var copy = hasFull ? String(it.full) : String(it.s || "本文尚未抓取，点击下方链接阅读原文。");
+  var paras = copy.split(/\n\n+/).filter(function(s){
+    return !/^(?:our privacy (?:notice|statement|policy)\s*(?:and|&)\s*cookies? policy|by continuing to (?:browse|use|visit) (?:our|this|the) (?:website|site)|we use cookies (?:to|on)|我们(?:的)?隐私(?:声明|政策|通知)\s*(?:和|与|及)\s*cookie\s*政策|继续浏览我们的网站即表示|继续(?:浏览|使用)(?:我们|本)的网站.{0,40}(?:cookie|隐私))/i.test(s.trim());
+  }).map(function(s){
+    return "<p"+(hasFull?"":" class=\"pp-summary\"")+">"+esc(s.replace(/\n/g," "))+"</p>";
+  }).join("");
+  var originalImg = String(it.img||"");
+  var defaultImg = "assets/tno-report-event-fallback.png";
+  var imgURL = originalImg ? paperImageURL(originalImg) : defaultImg;
+  var img = '<div class="pp-imgcol"><img class="'+(originalImg?"":"pp-fallback")+'" src="'+esc(imgURL)+'" data-fallback="'+esc(originalImg)+'" data-default="'+defaultImg+'" alt="" loading="eager" onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=\'\'}else if(!this.dataset.defaultUsed){this.dataset.defaultUsed=\'1\';this.classList.add(\'pp-fallback\');this.src=this.dataset.default}else{this.style.display=\'none\'}"></div>';
+  var kicker = "阅毕";
+  var body = '<div class="pp-body">'+img+
+    '<div class="pp-maincol"><div class="pp-textcol">'+paras+'</div>'+ 
+    '<div class="pp-foot"><button class="pp-opt" type="button" title="返回情报栏（Esc）">'+esc(kicker)+'</button></div></div></div>';
+  var h = '<button class="pp-back" aria-label="关闭">◀</button><div class="pp-frame">'+
+    '<div class="pp-head"><div class="pp-mast">'+(m.asset?'<img class="pp-orn" src="'+esc(m.asset)+'" alt="">':"")+'<span class="pp-name '+esc(m.style)+'">'+esc(m.display)+'</span></div><div class="pp-title">'+esc(it.t||it.t0||"")+'</div>'+ 
+    '<div class="pp-by"><span class="pp-sec">'+esc(src)+'</span><span>'+esc(cname(iso))+'</span><span>'+esc(paperDate(it.pub))+'</span></div></div>'+body+
+    '</div>';
+  var el = document.getElementById("paper");
+  el.innerHTML = h; el.classList.add("show");
+  el.classList.remove('paper-wide');
+  var photo = el.querySelector('.pp-imgcol img');
+  function choosePaperFrame(){
+    el.classList.toggle('paper-wide',!!(photo && !photo.classList.contains('pp-fallback') && photo.naturalWidth > photo.naturalHeight));
+  }
+  if(photo){photo.addEventListener('load',choosePaperFrame);if(photo.complete)choosePaperFrame();}
+  var textcol = el.querySelector(".pp-textcol"); if(textcol) textcol.scrollTop = 0;
+  var stage = document.getElementById("paper-stage");
+  stage.classList.add("show"); stage.setAttribute("aria-hidden","false");
+  document.getElementById("paper-back").classList.add("show");
+}
+function closePaper(){
+  document.getElementById("paper-back").classList.remove("show");
+  document.getElementById("paper-stage").classList.remove("show");
+  document.getElementById("paper-stage").setAttribute("aria-hidden","true");
+  document.getElementById("paper").classList.remove("show");
+}
+document.getElementById("paper-back").addEventListener("click", closePaper);
+document.getElementById("paper").addEventListener("click", function(e){
+  if(e.target.closest(".pp-back")){ closePaper(); return; }
+  if(e.target.closest(".pp-opt")) closePaper();
+});
+
 document.getElementById("sb-body").addEventListener("click", function(e){
+  var chip = e.target.closest && e.target.closest("[data-open-paper]");
+  if(chip){
+    var chipLi = chip.closest("#news-list li");
+    if(chipLi && state.sel){ openPaper(state.sel, +chipLi.dataset.ix); return; }
+  }
   var a = e.target.closest && e.target.closest("a.n-link, a.n-t");
   if(a){ e.preventDefault(); openExt(a.getAttribute("href")); return; }
   if(e.target.closest("a")) return;
   var rs = e.target.closest && e.target.closest(".rs");
   if(rs){ rs.classList.toggle("open"); return; }
-  var li = e.target.closest("#news-list li.xp");
-  if(li) li.classList.toggle("open");
+  var li = e.target.closest("#news-list li");
+  if(!li) return;
+  var it = state.sel ? newsOf(state.sel)[+li.dataset.ix] : null;
+  if(it && it.full){ openPaper(state.sel, +li.dataset.ix); return; }
+  if(li.classList.contains("xp")) li.classList.toggle("open");
 });
 document.getElementById("sb-close").addEventListener("click", closeSidebar);
-/* ---------- 紧张度 + 战争清单(右侧栏) ---------- */
+/* ---------- Tension and war list (right sidebar) ---------- */
 function warMemberHTML(m){
   if(m.label) return '<span class="wf-m chip">'+esc(m.label)+(m.tag?'<em>'+esc(m.tag)+'</em>':"")+'</span>';
   var i2 = ((CONFLICT.iso2||{})[m.iso]||"").toLowerCase();
@@ -1597,8 +1929,6 @@ function factionHTML(f, side, ci){
 }
 function renderWarbar(){
   var lv = CONFLICT.defcon, scale = CONFLICT.defcon_scale||[];
-  document.getElementById("wb-sub").textContent =
-    lv ? ("紧张度 "+lv+"/5 · "+(CONFLICT.defcon_note||"")) : "冲突数据库未加载";
   var h = "";
   if(lv){
     h += '<div class="wb-scale">'+scale.map(function(s,i){
@@ -1606,11 +1936,10 @@ function renderWarbar(){
     }).join("")+"</div>";
   }
   (CONFLICT.conflicts||[]).forEach(function(c, i){
-    h += '<section class="wcard"><div class="wc-t">'+esc(c.name)+'<span class="wc-since">'+esc(c.since||"")+'</span></div>'+
+    h += '<section class="wcard"><div class="wc-t">'+esc(c.name)+'<span class="wc-since">'+esc(c.since||"")+(c.status==='ended'?' · 已结束':c.status==='ceasefire'?' · 停火':'')+'</span></div>'+
       '<div class="wc-vs">'+factionHTML(c.left,"L",i)+'<div class="wc-x">VS</div>'+factionHTML(c.right,"R",i)+'</div>'+
       (c.note?'<div class="wc-note">'+esc(c.note)+'</div>':"")+'</section>';
   });
-  h += '<div class="wc-src">占区为风格化示意(非实时战况)；阵营构成为编辑整理('+(CONFLICT.updated||"—")+')，改 build_conflict.py 后重生成</div>';
   document.getElementById("wb-body").innerHTML = h;
 }
 function toggleWarbar(force){
@@ -1625,7 +1954,7 @@ function toggleWarbar(force){
   if(lv){
     num.textContent = String(lv);
     dc.className = "lv"+lv;
-    dc.title = "紧张度 "+lv+"/5 · "+((CONFLICT.defcon_scale||[])[lv-1]||"")+" · 点击查看战争清单";
+    dc.title = "紧张度 "+lv+"/5";
   } else {
     num.textContent = "—";
   }
@@ -1636,7 +1965,7 @@ function toggleWarbar(force){
     if(t && t.parentNode) t.parentNode.classList.toggle("open");
   });
 })();
-/* 侧栏宽度拖拽: 按住侧栏右边线左右拉伸, 宽度记住到 localStorage */
+/* Drag the sidebar's right edge horizontally to resize; persist width in localStorage. */
 (function(){
   var sb = document.getElementById("sidebar"), rz = document.getElementById("sb-resizer");
   if(!sb || !rz) return;
@@ -1660,18 +1989,23 @@ function toggleWarbar(force){
     document.addEventListener("pointerup", up);
   });
 })();
-document.addEventListener("keydown", function(e){ if(e.key==="Escape"){ closeSidebar(); toggleWarbar(false); } });
+document.addEventListener("keydown", function(e){ if(e.key==="Escape"){
+  if(document.getElementById("paper").classList.contains("show")){ closePaper(); return; }
+  closeSidebar(); toggleWarbar(false);
+} });
 
-/* ---------- 启动 ---------- */
-document.getElementById("asof").textContent = "资料库截至 " + (window.GEO_ASOF || "—");
+/* ---------- Start ---------- */
 initMap();
-if (window.DaimonWidget && window.DaimonWidget.onDataChange){
-  window.DaimonWidget.onDataChange(function(d){ applyData(d); });
+if (window.NexusData && window.NexusData.onDataChange){
+  window.NexusData.onDataChange(function(d){ applyData(d); });
 } else {
   applyData(null);
 }
 renderMap();
 })();
 </script>
+<script src="ui/tno-skin.js?v=national-sep26d"></script><link rel="stylesheet" href="ui/clean-ui.css?v=national-sep26d"><script src="ui/clean-ui.js?v=national-sep26d"></script>
+<link rel="stylesheet" href="ui/nation-scrollbar.css?v=fidelity7">
+<link rel="stylesheet" href="ui/nation-panel.css?v=parliament20261103-1">
 </body>
 </html>

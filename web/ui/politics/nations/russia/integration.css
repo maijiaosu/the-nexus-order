@@ -1,0 +1,4 @@
+/* Production host adaptation only; approved sample layout is unchanged. */
+html.in-country-window,html.in-country-window body{background:transparent;background-image:none}
+html.in-country-window body:before{display:none}
+#close-national{flex:none;margin-left:8px;padding:0;width:29px;height:29px;font:29px/23px sans-serif;color:#e2767d;border:3px double #e2767d;background:#061218}

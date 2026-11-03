@@ -1,0 +1,6 @@
+/* Match the visible window origin across all five tabs. */
+body:not([data-page="politics"]) #main-window.frame{top:32px}
+body:not([data-page="politics"]) .seat-tooltip,
+body:not([data-page="politics"]) .leader-tooltip{display:none!important}
+
+.politics-view-toggle{position:absolute;right:9px;top:9px;z-index:40;width:27px;height:27px;padding:0;border-radius:50%;border:1px solid #aac6bc;box-shadow:inset 0 0 0 2px #263330,0 1px 2px #000;background:#0b161a;color:#c3d6ce;font:20px/25px sans-serif;cursor:pointer}.politics-view-toggle:hover,.politics-view-toggle:focus-visible{color:#fff;border-color:#fff}.politics-view-toggle[aria-pressed=true]{color:#d8bb83}body:not([data-page=politics]) .politics-view-toggle{display:none}.meeting-view{position:absolute;left:0;top:var(--gate-wall-height);width:100%;height:calc(100% - var(--gate-wall-height));border:0;z-index:4}body[data-political-view=meeting] .hall-party-strip{display:none}

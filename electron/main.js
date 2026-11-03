@@ -1,6 +1,6 @@
-/* The Nexus Order · Windows 桌面壳
-   - 加载内置 app/ (沙盘完整独立版, 数据快照 + Gist 远程更新)
-   - 新闻「阅读原文」等外链一律转到系统默认浏览器打开 */
+/* The Nexus Order · Windows desktop shell
+   - Load the current bundled app/ and its existing data-service/offline runtime.
+   - Open news-source links and all other external links in the system browser. */
 const { app, BrowserWindow, shell, Menu } = require("electron");
 
 function createWindow() {
@@ -20,9 +20,9 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-  win.loadFile("app/index.html");
+  win.loadFile(require("path").join(__dirname, "app", "index.html"));
 
-  // window.open / target=_blank → 系统浏览器
+  // window.open / target=_blank → system browser
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (/^https?:\/\//i.test(url)) shell.openExternal(url);
     return { action: "deny" };
@@ -43,5 +43,5 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", () => {
-  app.quit(); // Windows 语义: 全关即退出
+  app.quit(); // Windows behavior: closing every window exits.
 });

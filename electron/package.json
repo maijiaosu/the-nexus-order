@@ -1,16 +1,18 @@
 {
   "name": "the-nexus-order",
-  "version": "0.2.0",
+  "version": "1.2.0",
   "private": true,
-  "description": "The Nexus Order · 世界沙盘 (Windows 桌面版)",
+  "description": "The Nexus Order \u00b7 World Sandbox (Windows desktop)",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --win nsis zip --x64 --arm64"
+    "dist": "electron-builder --win nsis --x64 --publish never"
   },
   "build": {
     "appId": "com.maijiaosu.thenexusorder",
     "productName": "The Nexus Order",
+    "asar": true,
+    "compression": "maximum",
     "directories": {
       "output": "release"
     },
@@ -20,20 +22,29 @@
     ],
     "win": {
       "target": [
-        "nsis",
-        "zip"
-      ]
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "signAndEditExecutable": false,
+      "icon": "build/icon.ico"
     },
     "nsis": {
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
       "shortcutName": "The Nexus Order",
-      "artifactName": "TheNexusOrder-Setup-${version}.${ext}"
-    }
+      "artifactName": "TheNexusOrder-Setup-${version}.${ext}",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    },
+    "afterPack": "after-pack.cjs"
   },
   "devDependencies": {
-    "electron": "^43.2.0",
-    "electron-builder": "^26.15.3"
+    "electron": "43.2.0",
+    "electron-builder": "26.15.3"
   }
 }

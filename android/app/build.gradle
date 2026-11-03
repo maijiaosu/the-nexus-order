@@ -2,34 +2,42 @@ plugins {
     id 'com.android.application'
 }
 
+def releaseStore = System.getenv('NEXUS_KEYSTORE_PATH')
+def releaseStorePassword = System.getenv('NEXUS_KEYSTORE_PASSWORD')
+def releaseAlias = System.getenv('NEXUS_KEY_ALIAS')
+def releaseKeyPassword = System.getenv('NEXUS_KEY_PASSWORD')
+def releaseRequested = gradle.startParameter.taskNames.any { it.toLowerCase().contains('release') }
+if (releaseRequested && !(releaseStore && releaseStorePassword && releaseAlias && releaseKeyPassword)) {
+    throw new GradleException('Release signing requires the existing NEXUS_KEYSTORE_* and NEXUS_KEY_* environment settings.')
+}
+
 android {
     namespace 'com.maijiaosu.thenexusorder'
     compileSdk 34
-
     defaultConfig {
-        applicationId "com.maijiaosu.thenexusorder"
+        applicationId 'com.maijiaosu.thenexusorder'
         minSdk 24
         targetSdk 34
-        versionCode 2
-        versionName "0.2.0"
+        versionCode 120
+        versionName '1.2.0'
     }
-
+    sourceSets {
+        main.assets.srcDirs = ['src/main/migration-assets', project.findProperty('nexusAssetsDir') ?: 'src/main/assets']
+    }
     signingConfigs {
         release {
-            storeFile file('keystore/nexus.jks')
-            storePassword 'nexus2026'
-            keyAlias 'nexus'
-            keyPassword 'nexus2026'
+            if (releaseStore) storeFile file(releaseStore)
+            storePassword releaseStorePassword
+            keyAlias releaseAlias
+            keyPassword releaseKeyPassword
         }
     }
-
     buildTypes {
         release {
             minifyEnabled false
             signingConfig signingConfigs.release
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17

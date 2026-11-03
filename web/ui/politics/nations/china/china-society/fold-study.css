@@ -1,0 +1,42 @@
+@font-face{font-family:TNO;src:url('../assets/chinese.woff')}@font-face{font-family:Digits;src:url('../assets/aldrich.woff')}
+.fold-area{display:grid;grid-template-rows:minmax(0,1fr) 7px;gap:8px;min-height:0;padding:1px 0 4px}
+.folds{display:flex;position:relative;isolation:isolate;min-height:0;padding:0 5px 0 0}
+.fold{flex:1;position:relative;min-width:0;margin:0 -6px 0 0;filter:drop-shadow(2px 2px 1px #0006);isolation:isolate}
+.fold:nth-child(even){margin-top:18px}.fold:nth-child(odd){margin-bottom:18px}
+.fold-shape{position:absolute;inset:0;background:var(--tone);clip-path:polygon(0 0,100% 2.5%,91% 100%,9% 98%)}
+.fold:nth-child(even) .fold-shape,.fold:nth-child(even) .fold-inner{clip-path:polygon(9% 2%,91% 0,100% 98%,0 100%)}
+.fold-shape:before{content:'';position:absolute;inset:1px;background:var(--wash);clip-path:inherit}
+.fold-shape:after{content:'';position:absolute;inset:4px;border-top:1px solid var(--tone);border-bottom:1px solid var(--tone);background:repeating-linear-gradient(0deg,#0000 0 2px,#0003 2px 3px);clip-path:inherit}
+.fold-inner{position:absolute;inset:0;overflow:hidden;clip-path:polygon(0 0,100% 2.5%,91% 100%,9% 98%)}
+.fold-toggle{position:absolute;inset:0;border:0;background:transparent;width:100%;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 7% 23px;cursor:pointer;color:var(--tone);font-family:TNO,'PingFang SC',sans-serif}
+.fold-toggle .name{font-size:13px;line-height:1.15;letter-spacing:.08em;writing-mode:vertical-rl;white-space:nowrap;padding:5px 2px;background:#071014b8;text-shadow:0 1px #000}
+.fold-toggle .share{font:18px Digits;margin-top:10px}.share small{font-size:9px}
+.fold-toggle:focus-visible{outline:2px solid #e8d584;outline-offset:-7px}
+.fold:hover .fold-shape:before{background:color-mix(in srgb,var(--wash) 85%,var(--tone))}
+.fold-art{position:absolute;left:-135%;width:370%;top:2%;height:84%;color:var(--tone);pointer-events:none}
+.engraving{width:100%;height:100%;display:block;overflow:visible}
+.engraving .edge{fill:none;stroke:currentColor;stroke-width:1.8}
+.engraving .fine{fill:none;stroke:#d1cfb6;stroke-width:.85;opacity:.65}
+.engraving .ray{stroke:currentColor;stroke-width:.7;opacity:.38}
+.engraving .surface{fill:color-mix(in srgb,currentColor 25%,#102025)}
+.engraving .metal{fill:color-mix(in srgb,currentColor 42%,#102025)}
+.engraving .shade{fill:#0a171c;stroke:color-mix(in srgb,currentColor 45%,#16282e)}
+.engraving .dark{fill:#071014}.engraving .paper{fill:#bac7b4;stroke:#d5dcc6}
+.engraving .lit{fill:currentColor;stroke:#ccd2af}.engraving .etch{stroke:none;opacity:.45}
+.fold-flourish{position:absolute;left:23%;right:23%;bottom:11px;height:5px;border-top:1px solid var(--tone);border-bottom:1px solid var(--tone);opacity:.55}
+.fold-top{position:absolute;top:18px;left:30%;right:30%;height:7px;border-top:3px double var(--tone);opacity:.55}
+.fold-close{display:none;position:absolute;right:11%;top:13px;border:0;background:#071014a8;color:var(--tone);font:20px Digits;z-index:6;cursor:pointer}
+.folds.expanded .fold{flex:1;margin-right:-5px}.folds.expanded .fold.selected{flex:8;z-index:3}
+.folds.expanded .fold:not(.selected) .fold-art{left:-500%;width:1100%;opacity:.55}
+.folds.expanded .fold:not(.selected) .fold-toggle{padding-bottom:21px}
+.folds.expanded .fold:not(.selected) .name{font-size:11px;letter-spacing:0;padding:3px 1px}
+.folds.expanded .fold:not(.selected) .share{font-size:12px;margin-top:7px}.folds.expanded .fold:not(.selected) .share small{font-size:7px}
+.fold.selected .fold-shape,.fold.selected .fold-inner{clip-path:polygon(0 0,100% 2.5%,94% 100%,5% 98%)}
+.fold.selected .fold-art{left:0;width:100%;top:4%;height:76%}
+.fold.selected .fold-toggle{padding-bottom:21px;pointer-events:none}
+.fold.selected .name{writing-mode:horizontal-tb;white-space:normal;text-align:center;font-size:16px;background:transparent;padding:0 9px}
+.fold.selected .share{font-size:24px;margin-top:4px}
+.fold.selected .fold-close{display:block}.fold.selected .fold-top{display:none}
+.proportion{display:flex;gap:1px;padding:0 2px}.proportion span{height:4px;background:var(--tone);opacity:.65}.proportion span.active{height:7px;opacity:1}
+@media(max-height:760px){.fold-toggle .name{font-size:12px}.fold-toggle .share{font-size:16px}.fold-art{height:83%;top:0}.fold.selected .name{font-size:14px}.fold.selected .share{font-size:20px}.fold.selected .fold-art{top:0;height:77%}}
+@media(max-width:760px){.fold-area{height:390px}}

@@ -1,0 +1,12 @@
+/* Isolated optical refinement; original page, data and interaction are shared unchanged. */
+@media(min-width:1001px){
+ .saudi-room{padding-left:33px}
+ .institution-shelf{min-height:163px;gap:12px;padding-top:20px;padding-bottom:16px;isolation:isolate}
+ .institution-shelf>img{position:relative;z-index:2;width:245px;height:174px;margin-left:-48px;margin-top:-32px;margin-bottom:-7px;pointer-events:none;filter:drop-shadow(4px 8px 5px #0008)}
+ .institution-shelf>div{position:relative;z-index:3;flex:1;min-width:0}
+ .institution-shelf h3{letter-spacing:4px}
+}
+.circuit{stroke:#2e696e;stroke-width:1}
+.circuit [data-wire].lit{stroke-width:3.2;filter:drop-shadow(0 0 2px var(--tone));opacity:1}
+.capital-hub{border-color:#d7f3eb;box-shadow:0 0 0 3px #061217,0 0 0 4px #397c7e}
+@media(max-width:1000px){.institution-shelf>img{pointer-events:none;margin-left:0;margin-top:0;max-width:40%}}

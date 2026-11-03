@@ -1,0 +1,17 @@
+/* Fit the approved 1600-by-1080 scene once, inside the existing China window. */
+body[data-page=east] #main-window.frame {
+  --influence-width: min(calc(100vw - 32px), calc((100dvh - 82px) * 40 / 27 + 18px), 1800px);
+  position: fixed;
+  width: var(--influence-width) !important;
+  height: calc((var(--influence-width) - 18px) * 27 / 40 + 18px) !important;
+  left: var(--influence-left, calc((100vw - var(--influence-width)) / 2)) !important;
+  top: var(--influence-top, 44px) !important;
+  transform: none !important;
+  border-width: 9px;
+  background: #06151c;
+}
+body[data-page=east] .mast { display: none; }
+body[data-page=east] #stage { top: 0; height: 100%; }
+body[data-page=east] #main-window.frame:after { display: none; }
+.influence-view { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 5; }
+.influence-view[hidden] { display: none; }
